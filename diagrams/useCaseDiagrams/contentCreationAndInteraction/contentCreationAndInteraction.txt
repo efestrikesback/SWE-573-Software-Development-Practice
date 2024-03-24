@@ -1,0 +1,25 @@
+@startuml
+left to right direction
+skinparam packageStyle rectangle
+
+actor "General User" as GU
+
+rectangle "Content Creation and Interaction" {
+  (Create Content with Templates) as CCT
+  (Edit Content) as EC
+  (Track Edits) as TE
+  (Vote Up) as VU
+  (Vote Down) as VD
+  (Sort Content) as SC
+  (Filter Content) as FC
+
+  GU --> CCT
+  GU --> EC
+  GU -down-> TE : After editing
+  GU --> VU
+  GU --> VD
+  GU --> SC : Sort by recent, trending, hot
+  GU --> FC : Filter based on criteria
+}
+
+@enduml

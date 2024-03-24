@@ -1,0 +1,25 @@
+@startuml
+left to right direction
+skinparam packageStyle rectangle
+
+actor "Community Owner" as CO
+actor "Moderator" as M
+
+rectangle "Community Management" {
+  (Create Community) as CC
+  (Archive Community) as AC
+  (Name Community) as NC
+  (Assign Moderator) as AM
+  (Remove Moderator) as RM
+  (Edit Community Description) as ECD
+
+  CO --> CC
+  CO --> AC
+  CO --> NC
+  CO --> AM
+  CO --> RM
+  CO --> ECD
+  M -up-> ECD : Can Edit\nCommunity Description
+}
+
+@enduml

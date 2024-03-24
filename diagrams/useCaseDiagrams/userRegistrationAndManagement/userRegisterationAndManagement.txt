@@ -1,0 +1,21 @@
+@startuml
+left to right direction
+skinparam packageStyle rectangle
+
+actor "User" as U
+
+rectangle "User Registration and Management" {
+  (Register) as Reg
+  (Login) as Log
+  (Customize Profile) as CP
+  (Select Nickname) as SN
+  (Support Anonymity) as SA
+
+  U --> Reg : Initiates registration
+  U --> Log : Performs login
+  U --> CP : Accesses profile settings
+  U -down-> SN : Chooses nickname
+  U --> SA : Opts for anonymity
+}
+
+@enduml

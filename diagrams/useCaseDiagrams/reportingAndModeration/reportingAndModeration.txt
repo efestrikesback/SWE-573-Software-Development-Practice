@@ -1,0 +1,20 @@
+@startuml
+left to right direction
+skinparam packageStyle rectangle
+
+actor "General User" as GU
+actor "Moderator" as M
+
+rectangle "Reporting and Moderation" {
+  (Report Content) as RC
+  (Report User) as RU
+  (Review Reports) as RR
+  (Enforce Community Rules) as ECR
+
+  GU --> RC : Flags inappropriate content
+  GU --> RU : Reports a user
+  M --> RR : Reviews reports
+  M --> ECR : Applies rules, may remove content or users
+}
+
+@enduml

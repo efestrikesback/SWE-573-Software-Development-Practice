@@ -1,0 +1,19 @@
+@startuml
+left to right direction
+skinparam packageStyle rectangle
+
+actor "General User" as GU
+
+rectangle "User Interaction" {
+  (Follow Other Users) as FO
+  (View Follower Count) as VFC
+  (Track Activity) as TA
+  (Assign Roles within Community) as ARC
+
+  GU --> FO : Initiates following
+  GU --> VFC : Sees number of followers
+  GU --> TA : Monitors own or others' activity
+  GU --> ARC : Based on community rules
+}
+
+@enduml
