@@ -1,0 +1,96 @@
+@startuml
+' User Management
+class User {
+  +String username
+  +String password
+  +String email
+  +boolean isAnonym
+  +Profile profile
+  +register()
+  +login()
+  +updateProfile()
+}
+
+class Profile {
+  +String nickname
+  +String bio
+  +String avatarUrl
+  +customizeProfile()
+}
+
+' Community Management
+class Community {
+  +String name
+  +String description
+  +boolean isArchived
+  +List<User> members
+  +List<Content> contents
+  +create()
+  +archive()
+  +addMember()
+  +removeMember()
+}
+
+' Content Management
+class Content {
+  +String title
+  +String body
+  +DateTime createdAt
+  +DateTime updatedAt
+  +int upVotes
+  +int downVotes
+  +User author
+  +List<Comment> comments
+  +create()
+  +edit()
+  +voteUp()
+  +voteDown()
+}
+
+class ContentTemplate {
+  +String templateName
+  +String templateStructure
+  +applyTemplate()
+}
+
+class Comment {
+  +String text
+  +DateTime createdAt
+  +User author
+  +comment()
+}
+
+' Reporting System
+class Report {
+  +String reportType
+  +String description
+  +DateTime reportedAt
+  +User reportedBy
+  +resolve()
+}
+
+class ContentReport extends Report {
+  +Content reportedContent
+}
+
+class UserReport extends Report {
+  +User reportedUser
+}
+
+class Moderator {
+  +String moderatorID
+  +List<Report> assignedReports
+  +reviewReport()
+  +takeAction()
+}
+
+' Relationships
+User "1" -- "1" Profile : has >
+Community "1" -- "*" User : members
+Community "1" -- "*" Content : contains >
+Content "1" -- "*" Comment : has >
+Content "1" -- "1" ContentTemplate : uses >
+Moderator "1" -- "*" Report : assigned
+ContentReport --|> Report
+UserReport --|> Report
+@enduml
