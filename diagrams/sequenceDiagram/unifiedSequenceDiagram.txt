@@ -1,0 +1,66 @@
+@startuml
+' Title
+title Sequence Diagrams for Community Builder
+
+' Define actors and systems
+actor User as user
+actor "Community Owner" as co
+actor Moderator as mod
+participant "User" as U
+participant "Profile" as P
+participant "Community" as Comm
+participant "Content" as Content
+participant "ContentTemplate" as CT
+participant "Report" as Rep
+participant "Database" as db
+
+' User Registration and Login
+== User Registration and Login ==
+user -> U: Request registration form
+U -> user: Display registration form
+user -> U: Submit registration form\n(username, password, email)
+U -> db: Create new user record
+db -> U: Confirm user creation
+U -> user: Display registration success\nand login prompt
+user -> U: Submit login credentials\n(username, password)
+U -> db: Validate credentials
+db -> U: Confirm validation
+U -> user: Display login success\nand redirect to user dashboard
+
+' Community Creation
+== Community Creation ==
+co -> Comm: Access community creation form
+Comm -> co: Display form
+co -> Comm: Submit community details\n(name, description)
+Comm -> db: Create new community record
+db -> Comm: Confirm community creation
+Comm -> co: Display success message\nand community dashboard
+
+' Content Posting
+== Content Posting ==
+user -> Content: Choose to create content
+Content -> CT: Request content templates
+CT -> user: Display templates
+user -> CT: Select template and fill in content
+CT -> Content: Generate content draft
+user -> Content: Submit final content
+Content -> db: Save content to community
+db -> Content: Confirm content saved
+Content -> user: Display success message
+
+' Reporting Content
+== Reporting Content ==
+user -> Rep: Report content\n(contentID, reason)
+Rep -> db: Log report
+db -> Rep: Confirm report logged
+Rep -> user: Acknowledge report receipt
+[-> Moderator: Report Review
+Rep -> mod: Notify new report
+mod -> db: Retrieve report details
+db -> mod: Show report details
+mod -> Rep: Take appropriate action\n(delete content, warn user, etc.)
+Rep -> db: Update report status
+db -> Rep: Confirm update
+Rep -> mod: Display action confirmation
+
+@enduml
