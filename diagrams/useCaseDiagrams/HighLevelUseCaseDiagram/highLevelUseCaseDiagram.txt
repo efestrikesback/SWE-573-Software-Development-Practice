@@ -1,0 +1,38 @@
+@startuml
+left to right direction
+skinparam packageStyle rectangle
+
+actor "General User" as GU
+actor "Community Owner" as CO
+actor "Moderator" as M
+rectangle CommunityBuilder {
+  (Register/Login) as RL
+  (Profile Customization) as PC
+  (Create Community) as CC
+  (Archive Community) as AC
+  (Manage Community) as MC
+  (Create Content) as ConC
+  (Edit Content) as EC
+  (Vote on Content) as VC
+  (Report Issues) as RI
+  (Follow System) as FS
+  (Sort/Filter Content) as SFC
+
+  GU - RL
+  GU - PC
+  GU - VC
+  GU - FS
+  GU - SFC
+  GU - RI
+  
+  CO - CC
+  CO - AC
+  CO - MC
+  CO - ConC
+  CO - EC
+  
+  M - MC
+  M - RI
+}
+
+@enduml
