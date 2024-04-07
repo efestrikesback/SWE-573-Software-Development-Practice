@@ -1,12 +1,13 @@
-package com.devcom.webapp;
+package com.boun.devcom;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class DevcomWebApplication {
+public class DevcomApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(DevcomWebApplication.class, args);
+		SpringApplication.run(DevcomApplication.class, args);
 	}
+
 }

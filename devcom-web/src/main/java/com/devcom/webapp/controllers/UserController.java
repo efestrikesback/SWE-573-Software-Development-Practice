@@ -21,7 +21,7 @@ public class UserController {
 
     @GetMapping("/hello")
     public String sayHello() {
-        return "Hello, Community Builder!";
+        return "test!";
     }
 
     @PostMapping("/register")
