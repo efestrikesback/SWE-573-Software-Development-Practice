@@ -3,6 +3,7 @@ package com.boun.devcom.controller;
 import com.boun.devcom.model.User;
 import com.boun.devcom.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -21,10 +22,14 @@ public class UserController {
     }
 
     @PostMapping("/register")
-    public ResponseEntity<User> registerUser(@RequestBody User user) {
-        User registeredUser = userService.registerNewUser(user);
-        return ResponseEntity.ok(registeredUser);
+    public ResponseEntity<?> registerUser(@RequestBody User user) {
+        try {
+            User registeredUser = userService.registerNewUser(user);
+            return ResponseEntity.ok(registeredUser);
+        } catch (Exception e) {
+            // Log the error details here for debugging purposes
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+        }
     }
-
-    // Additional endpoints for login, profile update, etc., can be implemented here
 }
+
