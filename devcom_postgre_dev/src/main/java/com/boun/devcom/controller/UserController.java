@@ -22,12 +22,9 @@ public class UserController {
 
     @PostMapping("/register")
     public ResponseEntity<?> registerUser(@Valid @RequestBody User user) {
-        try {
-            User registeredUser = userService.registerNewUser(user);
-            return ResponseEntity.ok(registeredUser);
-        } catch (IllegalArgumentException e) {
-            return ResponseEntity.badRequest().body(e.getMessage());
-        }
+        User registeredUser = userService.registerNewUser(user);
+        // Avoided returning the full user object here to not expose sensitive info
+        return ResponseEntity.ok("User registered successfully with ID: " + registeredUser.getUserId());
     }
     @GetMapping("/hello")
     public String hello() {
