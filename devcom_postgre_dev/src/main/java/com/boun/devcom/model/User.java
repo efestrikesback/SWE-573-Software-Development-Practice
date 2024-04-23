@@ -32,6 +32,9 @@ public class User {
     private Profile profile;
 
     public User() {
+        // Initialize profile when creating a new user
+        this.profile = new Profile();
+        this.profile.setUser(this);
     }
 
     public User(String username, String password, String email, boolean isAnonymous) {
