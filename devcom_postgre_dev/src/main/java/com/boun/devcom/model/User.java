@@ -20,7 +20,11 @@ public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long userId;
+    private Long Id;
+
+    @NotBlank
+    @Size(min = 3, max = 50)
+    private String name;
 
     @NotBlank(message = "Username is required")
     @Size(min = 3, max = 50, message = "Username must be between 3 and 50 characters")
@@ -49,7 +53,8 @@ public class User {
         this.profile.setUser(this);
     }
 
-    public User(String username, String password, String email, boolean isAnonymous) {
+    public User(String name,String username,  String email, String password, boolean isAnonymous) {
+        this.name = name;
         this.username = username;
         this.password = password;
         this.email = email;
@@ -57,12 +62,20 @@ public class User {
     }
 
     // Getters and setters
-    public Long getUserId() {
-        return userId;
+    public Long getId() {
+        return Id;
     }
 
-    public void setUserId(Long userId) {
-        this.userId = userId;
+    public void setId(Long id) {
+        this.Id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getUsername() {
@@ -113,5 +126,6 @@ public class User {
     public void setRoles(Set<Role> roles) {
         this.roles = roles;
     }
+
 }
 

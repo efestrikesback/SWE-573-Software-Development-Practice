@@ -24,7 +24,7 @@ public class UserController {
     public ResponseEntity<?> registerUser(@Valid @RequestBody User user) {
         User registeredUser = userService.registerNewUser(user);
         // Avoided returning the full user object here to not expose sensitive info
-        return ResponseEntity.ok("User registered successfully with ID: " + registeredUser.getUserId());
+        return ResponseEntity.ok("User registered successfully with ID: " + registeredUser.getId());
     }
     @GetMapping("/hello")
     public String hello() {
