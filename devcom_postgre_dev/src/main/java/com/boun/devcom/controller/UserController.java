@@ -1,36 +1,33 @@
 package com.boun.devcom.controller;
 
 
+import com.boun.devcom.DTOs.ChangePasswordRequest;
 import com.boun.devcom.model.User;
 import com.boun.devcom.service.UserService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import jakarta.validation.Valid;
 
+import java.security.Principal;
+
 @RestController
-@RequestMapping("/users")
+@RequestMapping("/api/v1/users")
+@RequiredArgsConstructor
 public class UserController {
 
-    private final UserService userService;
+    private final UserService service;
 
-    @Autowired
-    public UserController(UserService userService) {
-        this.userService = userService;
+    @PatchMapping
+    public ResponseEntity<?> changePassword(
+            @RequestBody ChangePasswordRequest request,
+            Principal connectedUser
+    ) {
+        service.changePassword(request, connectedUser);
+        return ResponseEntity.ok().build();
     }
-
-    @PostMapping("/register")
-    public ResponseEntity<?> registerUser(@Valid @RequestBody User user) {
-        User registeredUser = userService.registerNewUser(user);
-        // Avoided returning the full user object here to not expose sensitive info
-        return ResponseEntity.ok("User registered successfully with ID: " + registeredUser.getId());
-    }
-    @GetMapping("/hello")
-    public String hello() {
-        return "Hello, World!";
-    }
-
 
 }
 

@@ -21,10 +21,11 @@ import java.util.Set;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "users", uniqueConstraints = {
-        @UniqueConstraint(columnNames = "username"),
-        @UniqueConstraint(columnNames = "email")
-})
+//@Table(name = "user", uniqueConstraints = {
+//        @UniqueConstraint(columnNames = "username"),
+//        @UniqueConstraint(columnNames = "email")
+//})
+@Table(name = "users")
 public class User implements UserDetails {
 
     @Id
@@ -55,43 +56,9 @@ public class User implements UserDetails {
     @OneToMany(mappedBy = "user")
     private List<Token> tokens;
 
-    @OneToOne(fetch = FetchType.LAZY, mappedBy = "user", cascade = CascadeType.ALL)
-    private Profile profile;
-
-    @ManyToMany(fetch = FetchType.LAZY)
-    @JoinTable(name = "user_roles",
-            joinColumns = @JoinColumn(name = "user_id"),
-            inverseJoinColumns = @JoinColumn(name = "role_id"))
-    private Set<Role> roles = new HashSet<>();
-
-//BURAYI HALLET PROFIL OLUSTURMA MUHABBETI
-//    public User() {
-//        // Initialize profile when creating a new user
-//        this.profile = new Profile();
-//        this.profile.setUser(this);
-//    }
-
-//    public User(String name,String username,  String email, String password, boolean isAnonymous) {
-//        this.name = name;
-//        this.username = username;
-//        this.password = password;
-//        this.email = email;
-//        this.isAnonymous = isAnonymous;
-//    }
-
-    // Getters and setters
-    public Integer getId() {
-        return Id;
-    }
-
-    public void setId(Integer id) {
-        this.Id = id;
-    }
-
-
-
-    public String getUsername() {
-        return username;
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return null;
     }
 
     @Override
@@ -114,27 +81,29 @@ public class User implements UserDetails {
         return false;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
-    }
+//    @OneToOne(fetch = FetchType.LAZY, mappedBy = "user", cascade = CascadeType.ALL)
+//    private Profile profile;
 
-    @Override
-    public Collection<? extends GrantedAuthority> getAuthorities() {
-        return null;
-    }
+//    @ManyToMany(fetch = FetchType.LAZY)
+//    @JoinTable(name = "user_roles",
+//            joinColumns = @JoinColumn(name = "user_id"),
+//            inverseJoinColumns = @JoinColumn(name = "role_id"))
+//    private Set<Role> roles = new HashSet<>();
 
-    public String getPassword() {
-        return password;
-    }
+//BURAYI HALLET PROFIL OLUSTURMA MUHABBETI
+//    public User() {
+//        // Initialize profile when creating a new user
+//        this.profile = new Profile();
+//        this.profile.setUser(this);
+//    }
 
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
+//    public User(String name,String username,  String email, String password, boolean isAnonymous) {
+//        this.name = name;
+//        this.username = username;
+//        this.password = password;
+//        this.email = email;
+//        this.isAnonymous = isAnonymous;
+//    }
 
 
 //    public void setProfile(Profile profile) {
@@ -142,13 +111,7 @@ public class User implements UserDetails {
 //        profile.setUser(this);
 //    }
 
-    public Set<Role> getRoles() {
-        return roles;
-    }
 
-    public void setRoles(Set<Role> roles) {
-        this.roles = roles;
-    }
 
 }
 

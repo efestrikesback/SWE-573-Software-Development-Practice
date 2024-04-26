@@ -1,5 +1,6 @@
 package com.boun.devcom.model;
 
+
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -17,6 +18,7 @@ import static com.boun.devcom.model.Permission.MANAGER_CREATE;
 import static com.boun.devcom.model.Permission.MANAGER_DELETE;
 import static com.boun.devcom.model.Permission.MANAGER_READ;
 import static com.boun.devcom.model.Permission.MANAGER_UPDATE;
+
 
 @RequiredArgsConstructor
 public enum Role {

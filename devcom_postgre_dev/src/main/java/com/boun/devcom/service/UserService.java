@@ -1,37 +1,44 @@
 package com.boun.devcom.service;
 
+
+import com.boun.devcom.DTOs.ChangePasswordRequest;
+import lombok.RequiredArgsConstructor;
 import com.boun.devcom.model.User;
 import com.boun.devcom.repository.UserRepository;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
 
+import java.security.Principal;
+
 
 @Service
-@Validated
+@RequiredArgsConstructor
 public class UserService {
 
-    private final UserRepository userRepository;
-    private final BCryptPasswordEncoder bCryptPasswordEncoder;
+    private final PasswordEncoder passwordEncoder;
+    private final UserRepository repository;
+    public void changePassword(ChangePasswordRequest request, Principal connectedUser) {
 
-    @Autowired
-    public UserService(UserRepository userRepository, BCryptPasswordEncoder bCryptPasswordEncoder) {
-        this.userRepository = userRepository;
-        this.bCryptPasswordEncoder = new BCryptPasswordEncoder();
-    }
+        var user = (User) ((UsernamePasswordAuthenticationToken) connectedUser).getPrincipal();
 
-    public User registerNewUser(@Valid User user) {
-        if (userRepository.findByUsername(user.getUsername()).isPresent()) {
-            throw new IllegalArgumentException("Username already exists.");
+        // check if the current password is correct
+        if (!passwordEncoder.matches(request.getCurrentPassword(), user.getPassword())) {
+            throw new IllegalStateException("Wrong password");
         }
-        if (userRepository.findByEmail(user.getEmail()).isPresent()) {
-            throw new IllegalArgumentException("Email already exists.");
+        // check if the two new passwords are the same
+        if (!request.getNewPassword().equals(request.getConfirmationPassword())) {
+            throw new IllegalStateException("Password are not the same");
         }
-        user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
-        return userRepository.save(user);
-    }
 
-    // Additional methods...
+        // update the password
+        user.setPassword(passwordEncoder.encode(request.getNewPassword()));
+
+        // save the new password
+        repository.save(user);
+    }
 }

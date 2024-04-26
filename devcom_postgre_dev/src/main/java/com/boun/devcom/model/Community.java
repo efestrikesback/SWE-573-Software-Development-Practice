@@ -1,7 +1,14 @@
 package com.boun.devcom.model;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
+
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 @Entity
 @Table(name = "communities")
 public class Community {
@@ -12,10 +19,6 @@ public class Community {
     private String name;
     private String description;
     private boolean isArchived;  // true if the community is archived
-
-    // Constructors
-    public Community() {
-    }
 
     // Getters and setters
     public Long getCommunityId() {
