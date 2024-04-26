@@ -3,6 +3,7 @@ package com.boun.devcom.service;
 import com.boun.devcom.DTOs.AuthenticationRequest;
 import com.boun.devcom.DTOs.AuthenticationResponse;
 import com.boun.devcom.DTOs.RegisterRequest;
+import com.boun.devcom.exceptions.UserAlreadyExistsException;
 import com.boun.devcom.service.JwtService;
 import com.boun.devcom.model.Token;
 import com.boun.devcom.repository.TokenRepository;
@@ -15,6 +16,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpHeaders;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -34,7 +36,13 @@ public class AuthenticationService {
     private final JwtService jwtService;
     private final AuthenticationManager authenticationManager;
 
-    public AuthenticationResponse register(RegisterRequest request) {
+    public AuthenticationResponse register(RegisterRequest request) throws Exception{
+        if (repository.findByUsername(request.getUsername()).isPresent()) {
+            throw new UserAlreadyExistsException("Username already exists.");
+        }
+        if (repository.findByEmail(request.getEmail()).isPresent()) {
+            throw new UserAlreadyExistsException("Email already exists.");
+        }
         var user = User.builder()
                 .firstname(request.getFirstname())
                 .lastname(request.getLastname())
@@ -43,6 +51,13 @@ public class AuthenticationService {
                 .password(passwordEncoder.encode(request.getPassword()))
                 .role(request.getRole())
                 .build();
+
+        if (repository.findByUsername(user.getUsername()).isPresent()) {
+            throw new Exception("Username already exists.");
+        }
+        if (repository.findByEmail(user.getEmail()).isPresent()) {
+            throw new Exception("Email already exists.");
+        }
         var savedUser = repository.save(user);
         var jwtToken = jwtService.generateToken(user);
         var refreshToken = jwtService.generateRefreshToken(user);
