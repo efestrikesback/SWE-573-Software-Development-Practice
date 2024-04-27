@@ -19,15 +19,17 @@ public class UserProfileService {
     @Transactional
     public UserProfile updateProfile(UserProfile profileDetails) {
         
-        User profileOwner = (User) SecurityContextHolder.getContext().getAuthentication().;
+        User profileOwner = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 
-        return repository.findByUser(profileOwner).map(UserProfile -> {
+        Integer profileOwnerId = profileOwner.getId();
+
+        return repository.findById(profileOwnerId).map(UserProfile -> {
 
             profileDetails.setNickname(profileDetails.getNickname());
             profileDetails.setBio(profileDetails.getBio());
             profileDetails.setAvatarUrl(profileDetails.getAvatarUrl());
             return repository.save(profileDetails);
-        }).orElseThrow(() -> new RuntimeException("Profile not found with id " + profileOwner.getId()));
+        }).orElseThrow(() -> new RuntimeException("Profile not found with id " + profileOwnerId));
     }
 
 

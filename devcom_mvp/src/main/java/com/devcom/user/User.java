@@ -2,6 +2,7 @@ package com.devcom.user;
 
 import com.devcom.token.Token;
 
+import com.devcom.userProfile.UserProfile;
 import jakarta.persistence.*;
 
 import java.util.Collection;
@@ -29,8 +30,8 @@ public class User implements UserDetails {
   private String email;
   private String password;
 
-//  @OneToOne(fetch = FetchType.LAZY, mappedBy = "user", cascade = CascadeType.ALL)
-//  private UserProfile profile;
+  @OneToOne(fetch = FetchType.LAZY, mappedBy = "user", cascade = CascadeType.ALL)
+  private UserProfile profile;
 
   @Enumerated(EnumType.STRING)
   private Role role;
