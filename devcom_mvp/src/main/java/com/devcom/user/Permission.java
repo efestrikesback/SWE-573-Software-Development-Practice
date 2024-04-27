@@ -13,8 +13,11 @@ public enum Permission {
     MANAGER_READ("management:read"),
     MANAGER_UPDATE("management:update"),
     MANAGER_CREATE("management:create"),
-    MANAGER_DELETE("management:delete")
-
+    MANAGER_DELETE("management:delete"),
+    USER_READ("user:delete"),
+    USER_UPDATE("user:delete"),
+    USER_CREATE("user:delete"),
+    USER_DELETE("user:delete")
     ;
 
     @Getter

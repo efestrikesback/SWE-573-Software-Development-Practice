@@ -33,7 +33,6 @@ public enum Role {
                   Permission.MANAGER_CREATE
           )
   )
-
   ;
 
   @Getter
