@@ -8,8 +8,16 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Entity
+@Data
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 @Table(name = "profiles")
 public class Profile {
 
@@ -21,56 +29,7 @@ public class Profile {
     private String avatarUrl;
 
     @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "Id")
+    @JoinColumn(name = "user_id")
     private User user;
 
-    public Profile() {
-    }
-
-    public Profile(String nickname, String bio, String avatarUrl) {
-        this.nickname = nickname;
-        this.bio = bio;
-        this.avatarUrl = avatarUrl;
-    }
-
-    // Getters and setters
-    public Long getProfileId() {
-        return profileId;
-    }
-
-    public void setProfileId(Long profileId) {
-        this.profileId = profileId;
-    }
-
-    public String getNickname() {
-        return nickname;
-    }
-
-    public void setNickname(String nickname) {
-        this.nickname = nickname;
-    }
-
-    public String getBio() {
-        return bio;
-    }
-
-    public void setBio(String bio) {
-        this.bio = bio;
-    }
-
-    public String getAvatarUrl() {
-        return avatarUrl;
-    }
-
-    public void setAvatarUrl(String avatarUrl) {
-        this.avatarUrl = avatarUrl;
-    }
-
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
-    }
 }

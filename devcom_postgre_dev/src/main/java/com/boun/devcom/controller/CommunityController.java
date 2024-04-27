@@ -2,22 +2,18 @@ package com.boun.devcom.controller;
 
 import com.boun.devcom.model.Community;
 import com.boun.devcom.service.CommunityService;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
+@RequiredArgsConstructor
 @RequestMapping("/communities")
 public class CommunityController {
 
     private final CommunityService communityService;
-
-    @Autowired
-    public CommunityController(CommunityService communityService) {
-        this.communityService = communityService;
-    }
 
     @PostMapping
     public ResponseEntity<Community> createCommunity(@RequestBody Community community) {

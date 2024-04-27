@@ -2,19 +2,15 @@ package com.boun.devcom.service;
 
 import com.boun.devcom.model.Profile;
 import com.boun.devcom.repository.ProfileRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 @Service
+@RequiredArgsConstructor
 public class ProfileService {
 
     private final ProfileRepository profileRepository;
 
-
-    @Autowired
-    public ProfileService(ProfileRepository profileRepository) {
-        this.profileRepository = profileRepository;
-    }
 
     public Profile updateProfile(Long userId, Profile profileDetails) {
         return profileRepository.findById(userId).map(profile -> {

@@ -1,18 +1,12 @@
 package com.boun.devcom.service;
 
-
 import com.boun.devcom.DTOs.ChangePasswordRequest;
 import lombok.RequiredArgsConstructor;
 import com.boun.devcom.model.User;
 import com.boun.devcom.repository.UserRepository;
-import jakarta.validation.Valid;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-import org.springframework.validation.annotation.Validated;
-
 import java.security.Principal;
 
 

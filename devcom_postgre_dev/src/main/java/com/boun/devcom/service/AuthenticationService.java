@@ -3,12 +3,9 @@ package com.boun.devcom.service;
 import com.boun.devcom.DTOs.AuthenticationRequest;
 import com.boun.devcom.DTOs.AuthenticationResponse;
 import com.boun.devcom.DTOs.RegisterRequest;
-import com.boun.devcom.exceptions.UserAlreadyExistsException;
-import com.boun.devcom.service.JwtService;
 import com.boun.devcom.model.Token;
 import com.boun.devcom.repository.TokenRepository;
 import com.boun.devcom.model.TokenType;
-import com.boun.devcom.model.Role;
 import com.boun.devcom.model.User;
 import com.boun.devcom.repository.UserRepository;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -16,16 +13,13 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpHeaders;
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
 import org.springframework.stereotype.Service;
-
 import java.io.IOException;
+
 
 @Service
 @RequiredArgsConstructor
@@ -37,19 +31,13 @@ public class AuthenticationService {
     private final AuthenticationManager authenticationManager;
 
     public AuthenticationResponse register(RegisterRequest request) throws Exception{
-        if (repository.findByUsername(request.getUsername()).isPresent()) {
-            throw new UserAlreadyExistsException("Username already exists.");
-        }
-        if (repository.findByEmail(request.getEmail()).isPresent()) {
-            throw new UserAlreadyExistsException("Email already exists.");
-        }
+
         var user = User.builder()
                 .firstname(request.getFirstname())
                 .lastname(request.getLastname())
                 .username(request.getUsername())
                 .email(request.getEmail())
                 .password(passwordEncoder.encode(request.getPassword()))
-                .role(request.getRole())
                 .build();
 
         if (repository.findByUsername(user.getUsername()).isPresent()) {
@@ -76,7 +64,7 @@ public class AuthenticationService {
                 )
         );
         var user = repository.findByEmail(request.getEmail())
-                .orElseThrow();
+                .orElseThrow(()-> new UsernameNotFoundException("User not found"));
         var jwtToken = jwtService.generateToken(user);
         var refreshToken = jwtService.generateRefreshToken(user);
         revokeAllUserTokens(user);
@@ -86,6 +74,13 @@ public class AuthenticationService {
                 .refreshToken(refreshToken)
                 .build();
     }
+
+//    public AuthenticationResponse authenticate(AuthenticationRequest request){
+//        authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(request.getEmail(),request.getPassword()));
+//        User user =repository.findByEmail(request.getEmail()).orElseThrow(()-> new UsernameNotFoundException("User not found"));
+//        return AuthenticationResponse.builder().accessToken(jwtService.generateToken(user)).build();
+//
+//    }
 
     private void saveUserToken(User user, String jwtToken) {
         var token = Token.builder()

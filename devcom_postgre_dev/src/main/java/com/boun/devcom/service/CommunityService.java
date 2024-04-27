@@ -2,20 +2,16 @@ package com.boun.devcom.service;
 
 import com.boun.devcom.model.Community;
 import com.boun.devcom.repository.CommunityRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
+@RequiredArgsConstructor
 public class CommunityService {
 
     private final CommunityRepository communityRepository;
-
-    @Autowired
-    public CommunityService(CommunityRepository communityRepository) {
-        this.communityRepository = communityRepository;
-    }
 
     public Community createCommunity(Community community) {
         community.setArchived(false);  // Default to not archived when created
