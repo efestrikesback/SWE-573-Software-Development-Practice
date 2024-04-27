@@ -23,7 +23,7 @@ public class UserProfile {
     private String bio;
     private String avatarUrl;
 
-    //NOTE imported devcom user !!! do not mix with security user!
+    //NOTE imported from devcom user !!! do not mix with security user!
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
     private User user;
