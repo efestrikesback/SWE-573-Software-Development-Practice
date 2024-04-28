@@ -31,9 +31,13 @@ public class JwtService {
 
   public String extractEmail(String token) {
     String email= extractClaim(token,Claims::getSubject);
-    logger.info("EMAIL FROM TOKEN IS: "+email);
+    logger.info("tokenized email: "+email);
     return email;
   }
+
+//  public String extractUsername(String token) {
+//    return extractClaim(token, Claims::getSubject);
+//  }
 
   public <T> T extractClaim(String token, Function<Claims, T> claimsResolver) {
     final Claims claims = extractAllClaims(token);
@@ -44,12 +48,18 @@ public class JwtService {
     return generateToken(new HashMap<>(), userDetails);
   }
 
-//  public String generateToken(
-//      Map<String, Object> extraClaims,
-//      UserDetails userDetails
-//  ) {
-//    return buildToken(extraClaims, userDetails, jwtExpiration);
+
+//  public String generateToken(UserDetails userDetails) {
+//
+//    return generateToken(new HashMap<>(), userDetails);
 //  }
+
+  public String generateToken(
+      Map<String, Object> extraClaims,
+      UserDetails userDetails
+  ) {
+    return buildToken(extraClaims, userDetails, jwtExpiration);
+  }
 
   public String generateToken(Map<String,Object> moreClaims, User userDetails){
     return Jwts.builder().setClaims(moreClaims).setSubject(userDetails.getEmail())
@@ -81,9 +91,13 @@ public class JwtService {
             .compact();
   }
 
-  public boolean isTokenValid(String token, UserDetails userDetails) {
-    final String username = extractEmail(token);
-    return (username.equals(userDetails.getUsername())) && !isTokenExpired(token);
+//  public boolean isTokenValid(String token, UserDetails userDetails) {
+//    final String username = extractUsername(token);
+//    return (username.equals(userDetails.getUsername())) && !isTokenExpired(token);
+//  }
+  public boolean isTokenValid(String token, User userDetails) {
+    String email = extractEmail(token);
+    return (email.equals(userDetails.getEmail())) && !isTokenExpired(token);
   }
 
   private boolean isTokenExpired(String token) {

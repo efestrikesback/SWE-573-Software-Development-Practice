@@ -12,9 +12,9 @@ public class UserProfileController {
 
     private final UserProfileService service;
 
-    @PutMapping
-    public ResponseEntity<UserProfile> updateProfile(
+    @PostMapping("/create")
+    public ResponseEntity<UserProfile> createProfile(
             @RequestBody UserProfile profile) {
-        return ResponseEntity.ok(service.updateProfile(profile));
+        return ResponseEntity.ok(service.createProfile(profile));
     }
 }

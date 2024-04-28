@@ -18,5 +18,5 @@ public class RegisterRequest {
   private String password;
   //TODO: set default role as USER!
   @Builder.Default
-  private Role role = Role.USER;
+  private Role role = Role.MEMBER;
 }

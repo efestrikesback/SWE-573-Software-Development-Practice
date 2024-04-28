@@ -38,7 +38,7 @@ public class AuthenticationService {
 //        .build();
 
     User user= User.builder().username(request.getUsername()).password(passwordEncoder.encode(request.getPassword()))
-            .email(request.getEmail()).build();
+            .email(request.getEmail()).role(request.getRole()).build();
 
 
     var savedUser = repository.save(user);
@@ -103,6 +103,7 @@ public class AuthenticationService {
       return;
     }
     refreshToken = authHeader.substring(7);
+//    userEmail = jwtService.extractUsername(refreshToken);
     userEmail = jwtService.extractEmail(refreshToken);
     if (userEmail != null) {
       var user = this.repository.findByEmail(userEmail)
