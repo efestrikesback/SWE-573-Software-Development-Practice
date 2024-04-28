@@ -1,6 +1,8 @@
 package com.devcom.userProfile;
 
 import com.devcom.user.User;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -24,6 +26,7 @@ public class UserProfile {
 
     //NOTE imported from devcom user !!! do not mix with security user!
     @OneToOne(fetch = FetchType.LAZY)
+    @JsonBackReference("user-profile")
     @JoinColumn(name = "user_id")
     private User user;
 

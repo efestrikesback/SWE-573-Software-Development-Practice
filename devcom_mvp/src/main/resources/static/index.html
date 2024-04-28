@@ -9,7 +9,7 @@
 <h1>Community Platform</h1>
 
 <section>
-    <h2>User Registration</h2>
+    <h2>User Registration (register before testing login!)</h2>
     <form id="registerForm">
         Firstname: <input type="text" id="firstname"><br>
         Lastname: <input type="text" id="lastname"><br>
@@ -21,10 +21,21 @@
 </section>
 
 <section>
-    <h2>Create Community</h2>
+    <h2>Authenticate (login) (f12 -> console to see stored token)</h2>
+    <form id="loginForm">
+        Email: <input type="email" id="emailLogin"><br>
+        Password: <input type="password" id="passwordLogin"><br>
+        <button type="button" onclick="login()">Login</button>
+    </form>
+</section>
+
+<section>
+    <h2>Create Community (isPrivate and isArchived are set false for easier testing )</h2>
     <form id="communityForm">
-        Community Name: <input type="text" id="communityName"><br>
+        Community Name: <input type="text" id="name"><br>
         Description: <input type="text" id="description"><br>
+        isPrivate: <input type="text" id="isPrivate"><br>
+        isArchived: <input type="text" id="isArchived"><br>
         <button type="button" onclick="createCommunity()">Create Community</button>
     </form>
 </section>
