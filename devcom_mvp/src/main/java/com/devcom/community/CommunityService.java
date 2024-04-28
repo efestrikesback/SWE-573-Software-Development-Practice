@@ -29,5 +29,13 @@ public class CommunityService {
         return createdCommunity;
     }
 
+    @Transactional
+    public Membership joinCommunity(Long id){
+        User joiner = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        Community community = communityRepository.findById(id).orElseThrow();
+        MembershipCode code = new MembershipCode(joiner.getId(), community.getCommunityId());
+        return membershipRepository.save(new Membership(code, joiner,community));
+    }
+
 
 }

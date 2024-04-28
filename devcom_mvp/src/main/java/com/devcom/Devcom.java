@@ -19,31 +19,32 @@ public class Devcom {
 		SpringApplication.run(Devcom.class, args);
 	}
 
-	@Bean
-	public CommandLineRunner commandLineRunner(
-			AuthenticationService service
-	) {
-		return args -> {
-			var admin = RegisterRequest.builder()
-					.firstname("Admin")
-					.lastname("Admin")
-					.username("Admin")
-					.email("admin@mail.com")
-					.password("password")
-					.role(ADMIN)
-					.build();
-			System.out.println("Admin token: " + service.register(admin).getAccessToken());
-
-			var manager = RegisterRequest.builder()
-					.firstname("manager")
-					.lastname("manager")
-					.username("manager")
-					.email("manager@mail.com")
-					.password("password")
-					.role(MANAGER)
-					.build();
-			System.out.println("Manager token: " + service.register(manager).getAccessToken());
-
-		};
-	}
+	//TODO: adds admin and manger user for testing
+//	@Bean
+//	public CommandLineRunner commandLineRunner(
+//			AuthenticationService service
+//	) {
+//		return args -> {
+//			var admin = RegisterRequest.builder()
+//					.firstname("Admin")
+//					.lastname("Admin")
+//					.username("Admin")
+//					.email("admin@mail.com")
+//					.password("password")
+//					.role(ADMIN)
+//					.build();
+//			System.out.println("Admin token: " + service.register(admin).getAccessToken());
+//
+//			var manager = RegisterRequest.builder()
+//					.firstname("manager")
+//					.lastname("manager")
+//					.username("manager")
+//					.email("manager@mail.com")
+//					.password("password")
+//					.role(MANAGER)
+//					.build();
+//			System.out.println("Manager token: " + service.register(manager).getAccessToken());
+//
+//		};
+//	}
 }

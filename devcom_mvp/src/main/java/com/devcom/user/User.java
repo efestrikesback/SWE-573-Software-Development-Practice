@@ -37,6 +37,9 @@ public class User implements UserDetails {
   private String password;
 
   @OneToOne(fetch = FetchType.LAZY, mappedBy = "user", cascade = CascadeType.ALL)
+  @JsonManagedReference("user-profile")
+  @EqualsAndHashCode.Exclude
+  @ToString.Exclude
   private UserProfile profile;
 
   @OneToMany(mappedBy = "user",fetch = FetchType.EAGER)

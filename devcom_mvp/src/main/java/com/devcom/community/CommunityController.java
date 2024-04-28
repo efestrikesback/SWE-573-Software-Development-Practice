@@ -22,8 +22,8 @@ public class CommunityController {
         return ResponseEntity.ok(communityService.getCommunity(id));
     }
 
-//    @PostMapping("/join/{id}")
-//    public ResponseEntity<Membership> subscribeToCommunity(@PathVariable Long id){
-//        return ResponseEntity.ok(communityService.joinCommunity(id));
-//    }
+    @PostMapping("/join/{id}")
+    public ResponseEntity<Membership> joinCommunity(@PathVariable Long id){
+        return ResponseEntity.ok(communityService.joinCommunity(id));
+    }
 }

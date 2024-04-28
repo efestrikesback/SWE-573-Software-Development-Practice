@@ -1,6 +1,7 @@
 function registerUser() {
     var firstname = document.getElementById('firstname').value;
     var lastname = document.getElementById('lastname').value;
+    var username = document.getElementById('username').value;
     var email = document.getElementById('email').value;
     var password = document.getElementById('password').value;
 
@@ -9,7 +10,7 @@ function registerUser() {
         headers: {
             'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ firstname, lastname, email, password })
+        body: JSON.stringify({ firstname, lastname, username, email, password })
     }).then(response => response.json())
       .then(data => alert('User registered: ' + JSON.stringify(data)))
       .catch(error => alert('Error registering user: ' + error));
