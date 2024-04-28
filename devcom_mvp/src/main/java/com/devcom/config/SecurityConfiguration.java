@@ -12,6 +12,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.web.authentication.logout.LogoutHandler;
+import org.springframework.web.servlet.config.annotation.CorsRegistry;
 
 import static com.devcom.user.Permission.ADMIN_CREATE;
 import static com.devcom.user.Permission.ADMIN_DELETE;
@@ -36,11 +37,23 @@ import static org.springframework.security.config.http.SessionCreationPolicy.STA
 public class SecurityConfiguration {
 
     //TODO trim whitelist after context implementation
+    //check js access
     private static final String[] WHITE_LIST_URL = {"/api/v1/auth/**",
-            "/aboutEfe", "/api/v1/userProfile"};
+            "/aboutEfe", "/api/v1/userProfile","/", "/index.html", "/css/**", "/js/**"};
     private final JwtAuthenticationFilter jwtAuthFilter;
     private final AuthenticationProvider authenticationProvider;
     private final LogoutHandler logoutHandler;
+
+
+
+//    public void addCorsMappings(CorsRegistry registry) {
+//        registry.addMapping("/**")
+////                .allowedOrigins("http://localhost:3000")
+//                .allowedOrigins("*")
+//                .allowedMethods("GET", "POST", "PUT", "DELETE")
+//                .allowedHeaders("*")
+//                .allowCredentials(true);
+//    }
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {

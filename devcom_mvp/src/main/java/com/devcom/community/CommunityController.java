@@ -11,19 +11,19 @@ import org.springframework.web.bind.annotation.*;
 public class CommunityController {
 
     private final CommunityService communityService;
-//    @PostMapping("/create")
-//    public ResponseEntity<Community> createCommunity(@RequestBody Community community){
-//
-//        return ResponseEntity.ok(communityService.createCommunity(community));
-//    }
-//
-//    @GetMapping("/{id}")
-//    public ResponseEntity<Community> getCommunity (@PathVariable Long id){
-//        return ResponseEntity.ok(communityService.getCommunity(id));
-//    }
-//
-//    @PostMapping("/subscribe/{id}")
-//    public ResponseEntity<Subscription> subscribeToCommunity(@PathVariable Long id){
-//        return ResponseEntity.ok(communityService.subscribeToCommunity(id));
+    @PostMapping("/create")
+    public ResponseEntity<Community> createCommunity(@RequestBody Community community){
+
+        return ResponseEntity.ok(communityService.createCommunity(community));
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<Community> getCommunity (@PathVariable Integer id){
+        return ResponseEntity.ok(communityService.getCommunity(id));
+    }
+
+//    @PostMapping("/join/{id}")
+//    public ResponseEntity<Membership> subscribeToCommunity(@PathVariable Integer id){
+//        return ResponseEntity.ok(communityService.joinCommunity(id));
 //    }
 }
