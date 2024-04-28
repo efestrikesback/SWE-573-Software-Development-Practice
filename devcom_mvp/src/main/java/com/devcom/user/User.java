@@ -26,11 +26,11 @@ public class User implements UserDetails {
 
   @Id
   @GeneratedValue
-  private Integer id;
-  @Column(nullable = false)
+  private Long id;
   private String firstname;
-  @Column(nullable = false)
   private String lastname;
+  @Column(nullable = false,unique = true)
+  private String username;
   @Column(nullable = false,unique = true)
   private String email;
   @Column(nullable = false)
@@ -50,21 +50,13 @@ public class User implements UserDetails {
   private Role role;
 
   @OneToMany(fetch = FetchType.EAGER, mappedBy = "user")
+  @ToString.Exclude
+
   private List<Token> tokens;
 
   @Override
   public Collection<? extends GrantedAuthority> getAuthorities() {
     return role.getAuthorities();
-  }
-
-  @Override
-  public String getPassword() {
-    return password;
-  }
-
-  @Override
-  public String getUsername() {
-    return email;
   }
 
   @Override

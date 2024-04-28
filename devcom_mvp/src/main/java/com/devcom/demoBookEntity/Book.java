@@ -27,7 +27,7 @@ public class Book {
 
     @Id
     @GeneratedValue
-    private Integer id;
+    private Long id;
     private String author;
     private String isbn;
 
@@ -48,9 +48,9 @@ public class Book {
             nullable = false,
             updatable = false
     )
-    private Integer createdBy;
+    private Long createdBy;
 
     @LastModifiedBy
     @Column(insertable = false)
-    private Integer lastModifiedBy;
+    private Long lastModifiedBy;
 }

@@ -28,13 +28,19 @@ public class AuthenticationService {
   private final AuthenticationManager authenticationManager;
 
   public AuthenticationResponse register(RegisterRequest request) {
-    var user = User.builder()
-        .firstname(request.getFirstname())
-        .lastname(request.getLastname())
-        .email(request.getEmail())
-        .password(passwordEncoder.encode(request.getPassword()))
-        .role(request.getRole())
-        .build();
+//    var user = User.builder()
+//            .username(request.getUsername())
+//        .firstname(request.getFirstname())
+//        .lastname(request.getLastname())
+//        .email(request.getEmail())
+//        .password(passwordEncoder.encode(request.getPassword()))
+//        .role(request.getRole())
+//        .build();
+
+    User user= User.builder().username(request.getUsername()).password(passwordEncoder.encode(request.getPassword()))
+            .email(request.getEmail()).build();
+
+
     var savedUser = repository.save(user);
     var jwtToken = jwtService.generateToken(user);
     var refreshToken = jwtService.generateRefreshToken(user);
@@ -97,7 +103,7 @@ public class AuthenticationService {
       return;
     }
     refreshToken = authHeader.substring(7);
-    userEmail = jwtService.extractUsername(refreshToken);
+    userEmail = jwtService.extractEmail(refreshToken);
     if (userEmail != null) {
       var user = this.repository.findByEmail(userEmail)
               .orElseThrow();

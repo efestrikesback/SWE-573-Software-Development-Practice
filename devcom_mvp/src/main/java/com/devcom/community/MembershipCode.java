@@ -12,7 +12,7 @@ import java.io.Serializable;
 @NoArgsConstructor
 @AllArgsConstructor
 public class MembershipCode implements Serializable {
-    private Integer userId;
-    private Integer communityId;
+    private Long userId;
+    private Long communityId;
 
 }

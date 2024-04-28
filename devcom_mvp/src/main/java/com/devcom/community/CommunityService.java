@@ -12,9 +12,9 @@ import org.springframework.transaction.annotation.Transactional;
 public class CommunityService {
 
     private final CommunityRepository communityRepository;
-    private final MembershipRepository subscriptionRepository;
+    private final MembershipRepository membershipRepository;
 
-    public Community getCommunity(Integer id){
+    public Community getCommunity(Long id){
         return communityRepository.findById(id).orElseThrow();
     }
 
@@ -25,7 +25,7 @@ public class CommunityService {
         community.setOwner(owner);
         Community createdCommunity=communityRepository.save(community);
         MembershipCode subsKey= new MembershipCode(owner.getId(), createdCommunity.getCommunityId());
-        subscriptionRepository.save(new Membership(subsKey,owner,createdCommunity));
+        membershipRepository.save(new Membership(subsKey,owner,createdCommunity));
         return createdCommunity;
     }
 

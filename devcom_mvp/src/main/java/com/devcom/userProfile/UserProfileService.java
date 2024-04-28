@@ -19,7 +19,7 @@ public class UserProfileService {
     @Transactional
     public UserProfile updateProfile(UserProfile profileDetails) {
         User profileOwner = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        Integer userId = profileOwner.getId();
+        Long userId = profileOwner.getId();
 
         // Check if profile already exists
         Optional<UserProfile> existingProfile = repository.findById(userId);
@@ -28,7 +28,6 @@ public class UserProfileService {
         profile.setUser(profileOwner); // Assuming UserProfile has a 'user' field for the relationship
 
         // Update fields from profileDetails
-        profile.setNickname(profileDetails.getNickname());
         profile.setBio(profileDetails.getBio());
         profile.setAvatarUrl(profileDetails.getAvatarUrl());
         // ... other fields
@@ -40,7 +39,7 @@ public class UserProfileService {
 //    @Transactional
 //    public UserProfile updateProfile(UserProfile profileDetails) {
 //        User profileOwner = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-//        Integer profileOwnerId = profileOwner.getId();
+//        Long profileOwnerId = profileOwner.getId();
 //
 //        // Find the existing profile or create a new one if it doesn't exist
 //        UserProfile profile = repository.findById(profileOwnerId).orElseGet(() -> {
@@ -60,7 +59,7 @@ public class UserProfileService {
 //
 //        User profileOwner = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 //
-//        Integer profileOwnerId = profileOwner.getId();
+//        Long profileOwnerId = profileOwner.getId();
 //
 //        return repository.findById(profileOwnerId).map(UserProfile -> {
 //

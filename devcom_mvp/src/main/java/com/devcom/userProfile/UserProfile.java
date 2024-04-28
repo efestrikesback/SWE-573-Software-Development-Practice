@@ -19,7 +19,6 @@ public class UserProfile {
     @Id
     @GeneratedValue
     private int profileId;
-    private String nickname;
     private String bio;
     private String avatarUrl;
 

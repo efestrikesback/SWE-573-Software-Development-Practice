@@ -9,7 +9,7 @@ import lombok.Setter;
 @Builder
 public class BookRequest {
 
-    private Integer id;
+    private Long id;
     private String author;
     private String isbn;
 }

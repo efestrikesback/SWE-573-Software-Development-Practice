@@ -18,12 +18,12 @@ public class CommunityController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Community> getCommunity (@PathVariable Integer id){
+    public ResponseEntity<Community> getCommunity (@PathVariable Long id){
         return ResponseEntity.ok(communityService.getCommunity(id));
     }
 
 //    @PostMapping("/join/{id}")
-//    public ResponseEntity<Membership> subscribeToCommunity(@PathVariable Integer id){
+//    public ResponseEntity<Membership> subscribeToCommunity(@PathVariable Long id){
 //        return ResponseEntity.ok(communityService.joinCommunity(id));
 //    }
 }
