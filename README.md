@@ -8,6 +8,9 @@
 
 Community Builder is a platform designed to enhance specialized community engagement through content sharing and interactions. It offers a user-friendly environment for community management, content creation, and social interaction, fostering a vibrant and engaging community space.
 
+## MVP Report
+https://github.com/efestrikesback/SWE-573-Software-Development-Practice/wiki/MVP-REPORT
+
 ## Features
 
 - Simplistic login mechanism and user profile management.
