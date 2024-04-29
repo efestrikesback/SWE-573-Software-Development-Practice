@@ -30,15 +30,6 @@
 </section>
 
 <section>
-    <h2>Create user profile (Do not use same user twice for this function! Validation will be added at final project!)</h2>
-    <form id="profileForm">
-        Your bio: <input type="text" id="bio"><br>
-        Your picture url: <input type="text" id="avatarUrl"><br>
-        <button type="button" onclick="login()">Login</button>
-    </form>
-</section>
-
-<section>
     <h2>Create Community (isPrivate and isArchived are set false for easier testing )</h2>
     <form id="communityForm">
         Community Name: <input type="text" id="name"><br>
@@ -49,21 +40,10 @@
     </form>
 </section>
 
-
-
-
 <section>
-    <h1>Join a Community, choose community id from the created communities</h1>
-    <h2>Enter Community ID</h2>
-    <input type="number" id="communityId" placeholder="Community ID">
-    <button type="button" onclick="joinCommunity()">Join Community</button>
-</section>
-
-
-<section>
-    <h2>Assign Role (WIP DO NOT USE!)</h2>
+    <h2>Assign Role</h2>
     <form id="roleForm">
-        Community ID: <input type="number" id="commId"><br>
+        Community ID: <input type="number" id="communityId"><br>
         User ID: <input type="number" id="userId"><br>
         Role: <select id="role">
         <option value="ADMIN">Admin</option>
