@@ -1,14 +1,14 @@
 spring:
   datasource:
-    url: jdbc:postgresql://localhost:5432/devcom
-    username: postgres
-    password: 123
+    url: jdbc:postgresql://dpg-conp9pocmk4c73aaadfg-a.frankfurt-postgres.render.com:5432/devcom
+    username: devcom
+    password: rkEEGrLE6KkfiAUGaehRQyoYpwR44xpu
     driver-class-name: org.postgresql.Driver
   jpa:
     hibernate:
 #      ddl-auto: create
        ddl-auto: update
-    show-sql: true
+    show-sql: false
     properties:
       hibernate:
         format_sql: true
