@@ -33,10 +33,4 @@ Community Builder is a platform designed to enhance specialized community engage
 
 ### Prerequisites
 
-- WIP (e.g., Node.js, Docker).
 
-### Installation
-
-1. Clone the repo:
-   ```sh
-   git clone https://github.com/yourusername/community-builder.git
