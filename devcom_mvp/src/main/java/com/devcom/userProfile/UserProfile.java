@@ -24,7 +24,7 @@ public class UserProfile {
     private String bio;
     private String avatarUrl;
 
-    //NOTE imported from devcom user !!! do not mix with security user!
+    //TODO: NOTE imported from devcom user !!! do not mix with security user!
     @OneToOne(fetch = FetchType.LAZY)
     @JsonBackReference("user-profile")
     @JoinColumn(name = "user_id")
