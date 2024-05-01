@@ -1,0 +1,211 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="706bbec5-3237-4afd-b20f-e8c8f4ece169" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/devcom-frontend/devcom-frontend/.eslintrc.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/devcom-frontend/devcom-frontend/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/devcom-frontend/devcom-frontend/README.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/devcom-frontend/devcom-frontend/next.config.mjs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/devcom-frontend/devcom-frontend/package-lock.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/devcom-frontend/devcom-frontend/package.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/devcom-frontend/devcom-frontend/postcss.config.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/devcom-frontend/devcom-frontend/public/next.svg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/devcom-frontend/devcom-frontend/public/vercel.svg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/devcom-frontend/devcom-frontend/src/app/favicon.ico" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/devcom-frontend/devcom-frontend/src/app/globals.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/devcom-frontend/devcom-frontend/src/app/layout.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/devcom-frontend/devcom-frontend/src/app/page.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/devcom-frontend/devcom-frontend/tailwind.config.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/devcom-frontend/devcom-frontend/tsconfig.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/devcom_mvp/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/devcom_mvp/.mvn/wrapper/maven-wrapper.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/devcom_mvp/.mvn/wrapper/maven-wrapper.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/devcom_mvp/LICENSE" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/devcom_mvp/README.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/devcom_mvp/docker-compose.yml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/devcom_mvp/http/change-password.http" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/devcom_mvp/http/http-test.http" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/devcom_mvp/http/jpa-auditing.http" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/devcom_mvp/jwt-security.drawio" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/devcom_mvp/mvnw" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/devcom_mvp/mvnw.cmd" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/devcom_mvp/pom.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/devcom_mvp/src/main/java/com/devcom/Devcom.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/devcom_mvp/src/main/java/com/devcom/auditing/ApplicationAuditAware.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/devcom_mvp/src/main/java/com/devcom/auth/AuthenticationController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/devcom_mvp/src/main/java/com/devcom/auth/AuthenticationRequest.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/devcom_mvp/src/main/java/com/devcom/auth/AuthenticationResponse.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/devcom_mvp/src/main/java/com/devcom/auth/AuthenticationService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/devcom_mvp/src/main/java/com/devcom/auth/RegisterRequest.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/devcom_mvp/src/main/java/com/devcom/community/Community.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/devcom_mvp/src/main/java/com/devcom/community/CommunityController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/devcom_mvp/src/main/java/com/devcom/community/CommunityRepository.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/devcom_mvp/src/main/java/com/devcom/community/CommunityService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/devcom_mvp/src/main/java/com/devcom/community/Membership.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/devcom_mvp/src/main/java/com/devcom/community/MembershipCode.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/devcom_mvp/src/main/java/com/devcom/community/MembershipRepository.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/devcom_mvp/src/main/java/com/devcom/config/ApplicationConfig.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/devcom_mvp/src/main/java/com/devcom/config/JwtAuthenticationFilter.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/devcom_mvp/src/main/java/com/devcom/config/JwtService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/devcom_mvp/src/main/java/com/devcom/config/LogoutService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/devcom_mvp/src/main/java/com/devcom/config/SecurityConfiguration.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/devcom_mvp/src/main/java/com/devcom/demoBookEntity/Book.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/devcom_mvp/src/main/java/com/devcom/demoBookEntity/BookController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/devcom_mvp/src/main/java/com/devcom/demoBookEntity/BookRepository.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/devcom_mvp/src/main/java/com/devcom/demoBookEntity/BookRequest.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/devcom_mvp/src/main/java/com/devcom/demoBookEntity/BookService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/devcom_mvp/src/main/java/com/devcom/token/Token.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/devcom_mvp/src/main/java/com/devcom/token/TokenRepository.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/devcom_mvp/src/main/java/com/devcom/token/TokenType.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/devcom_mvp/src/main/java/com/devcom/user/ChangePasswordRequest.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/devcom_mvp/src/main/java/com/devcom/user/Permission.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/devcom_mvp/src/main/java/com/devcom/user/Role.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/devcom_mvp/src/main/java/com/devcom/user/User.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/devcom_mvp/src/main/java/com/devcom/user/UserController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/devcom_mvp/src/main/java/com/devcom/user/UserRepository.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/devcom_mvp/src/main/java/com/devcom/user/UserService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/devcom_mvp/src/main/java/com/devcom/userProfile/UserProfile.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/devcom_mvp/src/main/java/com/devcom/userProfile/UserProfileController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/devcom_mvp/src/main/java/com/devcom/userProfile/UserProfileRepository.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/devcom_mvp/src/main/java/com/devcom/userProfile/UserProfileService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/devcom_mvp/src/main/resources/application.yml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/devcom_mvp/src/main/resources/static/index.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/devcom_mvp/src/main/resources/static/js/app.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/devcom_mvp/src/test/java/com/devcom/SecurityApplicationTests.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/devcom_postgre_test/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/devcom_postgre_test/.mvn/wrapper/maven-wrapper.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/devcom_postgre_test/.mvn/wrapper/maven-wrapper.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/devcom_postgre_test/mvnw" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/devcom_postgre_test/mvnw.cmd" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/devcom_postgre_test/pom.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/devcom_postgre_test/src/main/java/com/boun/devcom/DTOs/AuthenticationRequest.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/devcom_postgre_test/src/main/java/com/boun/devcom/DTOs/AuthenticationResponse.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/devcom_postgre_test/src/main/java/com/boun/devcom/DTOs/ChangePasswordRequest.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/devcom_postgre_test/src/main/java/com/boun/devcom/DTOs/RegisterRequest.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/devcom_postgre_test/src/main/java/com/boun/devcom/DevcomApplication.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/devcom_postgre_test/src/main/java/com/boun/devcom/advice/GlobalExceptionHandler.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/devcom_postgre_test/src/main/java/com/boun/devcom/config/ApplicationConfig.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/devcom_postgre_test/src/main/java/com/boun/devcom/config/JwtAuthenticationFilter.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/devcom_postgre_test/src/main/java/com/boun/devcom/config/SecurityConfiguration.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/devcom_postgre_test/src/main/java/com/boun/devcom/controller/AuthenticationController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/devcom_postgre_test/src/main/java/com/boun/devcom/controller/UserController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/devcom_postgre_test/src/main/java/com/boun/devcom/exceptions/InvalidAuthenticationException.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/devcom_postgre_test/src/main/java/com/boun/devcom/exceptions/UserAlreadyExistsException.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/devcom_postgre_test/src/main/java/com/boun/devcom/model/Permission.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/devcom_postgre_test/src/main/java/com/boun/devcom/model/Token.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/devcom_postgre_test/src/main/java/com/boun/devcom/model/TokenType.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/devcom_postgre_test/src/main/java/com/boun/devcom/model/User.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/devcom_postgre_test/src/main/java/com/boun/devcom/repository/TokenRepository.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/devcom_postgre_test/src/main/java/com/boun/devcom/repository/UserRepository.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/devcom_postgre_test/src/main/java/com/boun/devcom/service/AuthenticationService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/devcom_postgre_test/src/main/java/com/boun/devcom/service/JwtService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/devcom_postgre_test/src/main/java/com/boun/devcom/service/LogoutService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/devcom_postgre_test/src/main/java/com/boun/devcom/service/UserService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/devcom_postgre_test/src/main/java/com/boun/devcom/testing/HearthBeat.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/devcom_postgre_test/src/main/resources/application.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/devcom_postgre_test/src/test/java/com/boun/devcom/DevcomApplicationTests.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/devcom_test_1/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/devcom_test_1/.mvn/wrapper/maven-wrapper.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/devcom_test_1/.mvn/wrapper/maven-wrapper.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/devcom_test_1/mvnw" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/devcom_test_1/mvnw.cmd" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/devcom_test_1/pom.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/devcom_test_1/src/main/java/com/devcom/webapp/DevcomWebApplication.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/devcom_test_1/src/main/java/com/devcom/webapp/controllers/UserController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/devcom_test_1/src/main/java/com/devcom/webapp/models/User.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/devcom_test_1/src/main/java/com/devcom/webapp/repositories/UserRepository.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/devcom_test_1/src/main/java/com/devcom/webapp/services/UserService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/devcom_test_1/src/main/resources/application.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/devcom_test_1/src/test/java/com/devcom/webapp/DevcomWebApplicationTests.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/devcom_test_mysql_1/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/devcom_test_mysql_1/.mvn/wrapper/maven-wrapper.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/devcom_test_mysql_1/.mvn/wrapper/maven-wrapper.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/devcom_test_mysql_1/mvnw" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/devcom_test_mysql_1/mvnw.cmd" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/devcom_test_mysql_1/pom.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/devcom_test_mysql_1/src/main/java/com/boun/devcom/DevcomApplication.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/devcom_test_mysql_1/src/main/java/com/boun/devcom/config/SecurityConfig.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/devcom_test_mysql_1/src/main/resources/application.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/devcom_test_mysql_1/src/test/java/com/boun/devcom/DevcomApplicationTests.java" beforeDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
+  <component name="MavenImportPreferences">
+    <option name="generalSettings">
+      <MavenGeneralSettings>
+        <option name="mavenHome" value="Use Maven wrapper" />
+        <option name="useMavenConfig" value="true" />
+      </MavenGeneralSettings>
+    </option>
+    <option name="importingSettings">
+      <MavenImportingSettings>
+        <option name="workspaceImportEnabled" value="true" />
+      </MavenImportingSettings>
+    </option>
+  </component>
+  <component name="ProjectId" id="2fmRMFyQYVqhFFS85VxwXVwVEwt" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "last_opened_file_path": "C:/Users/Efe Göçmen/Desktop/SWE-573-Software-Development-Practice",
+    "project.structure.last.edited": "Project",
+    "project.structure.proportion": "0.15",
+    "project.structure.side.proportion": "0.0",
+    "settings.editor.selected.configurable": "project.propVCSSupport.DirectoryMappings"
+  }
+}]]></component>
+  <component name="RunAnythingCache">
+    <option name="myCommands">
+      <command value="mvn clean package" />
+      <command value="mvn clean install" />
+    </option>
+  </component>
+  <component name="RunManager">
+    <configuration default="true" type="JetRunConfigurationType">
+      <module name="devcom_mvp" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="KotlinStandaloneScriptRunConfigurationType">
+      <module name="devcom_mvp" />
+      <option name="filePath" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="706bbec5-3237-4afd-b20f-e8c8f4ece169" name="Changes" comment="" />
+      <created>1714404218139</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1714404218139</updated>
+    </task>
+    <servers />
+  </component>
+</project>
