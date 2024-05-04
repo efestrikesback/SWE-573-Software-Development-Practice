@@ -5,7 +5,7 @@ function registerUser() {
     var email = document.getElementById('email').value;
     var password = document.getElementById('password').value;
 
-    fetch('http://localhost:8080/api/v1/auth/register', {
+    fetch('http://13.60.66.40:8080/api/v1/auth/register', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
@@ -20,7 +20,7 @@ function login() {
     var email = document.getElementById('email').value;
     var password = document.getElementById('password').value;
 
-    fetch('http://localhost:8080/api/v1/auth/authenticate', {
+    fetch('http://13.60.66.40:8080/api/v1/auth/authenticate', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
@@ -64,7 +64,7 @@ function createCommunity() {
         return;
     }
 
-    fetch('http://localhost:8080/api/v1/community/create', {
+    fetch('http://13.60.66.40:8080/api/v1/community/create', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
