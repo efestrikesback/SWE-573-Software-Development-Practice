@@ -26,4 +26,5 @@ public class CommunityController {
     public ResponseEntity<Membership> joinCommunity(@PathVariable Long id){
         return ResponseEntity.ok(communityService.joinCommunity(id));
     }
+
 }

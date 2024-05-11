@@ -1,6 +1,7 @@
 package com.devcom.community;
 
 
+import com.devcom.user.CommunityRole;
 import com.devcom.user.User;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
@@ -18,6 +19,8 @@ public class Membership {
     @EmbeddedId
     private MembershipCode id;
 
+    private String communityRole;
+
     @ManyToOne
     @MapsId("userId")
     @JoinColumn(name = "user_id")
@@ -32,5 +35,7 @@ public class Membership {
     @EqualsAndHashCode.Exclude
     private Community community;
 
-   //TODO: Add community roles!
+
+
+
 }
