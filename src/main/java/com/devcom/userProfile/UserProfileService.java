@@ -22,15 +22,26 @@ public class UserProfileService {
     public UserProfile createProfile(UserProfile profile) {
 
         User profileOwner = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        profile.setUser(profileOwner);
-        UserProfile createdProfile = repository.save(profile);
         Long profileOwnerId = profileOwner.getId();
-        // Check if a profile already exists for the user to prevent duplicates
-        boolean profileExists = repository.existsById(profileOwnerId);
+        boolean profileExists = repository.existsByUserId(profileOwnerId);
         if (profileExists) {
             throw new IllegalStateException("Profile already exists for user ID: " + profileOwnerId);
         }
+        profile.setUser(profileOwner);
+        UserProfile createdProfile = repository.save(profile);
         return createdProfile;
+    }
+
+
+    @Transactional
+    public UserProfile updateProfile(UserProfile updatedProfile) {
+        User authenticatedUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        Long profileOwnerId = authenticatedUser.getId();
+        return repository.findByUserId(profileOwnerId).map(profile -> {
+            if(updatedProfile.getBio() != null) profile.setBio(updatedProfile.getBio());
+            if(updatedProfile.getAvatarUrl() != null) profile.setAvatarUrl(updatedProfile.getAvatarUrl());
+            return repository.save(profile);
+        }).orElseThrow(() -> new IllegalArgumentException("No profile found for the logged-in user with ID: " + profileOwnerId));
     }
 
 

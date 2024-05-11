@@ -17,4 +17,12 @@ public class UserProfileController {
             @RequestBody UserProfile profile) {
         return ResponseEntity.ok(service.createProfile(profile));
     }
+
+    @PutMapping("/update")
+    public ResponseEntity<UserProfile> updateProfile(@RequestBody UserProfile profile) {
+        UserProfile updatedProfile = service.updateProfile(profile);
+        return ResponseEntity.ok(updatedProfile);
+    }
+
+
 }
