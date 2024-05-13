@@ -1,0 +1,174 @@
+<!--<!DOCTYPE html>-->
+<!--<html lang="en">-->
+<!--<head>-->
+<!--    <meta charset="UTF-8">-->
+<!--    <title>Community Platform</title>-->
+<!--    <link rel="stylesheet" href="styles.css">-->
+<!--</head>-->
+<!--<body>-->
+<!--<h1>Community Platform</h1>-->
+
+<!--<section>-->
+<!--    <h2>User Registration (register before testing login!)</h2>-->
+<!--    <form id="registerForm">-->
+<!--        Firstname: <input type="text" id="firstname"><br>-->
+<!--        Lastname: <input type="text" id="lastname"><br>-->
+<!--        Username: <input type="text" id="username"><br>-->
+<!--        Email: <input type="email" id="email"><br>-->
+<!--        Password: <input type="password" id="password"><br>-->
+<!--        <button type="button" onclick="registerUser()">Register</button>-->
+<!--    </form>-->
+<!--</section>-->
+
+<!--<section>-->
+<!--    <h2>Authenticate (login) (f12 -> console to see stored token)</h2>-->
+<!--    <form id="loginForm">-->
+<!--        Email: <input type="email" id="emailLogin"><br>-->
+<!--        Password: <input type="password" id="passwordLogin"><br>-->
+<!--        <button type="button" onclick="login()">Login</button>-->
+<!--    </form>-->
+<!--</section>-->
+
+<!--<section>-->
+<!--    <h2>Create Community (isPrivate and isArchived are set false for easier testing )</h2>-->
+<!--    <form id="communityForm">-->
+<!--        Community Name: <input type="text" id="name"><br>-->
+<!--        Description: <input type="text" id="description"><br>-->
+<!--        isPrivate: <input type="text" id="isPrivate"><br>-->
+<!--        isArchived: <input type="text" id="isArchived"><br>-->
+<!--        <button type="button" onclick="createCommunity()">Create Community</button>-->
+<!--    </form>-->
+<!--</section>-->
+
+<!--<section>-->
+<!--    <h2>Assign Role</h2>-->
+<!--    <form id="roleForm">-->
+<!--        Community ID: <input type="number" id="communityId"><br>-->
+<!--        User ID: <input type="number" id="userId"><br>-->
+<!--        Role: <select id="role">-->
+<!--        <option value="ADMIN">Admin</option>-->
+<!--        <option value="MODERATOR">Moderator</option>-->
+<!--        <option value="MEMBER">Member</option>-->
+<!--    </select><br>-->
+<!--        <button type="button" onclick="assignRole()">Assign Role</button>-->
+<!--    </form>-->
+<!--</section>-->
+
+<!--<script src="/js/app.js"></script>-->
+<!--</body>-->
+<!--</html>-->
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Welcome to Our Application</title>
+    <style>
+        .hidden { display: none; }
+    </style>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            function toggleForm(formId) {
+                document.getElementById('loginForm').classList.add('hidden');
+                document.getElementById('registerForm').classList.add('hidden');
+                document.getElementById(formId).classList.remove('hidden');
+            }
+
+            document.getElementById('loginButton').addEventListener('click', function() {
+                toggleForm('loginForm');
+            });
+
+            document.getElementById('registerButton').addEventListener('click', function() {
+                toggleForm('registerForm');
+            });
+
+            document.getElementById('loginForm').addEventListener('submit', function(event) {
+                event.preventDefault(); // Prevent the form from submitting through HTML form submission
+                login(); // Call your login function
+            });
+
+            document.getElementById('registerForm').addEventListener('submit', function(event) {
+                event.preventDefault(); // Prevent the form from submitting through HTML form submission
+                registerUser(); // Call your registration function
+            });
+
+            function login() {
+                var email = document.getElementById('email').value;
+                var password = document.getElementById('password').value;
+
+                fetch('http://localhost:8080/api/v1/auth/authenticate', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ email, password })
+                })
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok: ' + response.statusText);
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    localStorage.setItem('access_token', data.access_token);
+                    console.log('User authenticated and token stored:', data.access_token);
+                })
+                .catch(error => {
+                    console.error('Error logging in:', error);
+                });
+            }
+
+            function registerUser() {
+                var firstname = document.getElementById('firstname').value;
+                var lastname = document.getElementById('lastname').value;
+                var username = document.getElementById('username').value;
+                var email = document.getElementById('email').value;
+                var password = document.getElementById('password').value;
+
+                fetch('http://localhost:8080/api/v1/auth/register', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ firstname, lastname, username, email, password })
+                }).then(response => response.json())
+                  .then(data => alert('User registered: ' + JSON.stringify(data)))
+                  .catch(error => alert('Error registering user: ' + error));
+            }
+        });
+    </script>
+</head>
+<body>
+<h1>Welcome to Our Application</h1>
+<button id="loginButton">Already a user? Login!</button>
+<button id="registerButton">Register!</button>
+
+<div id="loginForm" class="hidden">
+    <h2>Login</h2>
+    <form action="#">
+        <input type="email" id="email" placeholder="Email" required>
+        <input type="password" id="password" placeholder="Password" required>
+        <button type="submit">Login</button>
+    </form>
+</div>
+
+<div id="registerForm" the class="hidden">
+    <h2>Register</h2>
+    <form action="#">
+        <input type="text" id="firstname" placeholder="First Name" required>
+        <input type="text" id="lastname" placeholder="Last Name" required>
+        <input type="text" id="username" placeholder="Username" required>
+        <input type="email" id="email" placeholder="Email" required>
+        <input type="password" id="password" placeholder="Password" required>
+        <select id="role">
+            <option value="USER">User</option>
+            <option value="ADMIN">Admin</option>
+        </select>
+        <button type="submit">Register</button>
+    </form>
+</div>
+</body>
+</html>
+
+
+
+

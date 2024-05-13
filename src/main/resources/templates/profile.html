@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Create Profile</title>
+</head>
+<body>
+<h1>Create Profile</h1>
+<form action="#" th:action="@{/api/v1/createProfile}" method="post">
+  <textarea name="bio" placeholder="Your bio here"></textarea>
+  <input type="text" name="avatarUrl" placeholder="Avatar URL">
+  <button type="submit">Create Profile</button>
+</form>
+</body>
+</html>

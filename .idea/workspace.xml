@@ -5,24 +5,14 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="706bbec5-3237-4afd-b20f-e8c8f4ece169" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/devcom/post/CreatePostRequest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/devcom/post/Post.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/devcom/post/PostController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/devcom/post/PostData.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/devcom/post/PostDataDTO.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/devcom/post/PostDataRepository.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/devcom/post/PostRepository.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/devcom/post/PostService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/devcom/post/Template.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/devcom/post/TemplateController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/devcom/post/TemplateField.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/devcom/post/TemplateFieldRepository.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/devcom/post/TemplateRepository.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/devcom/post/TemplateService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/devcom/web/WebController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/templates/login.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/templates/profile.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/templates/register.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/devcom/auth/AuthenticationService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/devcom/auth/AuthenticationService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/devcom/auth/RegisterRequest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/devcom/auth/RegisterRequest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/devcom/community/Community.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/devcom/community/Community.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/static/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/static/js/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/static/js/app.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -33,6 +23,7 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="Enum" />
+        <option value="HTML File" />
         <option value="Class" />
       </list>
     </option>
@@ -62,22 +53,24 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/Efe Göçmen/Desktop/nilay&quot;,
-    &quot;project.structure.last.edited&quot;: &quot;Project&quot;,
-    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
-    &quot;project.structure.side.proportion&quot;: &quot;0.0&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.sourceCode&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "DefaultHtmlFileTemplate": "HTML File",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "last_opened_file_path": "C:/Users/Efe Göçmen/Desktop/cankut",
+    "project.structure.last.edited": "Project",
+    "project.structure.proportion": "0.15",
+    "project.structure.side.proportion": "0.0",
+    "settings.editor.selected.configurable": "preferences.sourceCode"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CreateClassDialog.RecentsKey">
       <recent name="com.devcom.post" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\Efe Göçmen\Desktop\SWE-573-Software-Development-Practice\src\main\resources\templates" />
       <recent name="C:\Users\Efe Göçmen\Desktop\SWE-573-Software-Development-Practice" />
     </key>
   </component>
