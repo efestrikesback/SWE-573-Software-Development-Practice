@@ -13,6 +13,22 @@ public class WebController {
         return "index";
     }
 
+    @GetMapping("/mainPage")
+    public String mainPage() {
+        // Optionally load data for the main page
+        // For example, fetch a list of communities and add to the model
+        // List<Community> communities = communityService.findAll();
+        // model.addAttribute("communities", communities);
+
+        return "mainPage";  // returns the mainPage.html Thymeleaf template
+    }
+
+    @GetMapping("/userProfile")
+    public String userProfile(){
+
+        return "userProfile";
+    }
+
     @GetMapping("/login")
     public String login() {
         return "login";
@@ -29,9 +45,6 @@ public class WebController {
         return "redirect:/login";
     }
 
-    @GetMapping("/profile")
-    public String profile() {
-        return "profile";
-    }
+
 }
 

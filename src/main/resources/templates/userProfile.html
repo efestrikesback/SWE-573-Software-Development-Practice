@@ -1,0 +1,156 @@
+<!--<!DOCTYPE html>-->
+<!--<html xmlns:th="http://www.thymeleaf.org">-->
+<!--<head>-->
+<!--  <meta charset="UTF-8">-->
+<!--  <title>Create Profile</title>-->
+<!--  <script>-->
+<!--    function submitProfile() {-->
+<!--      event.preventDefault(); // Prevent default form submission-->
+<!--      const bio = document.getElementById('bio').value;-->
+<!--      const avatarUrl = document.getElementById('avatarUrl').value;-->
+<!--      const token = localStorage.getItem('access_token'); // Assume token is stored in local storage-->
+
+<!--      fetch('/api/v1/userProfile/create', {-->
+<!--        method: 'POST',-->
+<!--        headers: {-->
+<!--          'Content-Type': 'application/json',-->
+<!--          'Authorization': `Bearer ${token}` // Include the token in the request header-->
+<!--        },-->
+<!--        body: JSON.stringify({ bio, avatarUrl })-->
+<!--      })-->
+<!--      .then(response => {-->
+<!--        if (!response.ok) throw new Error('Failed to create profile');-->
+<!--        return response.json();-->
+<!--      })-->
+<!--      .then(data => {-->
+<!--        alert('Profile created successfully');-->
+<!--        console.log(data);-->
+<!--      })-->
+<!--      .catch(error => {-->
+<!--        console.error('Error:', error);-->
+<!--        alert('Error creating profile: ' + error.message);-->
+<!--      });-->
+<!--    }-->
+<!--  </script>-->
+<!--</head>-->
+<!--<body>-->
+<!--<h1>Create Profile</h1>-->
+<!--<form onsubmit="submitProfile()">-->
+<!--  <textarea id="bio" placeholder="Your bio here"></textarea>-->
+<!--  <input type="text" id="avatarUrl" placeholder="Avatar URL">-->
+<!--  <button type="submit">Create Profile</button>-->
+<!--</form>-->
+<!--</body>-->
+<!--</html>-->
+
+
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Create/Update Profile</title>
+  <script th:inline="javascript">
+    function submitProfile(event) {
+      event.preventDefault(); // Prevent default form submission
+      const bio = document.getElementById('bio').value;
+      const avatarUrl = document.getElementById('avatarUrl').value;
+      const token = localStorage.getItem('access_token'); // Assume token is stored in local storage
+
+      fetch('/api/v1/userProfile/create', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}` // Include the token in the request header
+        },
+        body: JSON.stringify({ bio, avatarUrl })
+      })
+      .then(response => {
+        if (!response.ok) throw new Error('Failed to create profile');
+        return response.json();
+      })
+      .then(data => {
+        alert('Profile created successfully');
+        console.log(data);
+      })
+      .catch(error => {
+        console.error('Error:', error);
+        alert('Error creating profile: ' + error.message);
+      });
+    }
+
+    function updateProfile(event) {
+      event.preventDefault(); // Prevent default form submission
+      const bio = document.getElementById('updateBio').value;
+      const avatarUrl = document.getElementById('updateAvatarUrl').value;
+      const profileId = document.getElementById('profileId').value; // Profile ID for updating
+      const token = localStorage.getItem('access_token'); // Assume token is stored in local storage
+
+      fetch(`/api/v1/userProfile/update/${profileId}`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}` // Include the token in the request header
+        },
+        body: JSON.stringify({ bio, avatarUrl })
+      })
+      .then(response => {
+        if (!response.ok) throw new Error('Failed to update profile');
+        return response.json();
+      })
+      .then(data => {
+        alert('Profile updated successfully');
+        console.log(data);
+      })
+      .catch(error => {
+        console.error('Error:', error);
+        alert('Error updating profile: ' + error.message);
+      });
+    }
+
+    function loadProfile() {
+      const token = localStorage.getItem('access_token'); // Assume token is stored in local storage
+
+      fetch('/api/v1/userProfile/me', {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}` // Include the token in the request header
+        }
+      })
+      .then(response => {
+        if (!response.ok) throw new Error('Failed to load profile');
+        return response.json();
+      })
+      .then(data => {
+        document.getElementById('profileId').value = data.profileId;
+        document.getElementById('updateBio').value = data.bio;
+        document.getElementById('updateAvatarUrl').value = data.avatarUrl;
+      })
+      .catch(error => {
+        console.error('Error:', error);
+        alert('Error loading profile: ' + error.message);
+      });
+    }
+
+    document.addEventListener('DOMContentLoaded', loadProfile);
+  </script>
+</head>
+<body>
+<h1>Create Profile</h1>
+<form onsubmit="submitProfile(event)">
+  <textarea id="bio" placeholder="Your bio here"></textarea>
+  <input type="text" id="avatarUrl" placeholder="Avatar URL">
+  <button type="submit">Create Profile</button>
+</form>
+
+<h1>Update Profile</h1>
+<form onsubmit="updateProfile(event)">
+  <input type="hidden" id="profileId">
+  <textarea id="updateBio" placeholder="Your bio here"></textarea>
+  <input type="text" id="updateAvatarUrl" placeholder="Avatar URL">
+  <button type="submit">Update Profile</button>
+</form>
+</body>
+</html>
+
+

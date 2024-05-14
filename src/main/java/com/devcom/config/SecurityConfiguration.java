@@ -38,8 +38,8 @@ public class SecurityConfiguration {
 
     //TODO trim whitelist after context implementation
     //check js access
-    private static final String[] WHITE_LIST_URL = {"/api/v1/auth/**",
-             "/", "/index.html", "/css/**", "/js/**"};
+    private static final String[] WHITE_LIST_URL = {"/api/v1/auth/**", "/api/v1/**",
+             "/", "/index.html", "/css/**", "/js/**", "/mainPage","/userProfile","/userProfile/create"};
     private final JwtAuthenticationFilter jwtAuthFilter;
     private final AuthenticationProvider authenticationProvider;
     private final LogoutHandler logoutHandler;
