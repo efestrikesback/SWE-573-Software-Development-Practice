@@ -8,6 +8,8 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 @Service
 @RequiredArgsConstructor
 public class CommunityService {
@@ -16,6 +18,10 @@ public class CommunityService {
 
     public Community getCommunity(Long id){
         return communityRepository.findById(id).orElseThrow();
+    }
+
+    public List<Community> getAllCommunities() {
+        return communityRepository.findAll();
     }
 
     @Transactional
