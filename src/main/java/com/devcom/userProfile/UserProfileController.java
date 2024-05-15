@@ -24,5 +24,10 @@ public class UserProfileController {
         return ResponseEntity.ok(updatedProfile);
     }
 
+    @GetMapping("/currentProfile")
+    public ResponseEntity<UserProfile> getCurrentProfile (){
+        return ResponseEntity.ok(service.getCurrentProfile());
+    }
+
 
 }

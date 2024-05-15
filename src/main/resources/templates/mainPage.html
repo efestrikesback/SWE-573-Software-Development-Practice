@@ -1,4 +1,83 @@
 
+<!--<!DOCTYPE html>-->
+<!--<html xmlns:th="http://www.thymeleaf.org">-->
+<!--<head>-->
+<!--  <meta charset="UTF-8">-->
+<!--  <title>Main Page - Community Platform</title>-->
+<!--  <style>-->
+<!--        body { font-family: Arial, sans-serif; }-->
+<!--        #navbar { background: #333; color: white; padding: 10px; }-->
+<!--        #navbar a { color: white; padding: 10px; text-decoration: none; }-->
+<!--        #navbar a:hover { background: #555; }-->
+<!--        .community { cursor: pointer; padding: 10px; border: 1px solid #ccc; margin-bottom: 5px; }-->
+<!--    </style>-->
+<!--</head>-->
+<!--<body>-->
+<!--<div id="navbar">-->
+<!--  <a href="/mainPage">Main Page</a>-->
+<!--  <a href="/userProfile">Profile</a>-->
+<!--  <a href="#" onclick="logout()">Logout</a>-->
+<!--</div>-->
+
+<!--<div id="communities">-->
+<!--  <h2>Available Communities</h2>-->
+<!--  &lt;!&ndash; This List will be populated dynamically &ndash;&gt;-->
+<!--</div>-->
+
+<!--<div id="createCommunity">-->
+<!--  <h2>Do you want to create your own community?</h2>-->
+<!--  <button onclick="window.location.href='/createCommunity'">Create Your Own Community</button>-->
+<!--</div>-->
+
+<!--<script>-->
+<!--&lt;!&ndash;document.addEventListener('DOMContentLoaded', function () {&ndash;&gt;-->
+<!--&lt;!&ndash;    function fetchCommunities() {&ndash;&gt;-->
+<!--&lt;!&ndash;        const token = localStorage.getItem('access_token'); // Get the stored token&ndash;&gt;-->
+<!--&lt;!&ndash;        console.log('Token on mainPage:', token); // Debugging statement&ndash;&gt;-->
+
+<!--&lt;!&ndash;        if (!token) {&ndash;&gt;-->
+<!--&lt;!&ndash;            alert('No token found, please log in.');&ndash;&gt;-->
+<!--&lt;!&ndash;            window.location.href = '/'; // Redirect to login if no token found&ndash;&gt;-->
+<!--&lt;!&ndash;            return;&ndash;&gt;-->
+<!--&lt;!&ndash;        }&ndash;&gt;-->
+
+<!--&lt;!&ndash;        fetch('http://localhost:8080/api/v1/community', {&ndash;&gt;-->
+<!--&lt;!&ndash;            headers: {&ndash;&gt;-->
+<!--&lt;!&ndash;                'Authorization': `Bearer ${token}`&ndash;&gt;-->
+<!--&lt;!&ndash;            }&ndash;&gt;-->
+<!--&lt;!&ndash;        })&ndash;&gt;-->
+<!--&lt;!&ndash;        .then(response => {&ndash;&gt;-->
+<!--&lt;!&ndash;            if (response.status === 403) {&ndash;&gt;-->
+<!--&lt;!&ndash;                throw new Error('Access denied');&ndash;&gt;-->
+<!--&lt;!&ndash;            }&ndash;&gt;-->
+<!--&lt;!&ndash;            return response.json();&ndash;&gt;-->
+<!--&lt;!&ndash;        })&ndash;&gt;-->
+<!--&lt;!&ndash;        .then(data => {&ndash;&gt;-->
+<!--&lt;!&ndash;            const communitiesContainer = document.getElementById('communities');&ndash;&gt;-->
+<!--&lt;!&ndash;            communitiesContainer.innerHTML = '<h2>Available Communities</h2>';&ndash;&gt;-->
+<!--&lt;!&ndash;            data.forEach(community => {&ndash;&gt;-->
+<!--&lt;!&ndash;                const div = document.createElement('div');&ndash;&gt;-->
+<!--&lt;!&ndash;                div.className = 'community';&ndash;&gt;-->
+<!--&lt;!&ndash;                div.textContent = community.name;&ndash;&gt;-->
+<!--&lt;!&ndash;                div.onclick = () => { window.location.href = '/community/' + community.id; };&ndash;&gt;-->
+<!--&lt;!&ndash;                communitiesContainer.appendChild(div);&ndash;&gt;-->
+<!--&lt;!&ndash;            });&ndash;&gt;-->
+<!--&lt;!&ndash;        })&ndash;&gt;-->
+<!--&lt;!&ndash;        .catch(error => console.error('Error fetching communities:', error));&ndash;&gt;-->
+<!--&lt;!&ndash;    }&ndash;&gt;-->
+
+<!--&lt;!&ndash;    function logout() {&ndash;&gt;-->
+<!--&lt;!&ndash;        localStorage.removeItem('access_token'); // Clear the stored token&ndash;&gt;-->
+<!--&lt;!&ndash;        window.location.href = '/'; // Redirect to login page&ndash;&gt;-->
+<!--&lt;!&ndash;    }&ndash;&gt;-->
+
+<!--&lt;!&ndash;    fetchCommunities();&ndash;&gt;-->
+<!--&lt;!&ndash;});&ndash;&gt;-->
+<!--</script>-->
+<!--</body>-->
+<!--</html>-->
+
+
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
@@ -10,7 +89,50 @@
         #navbar a { color: white; padding: 10px; text-decoration: none; }
         #navbar a:hover { background: #555; }
         .community { cursor: pointer; padding: 10px; border: 1px solid #ccc; margin-bottom: 5px; }
-    </style>
+  </style>
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+        function fetchCommunities() {
+            const token = localStorage.getItem('access_token'); // Get the stored token
+            if (!token) {
+                alert('No token found, please log in.');
+                window.location.href = '/'; // Redirect to login if no token found
+                return;
+            }
+
+            fetch('http://localhost:8080/api/v1/community', {
+                headers: {
+                    'Authorization': `Bearer ${token}`
+                }
+            })
+            .then(response => {
+                if (response.status === 403) {
+                    throw new Error('Access denied');
+                }
+                return response.json();
+            })
+            .then(data => {
+                const communitiesContainer = document.getElementById('communities');
+                communitiesContainer.innerHTML = '<h2>Available Communities</h2>';
+                data.forEach(community => {
+                    const div = document.createElement('div');
+                    div.className = 'community';
+                    div.textContent = community.name;
+                    div.onclick = () => { window.location.href = '/community/' + community.id; };
+                    communitiesContainer.appendChild(div);
+                });
+            })
+            .catch(error => console.error('Error fetching communities:', error));
+        }
+
+        function logout() {
+            localStorage.removeItem('access_token'); // Clear the stored token
+            window.location.href = '/'; // Redirect to login page
+        }
+
+        fetchCommunities();
+    });
+  </script>
 </head>
 <body>
 <div id="navbar">
@@ -28,52 +150,6 @@
   <h2>Do you want to create your own community?</h2>
   <button onclick="window.location.href='/createCommunity'">Create Your Own Community</button>
 </div>
-
-<script>
-<!--document.addEventListener('DOMContentLoaded', function () {-->
-<!--    function fetchCommunities() {-->
-<!--        const token = localStorage.getItem('access_token'); // Get the stored token-->
-<!--        console.log('Token on mainPage:', token); // Debugging statement-->
-
-<!--        if (!token) {-->
-<!--            alert('No token found, please log in.');-->
-<!--            window.location.href = '/'; // Redirect to login if no token found-->
-<!--            return;-->
-<!--        }-->
-
-<!--        fetch('http://localhost:8080/api/v1/community', {-->
-<!--            headers: {-->
-<!--                'Authorization': `Bearer ${token}`-->
-<!--            }-->
-<!--        })-->
-<!--        .then(response => {-->
-<!--            if (response.status === 403) {-->
-<!--                throw new Error('Access denied');-->
-<!--            }-->
-<!--            return response.json();-->
-<!--        })-->
-<!--        .then(data => {-->
-<!--            const communitiesContainer = document.getElementById('communities');-->
-<!--            communitiesContainer.innerHTML = '<h2>Available Communities</h2>';-->
-<!--            data.forEach(community => {-->
-<!--                const div = document.createElement('div');-->
-<!--                div.className = 'community';-->
-<!--                div.textContent = community.name;-->
-<!--                div.onclick = () => { window.location.href = '/community/' + community.id; };-->
-<!--                communitiesContainer.appendChild(div);-->
-<!--            });-->
-<!--        })-->
-<!--        .catch(error => console.error('Error fetching communities:', error));-->
-<!--    }-->
-
-<!--    function logout() {-->
-<!--        localStorage.removeItem('access_token'); // Clear the stored token-->
-<!--        window.location.href = '/'; // Redirect to login page-->
-<!--    }-->
-
-<!--    fetchCommunities();-->
-<!--});-->
-</script>
 </body>
 </html>
 

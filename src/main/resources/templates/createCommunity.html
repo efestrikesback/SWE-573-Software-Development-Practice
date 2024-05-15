@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Create Community</title>
+  <script>
+        function createCommunity(event) {
+            event.preventDefault(); // Prevent default form submission
+            const name = document.getElementById('name').value;
+            const description = document.getElementById('description').value;
+            const isPrivate = document.getElementById('isPrivate').checked;
+            const isArchived = document.getElementById('isArchived').checked;
+            const token = localStorage.getItem('access_token'); // Assume token is stored in local storage
+
+            fetch('/api/v1/community/create', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}` // Include the token in the request header
+                },
+                body: JSON.stringify({ name, description, isPrivate, isArchived })
+            })
+            .then(response => {
+                if (!response.ok) throw new Error('Failed to create community');
+                return response.json();
+            })
+            .then(data => {
+                alert('Community created successfully');
+                window.location.href = '/mainPage'; // Redirect to main page
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('Error creating community: ' + error.message);
+            });
+        }
+    </script>
+</head>
+<body>
+<h1>Create Community</h1>
+<form onsubmit="createCommunity(event)">
+  <input type="text" id="name" placeholder="Community Name" required>
+  <textarea id="description" placeholder="Description" required></textarea>
+  <label>
+    <input type="checkbox" id="isPrivate"> Private
+  </label>
+  <label>
+    <input type="checkbox" id="isArchived"> Archived
+  </label>
+  <button type="submit">Create</button>
+</form>
+</body>
+</html>

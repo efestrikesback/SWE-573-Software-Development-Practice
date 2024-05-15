@@ -17,7 +17,11 @@ public class UserProfileService {
 
     private final UserRepository userRepository;
 
-
+    public UserProfile getCurrentProfile(){
+        User profileOwner = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        Long id= profileOwner.getId();
+        return repository.findById(id).orElseThrow();
+    }
     @Transactional
     public UserProfile createProfile(UserProfile profile) {
 

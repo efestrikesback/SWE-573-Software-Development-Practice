@@ -29,6 +29,11 @@ public class WebController {
         return "userProfile";
     }
 
+    @GetMapping("/createCommunity")
+    public String createCommunity() {
+        return "createCommunity";
+    }
+
     @GetMapping("/login")
     public String login() {
         return "login";

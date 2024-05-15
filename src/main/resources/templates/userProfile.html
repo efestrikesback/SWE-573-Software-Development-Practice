@@ -85,7 +85,7 @@
       const profileId = document.getElementById('profileId').value; // Profile ID for updating
       const token = localStorage.getItem('access_token'); // Assume token is stored in local storage
 
-      fetch(`/api/v1/userProfile/update/${profileId}`, {
+      fetch(`/api/v1/userProfile/update`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
@@ -110,7 +110,7 @@
     function loadProfile() {
       const token = localStorage.getItem('access_token'); // Assume token is stored in local storage
 
-      fetch('/api/v1/userProfile/me', {
+      fetch('/api/v1/userProfile/currentProfile', {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',
@@ -122,7 +122,7 @@
         return response.json();
       })
       .then(data => {
-        document.getElementById('profileId').value = data.profileId;
+<!--        document.getElementById('profileId').value = data.profileId;-->
         document.getElementById('updateBio').value = data.bio;
         document.getElementById('updateAvatarUrl').value = data.avatarUrl;
       })
