@@ -8,6 +8,8 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.NoSuchElementException;
+
 @Service
 @RequiredArgsConstructor
 
@@ -20,7 +22,8 @@ public class UserProfileService {
     public UserProfile getCurrentProfile(){
         User profileOwner = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         Long id= profileOwner.getId();
-        return repository.findById(id).orElseThrow();
+//        return repository.findById(id).orElseThrow();
+        return repository.findByUserId(id).orElseThrow(() -> new NoSuchElementException("Profile not found for user ID: " + id));
     }
     @Transactional
     public UserProfile createProfile(UserProfile profile) {
