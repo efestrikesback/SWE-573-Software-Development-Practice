@@ -1,9 +1,163 @@
 
+
+<!--<!DOCTYPE html>-->
+<!--<html xmlns:th="http://www.thymeleaf.org">-->
+<!--<head>-->
+<!--  <meta charset="UTF-8">-->
+<!--  <title>User Profile</title>-->
+<!--  <style>-->
+<!--    .hidden { display: none; }-->
+<!--  </style>-->
+<!--  <script th:inline="javascript">-->
+<!--    function submitProfile(event) {-->
+<!--      event.preventDefault(); // Prevent default form submission-->
+<!--      const bio = document.getElementById('bio').value;-->
+<!--      const avatarUrl = document.getElementById('avatarUrl').value;-->
+<!--      const token = localStorage.getItem('access_token'); // Assume token is stored in local storage-->
+
+<!--      fetch('/api/v1/userProfile/create', {-->
+<!--        method: 'POST',-->
+<!--        headers: {-->
+<!--          'Content-Type': 'application/json',-->
+<!--          'Authorization': `Bearer ${token}` // Include the token in the request header-->
+<!--        },-->
+<!--        body: JSON.stringify({ bio, avatarUrl })-->
+<!--      })-->
+<!--      .then(response => {-->
+<!--        if (!response.ok) throw new Error('Failed to create profile');-->
+<!--        return response.json();-->
+<!--      })-->
+<!--      .then(data => {-->
+<!--        alert('Profile created successfully');-->
+<!--        console.log(data);-->
+<!--        loadProfile();-->
+<!--      })-->
+<!--      .catch(error => {-->
+<!--        console.error('Error:', error);-->
+<!--        alert('Error creating profile: ' + error.message);-->
+<!--      });-->
+<!--    }-->
+
+<!--    function updateProfile(event) {-->
+<!--      event.preventDefault(); // Prevent default form submission-->
+<!--      const bio = document.getElementById('updateBio').value;-->
+<!--      const avatarUrl = document.getElementById('updateAvatarUrl').value;-->
+<!--      const token = localStorage.getItem('access_token'); // Assume token is stored in local storage-->
+
+<!--      fetch('/api/v1/userProfile/update', {-->
+<!--        method: 'PUT',-->
+<!--        headers: {-->
+<!--          'Content-Type': 'application/json',-->
+<!--          'Authorization': `Bearer ${token}` // Include the token in the request header-->
+<!--        },-->
+<!--        body: JSON.stringify({ bio, avatarUrl })-->
+<!--      })-->
+<!--      .then(response => {-->
+<!--        if (!response.ok) throw new Error('Failed to update profile');-->
+<!--        return response.json();-->
+<!--      })-->
+<!--      .then(data => {-->
+<!--        alert('Profile updated successfully');-->
+<!--        console.log(data);-->
+<!--        loadProfile();-->
+<!--      })-->
+<!--      .catch(error => {-->
+<!--        console.error('Error:', error);-->
+<!--        alert('Error updating profile: ' + error.message);-->
+<!--      });-->
+<!--    }-->
+
+<!--    function loadProfile() {-->
+<!--      const token = localStorage.getItem('access_token'); // Assume token is stored in local storage-->
+
+<!--      fetch('/api/v1/userProfile/currentProfile', {-->
+<!--        method: 'GET',-->
+<!--        headers: {-->
+<!--          'Content-Type': 'application/json',-->
+<!--          'Authorization': `Bearer ${token}` // Include the token in the request header-->
+<!--        }-->
+<!--      })-->
+<!--      .then(response => {-->
+<!--        if (response.status === 404) {-->
+<!--          return null; // No profile found-->
+<!--        } else if (!response.ok) {-->
+<!--          throw new Error('Failed to load profile');-->
+<!--        }-->
+<!--        return response.json();-->
+<!--      })-->
+<!--      .then(data => {-->
+<!--        if (data) {-->
+<!--          document.getElementById('profileId').value = data.profileId;-->
+<!--          document.getElementById('bioDisplay').textContent = data.bio;-->
+<!--          document.getElementById('avatarUrlDisplay').textContent = data.avatarUrl;-->
+<!--          document.getElementById('updateBio').value = data.bio;-->
+<!--          document.getElementById('updateAvatarUrl').value = data.avatarUrl;-->
+<!--          document.getElementById('profileInfo').classList.remove('hidden');-->
+<!--          document.getElementById('createProfileForm').classList.add('hidden');-->
+<!--        } else {-->
+<!--          document.getElementById('profileInfo').classList.add('hidden');-->
+<!--          document.getElementById('createProfileForm').classList.remove('hidden');-->
+<!--        }-->
+<!--      })-->
+<!--      .catch(error => {-->
+<!--        console.error('Error:', error);-->
+<!--        alert('Error loading profile: ' + error.message);-->
+<!--      });-->
+<!--    }-->
+
+<!--    function showUpdateForm() {-->
+<!--      document.getElementById('profileInfo').classList.add('hidden');-->
+<!--      document.getElementById('updateProfileForm').classList.remove('hidden');-->
+<!--    }-->
+
+<!--    function hideUpdateForm() {-->
+<!--      document.getElementById('profileInfo').classList.remove('hidden');-->
+<!--      document.getElementById('updateProfileForm').classList.add('hidden');-->
+<!--    }-->
+
+<!--    document.addEventListener('DOMContentLoaded', loadProfile);-->
+<!--  </script>-->
+<!--</head>-->
+<!--<body>-->
+<!--<h1>User Profile</h1>-->
+
+<!--<div id="profileInfo" class="hidden">-->
+<!--  <p><strong>Bio:</strong> <span id="bioDisplay"></span></p>-->
+<!--  <p><strong>Avatar URL:</strong> <span id="avatarUrlDisplay"></span></p>-->
+<!--  <button onclick="showUpdateForm()">Edit Profile</button>-->
+<!--  <button onclick="window.location.href='/mainPage'">Back to Main Page</button>-->
+<!--</div>-->
+
+<!--<div id="createProfileForm" class="hidden">-->
+<!--  <h2>Create Profile</h2>-->
+<!--  <form onsubmit="submitProfile(event)">-->
+<!--    <textarea id="bio" placeholder="Your bio here"></textarea>-->
+<!--    <input type="text" id="avatarUrl" placeholder="Avatar URL">-->
+<!--    <button type="submit">Create Profile</button>-->
+<!--  </form>-->
+<!--</div>-->
+
+<!--<div id="updateProfileForm" class="hidden">-->
+<!--  <h2>Update Profile</h2>-->
+<!--  <form onsubmit="updateProfile(event)">-->
+<!--    <input type="hidden" id="profileId">-->
+<!--    <textarea id="updateBio" placeholder="Your bio here"></textarea>-->
+<!--    <input type="text" id="updateAvatarUrl" placeholder="Avatar URL">-->
+<!--    <button type="submit">Update Profile</button>-->
+<!--  </form>-->
+<!--  <button onclick="hideUpdateForm()">Cancel</button>-->
+<!--</div>-->
+<!--</body>-->
+<!--</html>-->
+
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
   <meta charset="UTF-8">
-  <title>Create/Update Profile</title>
+  <title>User Profile</title>
+  <style>
+    .hidden { display: none; }
+  </style>
   <script th:inline="javascript">
     function submitProfile(event) {
       event.preventDefault(); // Prevent default form submission
@@ -26,6 +180,7 @@
       .then(data => {
         alert('Profile created successfully');
         console.log(data);
+        loadProfile(); // Reload the profile after creation
       })
       .catch(error => {
         console.error('Error:', error);
@@ -37,10 +192,9 @@
       event.preventDefault(); // Prevent default form submission
       const bio = document.getElementById('updateBio').value;
       const avatarUrl = document.getElementById('updateAvatarUrl').value;
-      const profileId = document.getElementById('profileId').value; // Profile ID for updating
       const token = localStorage.getItem('access_token'); // Assume token is stored in local storage
 
-      fetch(`/api/v1/userProfile/update`, {
+      fetch('/api/v1/userProfile/update', {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
@@ -55,6 +209,7 @@
       .then(data => {
         alert('Profile updated successfully');
         console.log(data);
+        loadProfile(); // Reload the profile after update
       })
       .catch(error => {
         console.error('Error:', error);
@@ -73,39 +228,75 @@
         }
       })
       .then(response => {
-        if (!response.ok) throw new Error('Failed to load profile');
+        if (response.status === 404) {
+          return null; // No profile found
+        } else if (!response.ok) {
+          throw new Error('Failed to load profile');
+        }
         return response.json();
       })
       .then(data => {
-<!--        document.getElementById('profileId').value = data.profileId;-->
-        document.getElementById('updateBio').value = data.bio;
-        document.getElementById('updateAvatarUrl').value = data.avatarUrl;
+        if (data) {
+          document.getElementById('profileId').value = data.profileId;
+          document.getElementById('bioDisplay').textContent = data.bio;
+          document.getElementById('avatarUrlDisplay').textContent = data.avatarUrl;
+          document.getElementById('updateBio').value = data.bio;
+          document.getElementById('updateAvatarUrl').value = data.avatarUrl;
+          document.getElementById('profileInfo').classList.remove('hidden');
+          document.getElementById('createProfileForm').classList.add('hidden');
+        } else {
+          document.getElementById('profileInfo').classList.add('hidden');
+          document.getElementById('createProfileForm').classList.remove('hidden');
+        }
       })
       .catch(error => {
         console.error('Error:', error);
-        alert('Error loading profile: ' + error.message);
+        document.getElementById('profileInfo').classList.add('hidden');
+        document.getElementById('createProfileForm').classList.remove('hidden');
       });
+    }
+
+    function showUpdateForm() {
+      document.getElementById('profileInfo').classList.add('hidden');
+      document.getElementById('updateProfileForm').classList.remove('hidden');
+    }
+
+    function hideUpdateForm() {
+      document.getElementById('profileInfo').classList.remove('hidden');
+      document.getElementById('updateProfileForm').classList.add('hidden');
     }
 
     document.addEventListener('DOMContentLoaded', loadProfile);
   </script>
 </head>
 <body>
-<h1>Create Profile</h1>
-<form onsubmit="submitProfile(event)">
-  <textarea id="bio" placeholder="Your bio here"></textarea>
-  <input type="text" id="avatarUrl" placeholder="Avatar URL">
-  <button type="submit">Create Profile</button>
-</form>
+<h1>User Profile</h1>
 
-<h1>Update Profile</h1>
-<form onsubmit="updateProfile(event)">
-  <input type="hidden" id="profileId">
-  <textarea id="updateBio" placeholder="Your bio here"></textarea>
-  <input type="text" id="updateAvatarUrl" placeholder="Avatar URL">
-  <button type="submit">Update Profile</button>
-</form>
+<div id="profileInfo" class="hidden">
+  <p><strong>Bio:</strong> <span id="bioDisplay"></span></p>
+  <p><strong>Avatar URL:</strong> <span id="avatarUrlDisplay"></span></p>
+  <button onclick="showUpdateForm()">Edit Profile</button>
+  <button onclick="window.location.href='/mainPage'">Back to Main Page</button>
+</div>
+
+<div id="createProfileForm" class="hidden">
+  <h2>Create Profile</h2>
+  <form onsubmit="submitProfile(event)">
+    <textarea id="bio" placeholder="Your bio here"></textarea>
+    <input type="text" id="avatarUrl" placeholder="Avatar URL">
+    <button type="submit">Create Profile</button>
+  </form>
+</div>
+
+<div id="updateProfileForm" class="hidden">
+  <h2>Update Profile</h2>
+  <form onsubmit="updateProfile(event)">
+    <input type="hidden" id="profileId">
+    <textarea id="updateBio" placeholder="Your bio here"></textarea>
+    <input type="text" id="updateAvatarUrl" placeholder="Avatar URL">
+    <button type="submit">Update Profile</button>
+  </form>
+  <button onclick="hideUpdateForm()">Cancel</button>
+</div>
 </body>
 </html>
-
-
