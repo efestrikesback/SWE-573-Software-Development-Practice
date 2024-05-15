@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Community Details</title>
+  <style>
+    body { font-family: Arial, sans-serif; }
+    #navbar { background: #333; color: white; padding: 10px; }
+    #navbar a { color: white; padding: 10px; text-decoration: none; }
+    #navbar a:hover { background: #555; }
+  </style>
+  <script th:inline="javascript">
+    function loadCommunityDetails() {
+      const urlParams = new URLSearchParams(window.location.search);
+      const communityId = urlParams.get('communityId');
+      const token = localStorage.getItem('access_token'); // Assume token is stored in local storage
+
+      fetch(`/api/v1/community/${communityId}/details`, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}` // Include the token in the request header
+        }
+      })
+      .then(response => {
+        if (!response.ok) throw new Error('Failed to load community details');
+        return response.json();
+      })
+      .then(data => {
+        document.getElementById('communityName').textContent = data.name;
+        document.getElementById('communityDescription').textContent = data.description;
+        document.getElementById('communityOwner').textContent = data.owner.username;
+
+        const membersList = document.getElementById('membersList');
+        membersList.innerHTML = '';
+        data.memberships.forEach(membership => {
+          const li = document.createElement('li');
+          li.textContent = membership.user.username;
+          membersList.appendChild(li);
+        });
+
+        const postsList = document.getElementById('postsList');
+        postsList.innerHTML = '';
+        data.posts.forEach(post => {
+          const li = document.createElement('li');
+          li.textContent = post.title;
+          postsList.appendChild(li);
+        });
+      })
+      .catch(error => {
+        console.error('Error:', error);
+        alert('Error loading community details: ' + error.message);
+      });
+    }
+
+    document.addEventListener('DOMContentLoaded', loadCommunityDetails);
+  </script>
+</head>
+<body>
+<div id="navbar">
+  <a href="/mainPage">Main Page</a>
+  <a href="/userProfile">Profile</a>
+  <a href="#" onclick="logout()">Logout</a>
+</div>
+
+<h1 id="communityName">Community Name</h1>
+<p id="communityDescription">Community Description</p>
+<p><strong>Community Creator:</strong> <span id="communityOwner"></span></p>
+
+<h2>Members</h2>
+<ul id="membersList">
+  <!-- Members will be populated here -->
+</ul>
+
+<h2>Posts</h2>
+<ul id="postsList">
+  <!-- Posts will be populated here -->
+</ul>
+
+<button onclick="window.location.href='/createPost?communityId=' + new URLSearchParams(window.location.search).get('communityId')">Create a Post</button>
+
+<script>
+    function logout() {
+      localStorage.removeItem('access_token'); // Clear the stored token
+      window.location.href = '/'; // Redirect to login page
+    }
+  </script>
+</body>
+</html>

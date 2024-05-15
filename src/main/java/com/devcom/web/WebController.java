@@ -15,12 +15,7 @@ public class WebController {
 
     @GetMapping("/mainPage")
     public String mainPage() {
-        // Optionally load data for the main page
-        // For example, fetch a list of communities and add to the model
-        // List<Community> communities = communityService.findAll();
-        // model.addAttribute("communities", communities);
-
-        return "mainPage";  // returns the mainPage.html Thymeleaf template
+        return "mainPage";
     }
 
     @GetMapping("/userProfile")
@@ -32,6 +27,11 @@ public class WebController {
     @GetMapping("/createCommunity")
     public String createCommunity() {
         return "createCommunity";
+    }
+
+    @GetMapping("/communityPage")
+    public String communityPage() {
+        return "communityPage";
     }
 
     @GetMapping("/login")
@@ -46,7 +46,6 @@ public class WebController {
 
     @PostMapping("/register")
     public String processRegister() {
-        // Process registration logic here
         return "redirect:/login";
     }
 

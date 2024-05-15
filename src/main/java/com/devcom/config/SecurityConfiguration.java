@@ -40,6 +40,7 @@ public class SecurityConfiguration {
     //check js access
     private static final String[] WHITE_LIST_URL = {
             "/api/v1/auth/**",
+            "/api/v1/**",
             "/",
             "/index.html",
             "/css/**",
@@ -48,7 +49,9 @@ public class SecurityConfiguration {
             "/userProfile",
             "/userProfile/create",
             "/userProfile/currentProfile",
-            "/createCommunity"
+            "/communityPage",
+            "/createCommunity",
+            "/api/v1/community/**"
     };
     private final JwtAuthenticationFilter jwtAuthFilter;
     private final AuthenticationProvider authenticationProvider;
