@@ -5,15 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="706bbec5-3237-4afd-b20f-e8c8f4ece169" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/resources/templates/createCommunity.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/devcom/config/SecurityConfiguration.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/devcom/config/SecurityConfiguration.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/devcom/userProfile/UserProfileController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/devcom/userProfile/UserProfileController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/devcom/userProfile/UserProfileService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/devcom/userProfile/UserProfileService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/devcom/web/WebController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/devcom/web/WebController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/mainPage.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/mainPage.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/userProfile.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/userProfile.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/devcom/auth/AuthenticationService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/devcom/auth/AuthenticationService.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

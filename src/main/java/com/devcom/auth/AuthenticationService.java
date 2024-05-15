@@ -28,8 +28,13 @@ public class AuthenticationService {
   private final AuthenticationManager authenticationManager;
 
   public AuthenticationResponse register(RegisterRequest request) {
-    User user= User.builder().username(request.getUsername()).password(passwordEncoder.encode(request.getPassword()))
-            .email(request.getEmail()).role(request.getRole()).build();
+    User user= User.builder().username(request.getUsername())
+            .password(passwordEncoder.encode(request.getPassword()))
+            .email(request.getEmail())
+            .role(request.getRole())
+            .firstname(request.getFirstname())
+            .lastname(request.getLastname())
+            .build();
 
 
     var savedUser = repository.save(user);
