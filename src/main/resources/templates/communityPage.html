@@ -29,23 +29,34 @@
       .then(data => {
         document.getElementById('communityName').textContent = data.name;
         document.getElementById('communityDescription').textContent = data.description;
-        document.getElementById('communityOwner').textContent = data.owner.username;
+
+        if (data.owner && data.owner.username) {
+          document.getElementById('communityOwner').textContent = data.owner.username;
+        } else {
+          document.getElementById('communityOwner').textContent = 'Unknown';
+        }
 
         const membersList = document.getElementById('membersList');
         membersList.innerHTML = '';
-        data.memberships.forEach(membership => {
-          const li = document.createElement('li');
-          li.textContent = membership.user.username;
-          membersList.appendChild(li);
-        });
+        if (data.memberships) {
+          data.memberships.forEach(membership => {
+            if (membership.user && membership.user.username) {
+              const li = document.createElement('li');
+              li.textContent = membership.user.username;
+              membersList.appendChild(li);
+            }
+          });
+        }
 
         const postsList = document.getElementById('postsList');
         postsList.innerHTML = '';
-        data.posts.forEach(post => {
-          const li = document.createElement('li');
-          li.textContent = post.title;
-          postsList.appendChild(li);
-        });
+        if (data.posts) {
+          data.posts.forEach(post => {
+            const li = document.createElement('li');
+            li.textContent = post.title;
+            postsList.appendChild(li);
+          });
+        }
       })
       .catch(error => {
         console.error('Error:', error);
@@ -54,6 +65,11 @@
     }
 
     document.addEventListener('DOMContentLoaded', loadCommunityDetails);
+
+    function logout() {
+      localStorage.removeItem('access_token'); // Clear the stored token
+      window.location.href = '/'; // Redirect to login page
+    }
   </script>
 </head>
 <body>
@@ -78,12 +94,5 @@
 </ul>
 
 <button onclick="window.location.href='/createPost?communityId=' + new URLSearchParams(window.location.search).get('communityId')">Create a Post</button>
-
-<script>
-    function logout() {
-      localStorage.removeItem('access_token'); // Clear the stored token
-      window.location.href = '/'; // Redirect to login page
-    }
-  </script>
 </body>
 </html>

@@ -41,4 +41,6 @@ public class CommunityController {
         Community community = communityService.getCommunity(id);
         return ResponseEntity.ok(community);
     }
+
+
 }

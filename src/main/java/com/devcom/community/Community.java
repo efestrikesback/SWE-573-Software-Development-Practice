@@ -3,6 +3,7 @@ package com.devcom.community;
 
 import com.devcom.user.User;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.*;
@@ -32,9 +33,14 @@ public class Community {
 
     //The creator is the first owner
     //TODO ownership transfer
+//    @ManyToOne
+//    @JoinColumn(name = "owner_id")
+//    @JsonIgnore
+//    private User owner;
+
     @ManyToOne
     @JoinColumn(name = "owner_id")
-    @JsonIgnore
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler", "password", "tokens", "memberships"})
     private User owner;
 
     @OneToMany(mappedBy = "community",fetch = FetchType.EAGER)
@@ -45,6 +51,7 @@ public class Community {
     private Set<Membership> memberships;
 
     //TODO posts and data types
-
+//    @OneToMany(mappedBy = "community", fetch = FetchType.LAZY)
+//    private Set<Post> posts;
 
 }
