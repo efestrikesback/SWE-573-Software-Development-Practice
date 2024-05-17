@@ -36,10 +36,20 @@ public class CommunityController {
         return ResponseEntity.ok(communityService.joinCommunity(id));
     }
 
+    @PostMapping("/leave/{id}")
+    public ResponseEntity<Void> leaveCommunity(@PathVariable Long id) {
+        communityService.leaveCommunity(id);
+        return ResponseEntity.noContent().build();
+    }
     @GetMapping("/{id}/details")
     public ResponseEntity<Community> getCommunityDetails(@PathVariable Long id) {
         Community community = communityService.getCommunity(id);
         return ResponseEntity.ok(community);
+    }
+
+    @GetMapping("/{id}/isMember")
+    public ResponseEntity<Boolean> isMember(@PathVariable Long id) {
+        return ResponseEntity.ok(communityService.isMember(id));
     }
 
 

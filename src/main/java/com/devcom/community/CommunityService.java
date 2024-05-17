@@ -46,5 +46,17 @@ public class CommunityService {
         return membershipRepository.save(new Membership(membershipCode,communityRole,joiner,community));
     }
 
+    @Transactional
+    public void leaveCommunity(Long id) {
+        User leaver = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        MembershipCode membershipCode = new MembershipCode(leaver.getId(), id);
+        Membership membership = membershipRepository.findById(membershipCode).orElseThrow();
+        membershipRepository.delete(membership);
+    }
+    public boolean isMember(Long communityId) {
+        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        MembershipCode membershipCode = new MembershipCode(user.getId(), communityId);
+        return membershipRepository.existsById(membershipCode);
+    }
 
 }
