@@ -3,6 +3,7 @@ package com.devcom.community;
 import com.devcom.post.Post;
 import com.devcom.user.User;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -32,8 +33,12 @@ public class CommunityController {
     }
 
     @PostMapping("/join/{id}")
-    public ResponseEntity<Membership> joinCommunity(@PathVariable Long id) {
-        return ResponseEntity.ok(communityService.joinCommunity(id));
+    public ResponseEntity<?> joinCommunity(@PathVariable Long id) {
+        try {
+            return ResponseEntity.ok(communityService.joinCommunity(id));
+        } catch (IllegalStateException e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+        }
     }
 
     @PostMapping("/leave/{id}")

@@ -36,14 +36,35 @@ public class CommunityService {
         return createdCommunity;
     }
 
-    @Transactional
-    public Membership joinCommunity(Long id){
-        User joiner = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+//    @Transactional
+//    public Membership joinCommunity(Long id){
+//        User joiner = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+//
+//        String communityRole= CommunityRole.MEMBER.toString();
+//        Community community = communityRepository.findById(id).orElseThrow();
+//        MembershipCode membershipCode = new MembershipCode(joiner.getId(), community.getCommunityId());
+//        return membershipRepository.save(new Membership(membershipCode,communityRole,joiner,community));
+//    }
 
-        String communityRole= CommunityRole.MEMBER.toString();
+
+    @Transactional
+    public Membership joinCommunity(Long id) {
+        User joiner = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         Community community = communityRepository.findById(id).orElseThrow();
+
+        // Check if the user is already a member
         MembershipCode membershipCode = new MembershipCode(joiner.getId(), community.getCommunityId());
-        return membershipRepository.save(new Membership(membershipCode,communityRole,joiner,community));
+        if (membershipRepository.existsById(membershipCode)) {
+            throw new IllegalStateException("User is already a member of the community");
+        }
+
+        // Check if the user is the creator
+        if (community.getOwner().getId().equals(joiner.getId())) {
+            throw new IllegalStateException("User is the creator of the community and already a member");
+        }
+
+        String communityRole = CommunityRole.MEMBER.toString();
+        return membershipRepository.save(new Membership(membershipCode, communityRole, joiner, community));
     }
 
     @Transactional

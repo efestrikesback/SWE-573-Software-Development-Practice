@@ -8,7 +8,6 @@
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/devcom/community/CommunityController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/devcom/community/CommunityController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/devcom/community/CommunityService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/devcom/community/CommunityService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/devcom/config/SecurityConfiguration.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/devcom/config/SecurityConfiguration.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/templates/communityPage.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/communityPage.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />

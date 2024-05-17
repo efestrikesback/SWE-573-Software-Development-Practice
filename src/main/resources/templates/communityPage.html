@@ -1,3 +1,280 @@
+<!--&lt;!&ndash;&lt;!&ndash;<!DOCTYPE html>&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;<html xmlns:th="http://www.thymeleaf.org">&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;<head>&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;  <meta charset="UTF-8">&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;  <title>Community Details</title>&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;  <style>&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;    body { font-family: Arial, sans-serif; }&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;    #navbar { background: #333; color: white; padding: 10px; }&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;    #navbar a { color: white; padding: 10px; text-decoration: none; }&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;    #navbar a:hover { background: #555; }&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;  </style>&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;  <script th:inline="javascript">&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;    function loadCommunityDetails() {&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;      const urlParams = new URLSearchParams(window.location.search);&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;      const communityId = urlParams.get('communityId');&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;      const token = localStorage.getItem('access_token'); // Assume token is stored in local storage&ndash;&gt;&ndash;&gt;-->
+
+<!--&lt;!&ndash;&lt;!&ndash;      fetch(`/api/v1/community/${communityId}/details`, {&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;        method: 'GET',&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;        headers: {&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;          'Content-Type': 'application/json',&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;          'Authorization': `Bearer ${token}` // Include the token in the request header&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;        }&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;      })&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;      .then(response => {&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;        if (!response.ok) throw new Error('Failed to load community details');&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;        return response.json();&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;      })&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;      .then(data => {&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;        document.getElementById('communityName').textContent = data.name;&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;        document.getElementById('communityDescription').textContent = data.description;&ndash;&gt;&ndash;&gt;-->
+
+<!--&lt;!&ndash;&lt;!&ndash;        if (data.owner && data.owner.username) {&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;          document.getElementById('communityOwner').textContent = data.owner.username;&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;        } else {&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;          document.getElementById('communityOwner').textContent = 'Unknown';&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;        }&ndash;&gt;&ndash;&gt;-->
+
+<!--&lt;!&ndash;&lt;!&ndash;        const membersList = document.getElementById('membersList');&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;        membersList.innerHTML = '';&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;        if (data.memberships) {&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;          data.memberships.forEach(membership => {&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;            if (membership.user && membership.user.username) {&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;              const li = document.createElement('li');&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;              li.textContent = membership.user.username;&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;              membersList.appendChild(li);&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;            }&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;          });&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;        }&ndash;&gt;&ndash;&gt;-->
+
+<!--&lt;!&ndash;&lt;!&ndash;        const postsList = document.getElementById('postsList');&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;        postsList.innerHTML = '';&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;        if (data.posts) {&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;          data.posts.forEach(post => {&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;            const li = document.createElement('li');&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;            li.textContent = post.title;&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;            postsList.appendChild(li);&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;          });&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;        }&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;      })&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;      .catch(error => {&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;        console.error('Error:', error);&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;        alert('Error loading community details: ' + error.message);&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;      });&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;    }&ndash;&gt;&ndash;&gt;-->
+
+<!--&lt;!&ndash;&lt;!&ndash;    document.addEventListener('DOMContentLoaded', loadCommunityDetails);&ndash;&gt;&ndash;&gt;-->
+
+<!--&lt;!&ndash;&lt;!&ndash;    function logout() {&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;      localStorage.removeItem('access_token'); // Clear the stored token&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;      window.location.href = '/'; // Redirect to login page&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;    }&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;  </script>&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;</head>&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;<body>&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;<div id="navbar">&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;  <a href="/mainPage">Main Page</a>&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;  <a href="/userProfile">Profile</a>&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;  <a href="#" onclick="logout()">Logout</a>&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;</div>&ndash;&gt;&ndash;&gt;-->
+
+<!--&lt;!&ndash;&lt;!&ndash;<h1 id="communityName">Community Name</h1>&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;<p id="communityDescription">Community Description</p>&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;<p><strong>Community Creator:</strong> <span id="communityOwner"></span></p>&ndash;&gt;&ndash;&gt;-->
+
+<!--&lt;!&ndash;&lt;!&ndash;<h2>Members</h2>&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;<ul id="membersList">&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;  &lt;!&ndash; Members will be populated here &ndash;&gt;&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;</ul>&ndash;&gt;&ndash;&gt;-->
+
+<!--&lt;!&ndash;&lt;!&ndash;<h2>Posts</h2>&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;<ul id="postsList">&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;  &lt;!&ndash; Posts will be populated here &ndash;&gt;&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;</ul>&ndash;&gt;&ndash;&gt;-->
+
+<!--&lt;!&ndash;&lt;!&ndash;<button onclick="window.location.href='/createPost?communityId=' + new URLSearchParams(window.location.search).get('communityId')">Create a Post</button>&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;</body>&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;</html>&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;<!DOCTYPE html>&ndash;&gt;-->
+<!--&lt;!&ndash;<html xmlns:th="http://www.thymeleaf.org">&ndash;&gt;-->
+<!--&lt;!&ndash;<head>&ndash;&gt;-->
+<!--&lt;!&ndash;  <meta charset="UTF-8">&ndash;&gt;-->
+<!--&lt;!&ndash;  <title>Community Details</title>&ndash;&gt;-->
+<!--&lt;!&ndash;  <style>&ndash;&gt;-->
+<!--&lt;!&ndash;    body { font-family: Arial, sans-serif; }&ndash;&gt;-->
+<!--&lt;!&ndash;    #navbar { background: #333; color: white; padding: 10px; }&ndash;&gt;-->
+<!--&lt;!&ndash;    #navbar a { color: white; padding: 10px; text-decoration: none; }&ndash;&gt;-->
+<!--&lt;!&ndash;    #navbar a:hover { background: #555; }&ndash;&gt;-->
+<!--&lt;!&ndash;  </style>&ndash;&gt;-->
+<!--&lt;!&ndash;  <script th:inline="javascript">&ndash;&gt;-->
+<!--&lt;!&ndash;    function loadCommunityDetails() {&ndash;&gt;-->
+<!--&lt;!&ndash;      const urlParams = new URLSearchParams(window.location.search);&ndash;&gt;-->
+<!--&lt;!&ndash;      const communityId = urlParams.get('communityId');&ndash;&gt;-->
+<!--&lt;!&ndash;      const token = localStorage.getItem('access_token');&ndash;&gt;-->
+
+<!--&lt;!&ndash;      fetch(`/api/v1/community/${communityId}/details`, {&ndash;&gt;-->
+<!--&lt;!&ndash;        method: 'GET',&ndash;&gt;-->
+<!--&lt;!&ndash;        headers: {&ndash;&gt;-->
+<!--&lt;!&ndash;          'Content-Type': 'application/json',&ndash;&gt;-->
+<!--&lt;!&ndash;          'Authorization': `Bearer ${token}`&ndash;&gt;-->
+<!--&lt;!&ndash;        }&ndash;&gt;-->
+<!--&lt;!&ndash;      })&ndash;&gt;-->
+<!--&lt;!&ndash;      .then(response => {&ndash;&gt;-->
+<!--&lt;!&ndash;        if (!response.ok) throw new Error('Failed to load community details');&ndash;&gt;-->
+<!--&lt;!&ndash;        return response.json();&ndash;&gt;-->
+<!--&lt;!&ndash;      })&ndash;&gt;-->
+<!--&lt;!&ndash;      .then(data => {&ndash;&gt;-->
+<!--&lt;!&ndash;        document.getElementById('communityName').textContent = data.name;&ndash;&gt;-->
+<!--&lt;!&ndash;        document.getElementById('communityDescription').textContent = data.description;&ndash;&gt;-->
+
+<!--&lt;!&ndash;        if (data.owner) {&ndash;&gt;-->
+<!--&lt;!&ndash;          document.getElementById('communityOwner').textContent = data.owner.username;&ndash;&gt;-->
+<!--&lt;!&ndash;        } else {&ndash;&gt;-->
+<!--&lt;!&ndash;          document.getElementById('communityOwner').textContent = 'Unknown';&ndash;&gt;-->
+<!--&lt;!&ndash;        }&ndash;&gt;-->
+
+<!--&lt;!&ndash;        const membersList = document.getElementById('membersList');&ndash;&gt;-->
+<!--&lt;!&ndash;        membersList.innerHTML = '';&ndash;&gt;-->
+<!--&lt;!&ndash;        data.memberships.forEach(membership => {&ndash;&gt;-->
+<!--&lt;!&ndash;          const li = document.createElement('li');&ndash;&gt;-->
+<!--&lt;!&ndash;          li.textContent = membership.user.username;&ndash;&gt;-->
+<!--&lt;!&ndash;          membersList.appendChild(li);&ndash;&gt;-->
+<!--&lt;!&ndash;        });&ndash;&gt;-->
+
+<!--&lt;!&ndash;        const postsList = document.getElementById('postsList');&ndash;&gt;-->
+<!--&lt;!&ndash;        postsList.innerHTML = '';&ndash;&gt;-->
+<!--&lt;!&ndash;        data.posts.forEach(post => {&ndash;&gt;-->
+<!--&lt;!&ndash;          const li = document.createElement('li');&ndash;&gt;-->
+<!--&lt;!&ndash;          li.textContent = post.title;&ndash;&gt;-->
+<!--&lt;!&ndash;          postsList.appendChild(li);&ndash;&gt;-->
+<!--&lt;!&ndash;        });&ndash;&gt;-->
+
+<!--&lt;!&ndash;        checkMembershipStatus(communityId);&ndash;&gt;-->
+<!--&lt;!&ndash;      })&ndash;&gt;-->
+<!--&lt;!&ndash;      .catch(error => {&ndash;&gt;-->
+<!--&lt;!&ndash;        console.error('Error:', error);&ndash;&gt;-->
+<!--&lt;!&ndash;        alert('Error loading community details: ' + error.message);&ndash;&gt;-->
+<!--&lt;!&ndash;      });&ndash;&gt;-->
+<!--&lt;!&ndash;    }&ndash;&gt;-->
+
+<!--&lt;!&ndash;    function checkMembershipStatus(communityId) {&ndash;&gt;-->
+<!--&lt;!&ndash;      const token = localStorage.getItem('access_token');&ndash;&gt;-->
+
+<!--&lt;!&ndash;      fetch(`/api/v1/community/${communityId}/isMember`, {&ndash;&gt;-->
+<!--&lt;!&ndash;        method: 'GET',&ndash;&gt;-->
+<!--&lt;!&ndash;        headers: {&ndash;&gt;-->
+<!--&lt;!&ndash;          'Content-Type': 'application/json',&ndash;&gt;-->
+<!--&lt;!&ndash;          'Authorization': `Bearer ${token}`&ndash;&gt;-->
+<!--&lt;!&ndash;        }&ndash;&gt;-->
+<!--&lt;!&ndash;      })&ndash;&gt;-->
+<!--&lt;!&ndash;      .then(response => response.json())&ndash;&gt;-->
+<!--&lt;!&ndash;      .then(isMember => {&ndash;&gt;-->
+<!--&lt;!&ndash;        const joinButton = document.getElementById('joinButton');&ndash;&gt;-->
+<!--&lt;!&ndash;        const leaveButton = document.getElementById('leaveButton');&ndash;&gt;-->
+
+<!--&lt;!&ndash;        if (isMember) {&ndash;&gt;-->
+<!--&lt;!&ndash;          joinButton.textContent = 'You are already a member';&ndash;&gt;-->
+<!--&lt;!&ndash;          joinButton.disabled = true;&ndash;&gt;-->
+<!--&lt;!&ndash;          leaveButton.style.display = 'inline';&ndash;&gt;-->
+<!--&lt;!&ndash;        } else {&ndash;&gt;-->
+<!--&lt;!&ndash;          joinButton.textContent = 'Join Community';&ndash;&gt;-->
+<!--&lt;!&ndash;          joinButton.disabled = false;&ndash;&gt;-->
+<!--&lt;!&ndash;          leaveButton.style.display = 'none';&ndash;&gt;-->
+<!--&lt;!&ndash;        }&ndash;&gt;-->
+<!--&lt;!&ndash;      })&ndash;&gt;-->
+<!--&lt;!&ndash;      .catch(error => {&ndash;&gt;-->
+<!--&lt;!&ndash;        console.error('Error:', error);&ndash;&gt;-->
+<!--&lt;!&ndash;      });&ndash;&gt;-->
+<!--&lt;!&ndash;    }&ndash;&gt;-->
+
+<!--&lt;!&ndash;    function joinCommunity() {&ndash;&gt;-->
+<!--&lt;!&ndash;      const urlParams = new URLSearchParams(window.location.search);&ndash;&gt;-->
+<!--&lt;!&ndash;      const communityId = urlParams.get('communityId');&ndash;&gt;-->
+<!--&lt;!&ndash;      const token = localStorage.getItem('access_token');&ndash;&gt;-->
+
+<!--&lt;!&ndash;      fetch(`/api/v1/community/join/${communityId}`, {&ndash;&gt;-->
+<!--&lt;!&ndash;        method: 'POST',&ndash;&gt;-->
+<!--&lt;!&ndash;        headers: {&ndash;&gt;-->
+<!--&lt;!&ndash;          'Content-Type': 'application/json',&ndash;&gt;-->
+<!--&lt;!&ndash;          'Authorization': `Bearer ${token}`&ndash;&gt;-->
+<!--&lt;!&ndash;        }&ndash;&gt;-->
+<!--&lt;!&ndash;      })&ndash;&gt;-->
+<!--&lt;!&ndash;      .then(response => {&ndash;&gt;-->
+<!--&lt;!&ndash;        if (!response.ok) throw new Error('Failed to join community');&ndash;&gt;-->
+<!--&lt;!&ndash;        return response.json();&ndash;&gt;-->
+<!--&lt;!&ndash;      })&ndash;&gt;-->
+<!--&lt;!&ndash;      .then(data => {&ndash;&gt;-->
+<!--&lt;!&ndash;        alert('Successfully joined the community');&ndash;&gt;-->
+<!--&lt;!&ndash;        checkMembershipStatus(communityId);&ndash;&gt;-->
+<!--&lt;!&ndash;      })&ndash;&gt;-->
+<!--&lt;!&ndash;      .catch(error => {&ndash;&gt;-->
+<!--&lt;!&ndash;        console.error('Error:', error);&ndash;&gt;-->
+<!--&lt;!&ndash;        alert('Error joining community: ' + error.message);&ndash;&gt;-->
+<!--&lt;!&ndash;      });&ndash;&gt;-->
+<!--&lt;!&ndash;    }&ndash;&gt;-->
+
+<!--&lt;!&ndash;    function leaveCommunity() {&ndash;&gt;-->
+<!--&lt;!&ndash;      const urlParams = new URLSearchParams(window.location.search);&ndash;&gt;-->
+<!--&lt;!&ndash;      const communityId = urlParams.get('communityId');&ndash;&gt;-->
+<!--&lt;!&ndash;      const token = localStorage.getItem('access_token');&ndash;&gt;-->
+
+<!--&lt;!&ndash;      fetch(`/api/v1/community/leave/${communityId}`, {&ndash;&gt;-->
+<!--&lt;!&ndash;        method: 'POST',&ndash;&gt;-->
+<!--&lt;!&ndash;        headers: {&ndash;&gt;-->
+<!--&lt;!&ndash;          'Content-Type': 'application/json',&ndash;&gt;-->
+<!--&lt;!&ndash;          'Authorization': `Bearer ${token}`&ndash;&gt;-->
+<!--&lt;!&ndash;        }&ndash;&gt;-->
+<!--&lt;!&ndash;      })&ndash;&gt;-->
+<!--&lt;!&ndash;      .then(response => {&ndash;&gt;-->
+<!--&lt;!&ndash;        if (!response.ok) throw new Error('Failed to leave community');&ndash;&gt;-->
+<!--&lt;!&ndash;        alert('Successfully left the community');&ndash;&gt;-->
+<!--&lt;!&ndash;        checkMembershipStatus(communityId);&ndash;&gt;-->
+<!--&lt;!&ndash;      })&ndash;&gt;-->
+<!--&lt;!&ndash;      .catch(error => {&ndash;&gt;-->
+<!--&lt;!&ndash;        console.error('Error:', error);&ndash;&gt;-->
+<!--&lt;!&ndash;        alert('Error leaving community: ' + error.message);&ndash;&gt;-->
+<!--&lt;!&ndash;      });&ndash;&gt;-->
+<!--&lt;!&ndash;    }&ndash;&gt;-->
+
+<!--&lt;!&ndash;    document.addEventListener('DOMContentLoaded', loadCommunityDetails);&ndash;&gt;-->
+<!--&lt;!&ndash;  </script>&ndash;&gt;-->
+<!--&lt;!&ndash;</head>&ndash;&gt;-->
+<!--&lt;!&ndash;<body>&ndash;&gt;-->
+<!--&lt;!&ndash;<div id="navbar">&ndash;&gt;-->
+<!--&lt;!&ndash;  <a href="/mainPage">Main Page</a>&ndash;&gt;-->
+<!--&lt;!&ndash;  <a href="/userProfile">Profile</a>&ndash;&gt;-->
+<!--&lt;!&ndash;  <a href="#" onclick="logout()">Logout</a>&ndash;&gt;-->
+<!--&lt;!&ndash;</div>&ndash;&gt;-->
+
+<!--&lt;!&ndash;<h1 id="communityName">Community Name</h1>&ndash;&gt;-->
+<!--&lt;!&ndash;<p id="communityDescription">Community Description</p>&ndash;&gt;-->
+<!--&lt;!&ndash;<p><strong>Community Creator:</strong> <span id="communityOwner"></span></p>&ndash;&gt;-->
+
+<!--&lt;!&ndash;<h2>Members</h2>&ndash;&gt;-->
+<!--&lt;!&ndash;<ul id="membersList">&ndash;&gt;-->
+<!--&lt;!&ndash;  &lt;!&ndash; Members will be populated here &ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;</ul>&ndash;&gt;-->
+
+<!--&lt;!&ndash;<h2>Posts</h2>&ndash;&gt;-->
+<!--&lt;!&ndash;<ul id="postsList">&ndash;&gt;-->
+<!--&lt;!&ndash;  &lt;!&ndash; Posts will be populated here &ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;</ul>&ndash;&gt;-->
+
+<!--&lt;!&ndash;<button id="joinButton" onclick="joinCommunity()">Join Community</button>&ndash;&gt;-->
+<!--&lt;!&ndash;<button id="leaveButton" onclick="leaveCommunity()" style="display: none;">Leave Community</button>&ndash;&gt;-->
+
+<!--&lt;!&ndash;<button onclick="window.location.href='/createPost?communityId=' + new URLSearchParams(window.location.search).get('communityId')">Create a Post</button>&ndash;&gt;-->
+
+<!--&lt;!&ndash;<script>&ndash;&gt;-->
+<!--&lt;!&ndash;    function logout() {&ndash;&gt;-->
+<!--&lt;!&ndash;      localStorage.removeItem('access_token'); // Clear the stored token&ndash;&gt;-->
+<!--&lt;!&ndash;      window.location.href = '/'; // Redirect to login page&ndash;&gt;-->
+<!--&lt;!&ndash;    }&ndash;&gt;-->
+<!--&lt;!&ndash;</script>&ndash;&gt;-->
+<!--&lt;!&ndash;</body>&ndash;&gt;-->
+<!--&lt;!&ndash;</html>&ndash;&gt;-->
+
 <!--<!DOCTYPE html>-->
 <!--<html xmlns:th="http://www.thymeleaf.org">-->
 <!--<head>-->
@@ -13,13 +290,13 @@
 <!--    function loadCommunityDetails() {-->
 <!--      const urlParams = new URLSearchParams(window.location.search);-->
 <!--      const communityId = urlParams.get('communityId');-->
-<!--      const token = localStorage.getItem('access_token'); // Assume token is stored in local storage-->
+<!--      const token = localStorage.getItem('access_token');-->
 
 <!--      fetch(`/api/v1/community/${communityId}/details`, {-->
 <!--        method: 'GET',-->
 <!--        headers: {-->
 <!--          'Content-Type': 'application/json',-->
-<!--          'Authorization': `Bearer ${token}` // Include the token in the request header-->
+<!--          'Authorization': `Bearer ${token}`-->
 <!--        }-->
 <!--      })-->
 <!--      .then(response => {-->
@@ -30,7 +307,7 @@
 <!--        document.getElementById('communityName').textContent = data.name;-->
 <!--        document.getElementById('communityDescription').textContent = data.description;-->
 
-<!--        if (data.owner && data.owner.username) {-->
+<!--        if (data.owner) {-->
 <!--          document.getElementById('communityOwner').textContent = data.owner.username;-->
 <!--        } else {-->
 <!--          document.getElementById('communityOwner').textContent = 'Unknown';-->
@@ -57,6 +334,8 @@
 <!--            postsList.appendChild(li);-->
 <!--          });-->
 <!--        }-->
+
+<!--        checkMembershipStatus(communityId);-->
 <!--      })-->
 <!--      .catch(error => {-->
 <!--        console.error('Error:', error);-->
@@ -64,12 +343,88 @@
 <!--      });-->
 <!--    }-->
 
-<!--    document.addEventListener('DOMContentLoaded', loadCommunityDetails);-->
+<!--    function checkMembershipStatus(communityId) {-->
+<!--      const token = localStorage.getItem('access_token');-->
 
-<!--    function logout() {-->
-<!--      localStorage.removeItem('access_token'); // Clear the stored token-->
-<!--      window.location.href = '/'; // Redirect to login page-->
+<!--      fetch(`/api/v1/community/${communityId}/isMember`, {-->
+<!--        method: 'GET',-->
+<!--        headers: {-->
+<!--          'Content-Type': 'application/json',-->
+<!--          'Authorization': `Bearer ${token}`-->
+<!--        }-->
+<!--      })-->
+<!--      .then(response => response.json())-->
+<!--      .then(isMember => {-->
+<!--        const joinButton = document.getElementById('joinButton');-->
+<!--        const leaveButton = document.getElementById('leaveButton');-->
+
+<!--        if (isMember) {-->
+<!--          joinButton.textContent = 'You are already a member';-->
+<!--          joinButton.disabled = true;-->
+<!--          leaveButton.style.display = 'inline';-->
+<!--        } else {-->
+<!--          joinButton.textContent = 'Join Community';-->
+<!--          joinButton.disabled = false;-->
+<!--          leaveButton.style.display = 'none';-->
+<!--        }-->
+<!--      })-->
+<!--      .catch(error => {-->
+<!--        console.error('Error:', error);-->
+<!--      });-->
 <!--    }-->
+
+<!--    function joinCommunity() {-->
+<!--      const urlParams = new URLSearchParams(window.location.search);-->
+<!--      const communityId = urlParams.get('communityId');-->
+<!--      const token = localStorage.getItem('access_token');-->
+
+<!--      fetch(`/api/v1/community/join/${communityId}`, {-->
+<!--        method: 'POST',-->
+<!--        headers: {-->
+<!--          'Content-Type': 'application/json',-->
+<!--          'Authorization': `Bearer ${token}`-->
+<!--        }-->
+<!--      })-->
+<!--      .then(response => {-->
+<!--        if (!response.ok) throw new Error('Failed to join community');-->
+<!--        return response.json();-->
+<!--      })-->
+<!--      .then(data => {-->
+<!--        alert('Successfully joined the community');-->
+<!--        checkMembershipStatus(communityId);-->
+<!--        loadCommunityDetails(); // Reload details to update membership list-->
+<!--      })-->
+<!--      .catch(error => {-->
+<!--        console.error('Error:', error);-->
+<!--        alert('Error joining community: ' + error.message);-->
+<!--      });-->
+<!--    }-->
+
+<!--    function leaveCommunity() {-->
+<!--      const urlParams = new URLSearchParams(window.location.search);-->
+<!--      const communityId = urlParams.get('communityId');-->
+<!--      const token = localStorage.getItem('access_token');-->
+
+<!--      fetch(`/api/v1/community/leave/${communityId}`, {-->
+<!--        method: 'POST',-->
+<!--        headers: {-->
+<!--          'Content-Type': 'application/json',-->
+<!--          'Authorization': `Bearer ${token}`-->
+<!--        }-->
+<!--      })-->
+<!--      .then(response => {-->
+<!--        if (!response.ok) throw new Error('Failed to leave community');-->
+<!--        alert('Successfully left the community');-->
+<!--        checkMembershipStatus(communityId);-->
+<!--        loadCommunityDetails(); // Reload details to update membership list-->
+<!--      })-->
+<!--      .catch(error => {-->
+<!--        console.error('Error:', error);-->
+<!--        alert('Error leaving community: ' + error.message);-->
+<!--      });-->
+<!--    }-->
+
+<!--    document.addEventListener('DOMContentLoaded', loadCommunityDetails);-->
 <!--  </script>-->
 <!--</head>-->
 <!--<body>-->
@@ -93,9 +448,21 @@
 <!--  &lt;!&ndash; Posts will be populated here &ndash;&gt;-->
 <!--</ul>-->
 
+<!--<button id="joinButton" onclick="joinCommunity()">Join Community</button>-->
+<!--<button id="leaveButton" onclick="leaveCommunity()" style="display: none;">Leave Community</button>-->
+
+
 <!--<button onclick="window.location.href='/createPost?communityId=' + new URLSearchParams(window.location.search).get('communityId')">Create a Post</button>-->
+
+<!--<script>-->
+<!--    function logout() {-->
+<!--      localStorage.removeItem('access_token'); // Clear the stored token-->
+<!--      window.location.href = '/'; // Redirect to login page-->
+<!--    }-->
+<!--</script>-->
 <!--</body>-->
 <!--</html>-->
+
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
@@ -136,19 +503,25 @@
 
         const membersList = document.getElementById('membersList');
         membersList.innerHTML = '';
-        data.memberships.forEach(membership => {
-          const li = document.createElement('li');
-          li.textContent = membership.user.username;
-          membersList.appendChild(li);
-        });
+        if (data.memberships) {
+          data.memberships.forEach(membership => {
+            if (membership.user && membership.user.username) {
+              const li = document.createElement('li');
+              li.textContent = membership.user.username;
+              membersList.appendChild(li);
+            }
+          });
+        }
 
         const postsList = document.getElementById('postsList');
         postsList.innerHTML = '';
-        data.posts.forEach(post => {
-          const li = document.createElement('li');
-          li.textContent = post.title;
-          postsList.appendChild(li);
-        });
+        if (data.posts) {
+          data.posts.forEach(post => {
+            const li = document.createElement('li');
+            li.textContent = post.title;
+            postsList.appendChild(li);
+          });
+        }
 
         checkMembershipStatus(communityId);
       })
@@ -201,16 +574,17 @@
         }
       })
       .then(response => {
-        if (!response.ok) throw new Error('Failed to join community');
+        if (!response.ok) return response.json().then(err => { throw new Error(err); });
         return response.json();
       })
       .then(data => {
         alert('Successfully joined the community');
         checkMembershipStatus(communityId);
+        loadCommunityDetails(); // Reload details to update membership list
       })
       .catch(error => {
-        console.error('Error:', error);
-        alert('Error joining community: ' + error.message);
+        alert(error.message);
+        console.error('Error joining community:', error);
       });
     }
 
@@ -230,6 +604,7 @@
         if (!response.ok) throw new Error('Failed to leave community');
         alert('Successfully left the community');
         checkMembershipStatus(communityId);
+        loadCommunityDetails(); // Reload details to update membership list
       })
       .catch(error => {
         console.error('Error:', error);
@@ -274,3 +649,5 @@
 </script>
 </body>
 </html>
+
+
