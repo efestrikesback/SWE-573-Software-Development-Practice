@@ -52,6 +52,8 @@ public class SecurityConfiguration {
             "/communityPage",
             "/createCommunity",
             "/api/v1/community/**",
+            "/api/v1/community/{communityId}/members",
+            "/{communityId}/members",
             "/createPost"
     };
     private final JwtAuthenticationFilter jwtAuthFilter;

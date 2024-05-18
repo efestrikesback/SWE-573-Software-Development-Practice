@@ -1,6 +1,7 @@
 package com.devcom.post;
 
 import com.devcom.community.Community;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -25,7 +26,9 @@ public class Template {
     private String description;
 
     @ManyToOne
-    @JoinColumn(name = "community_id", nullable = false)
+    @JsonBackReference("community-templates")
+    @EqualsAndHashCode.Exclude
+    @ToString.Exclude
     private Community community;
 
     @OneToMany(mappedBy = "template", fetch = FetchType.LAZY, cascade = CascadeType.ALL)

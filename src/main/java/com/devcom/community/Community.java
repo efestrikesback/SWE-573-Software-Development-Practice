@@ -1,7 +1,9 @@
 package com.devcom.community;
 
 
+import com.devcom.post.Post;
 import com.devcom.user.User;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
@@ -31,15 +33,9 @@ public class Community {
     private boolean isPrivate;
     private boolean isArchived;
 
-    //The creator is the first owner
-    //TODO ownership transfer
-//    @ManyToOne
-//    @JoinColumn(name = "owner_id")
-//    @JsonIgnore
-//    private User owner;
-
     @ManyToOne
     @JoinColumn(name = "owner_id")
+//    @JsonBackReference("community-owner")
     @JsonIgnoreProperties({"hibernateLazyInitializer", "handler", "password", "tokens", "memberships"})
     private User owner;
 
@@ -50,8 +46,12 @@ public class Community {
     @ToString.Exclude
     private Set<Membership> memberships;
 
-    //TODO posts and data types
-//    @OneToMany(mappedBy = "community", fetch = FetchType.LAZY)
-//    private Set<Post> posts;
+    @OneToMany(mappedBy = "community",fetch = FetchType.EAGER)
+    @Cascade(org.hibernate.annotations.CascadeType.REMOVE)
+    @JsonManagedReference("community-posts")
+    @EqualsAndHashCode.Exclude
+    @ToString.Exclude
+    @JsonIgnoreProperties({"community"})
+    private Set<Post> posts;
 
 }

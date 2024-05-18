@@ -1,5 +1,6 @@
 package com.devcom.community;
 
+import com.devcom.post.CreatePostRequest;
 import com.devcom.post.Post;
 import com.devcom.user.User;
 import lombok.RequiredArgsConstructor;
@@ -55,6 +56,17 @@ public class CommunityController {
     @GetMapping("/{id}/isMember")
     public ResponseEntity<Boolean> isMember(@PathVariable Long id) {
         return ResponseEntity.ok(communityService.isMember(id));
+    }
+
+    @GetMapping("/{id}/members")
+    public ResponseEntity<List<String>> getCommunityMembers(@PathVariable Long id) {
+        List<String> members = communityService.getCommunityMembers(id);
+        return ResponseEntity.ok(members);
+    }
+
+    @PostMapping("/{id}/createPost")
+    public ResponseEntity<Post> createPost(@PathVariable Long id, @RequestBody CreatePostRequest request) {
+        return ResponseEntity.ok(communityService.createPost(id, request));
     }
 
 

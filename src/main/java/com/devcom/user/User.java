@@ -42,12 +42,12 @@ public class User implements UserDetails {
   @ToString.Exclude
   private UserProfile profile;
 
-  @OneToMany(mappedBy = "user",fetch = FetchType.EAGER)
-  @Cascade(org.hibernate.annotations.CascadeType.REMOVE)
-  @JsonManagedReference("user-memberships")
-  @EqualsAndHashCode.Exclude
-  @ToString.Exclude
-  private Set<Membership> memberships;
+//  @OneToMany(mappedBy = "user",fetch = FetchType.EAGER)
+//  @Cascade(org.hibernate.annotations.CascadeType.REMOVE)
+//  @JsonManagedReference("user-memberships")
+//  @EqualsAndHashCode.Exclude
+//  @ToString.Exclude
+//  private Set<Membership> memberships;
 
   @Enumerated(EnumType.STRING)
   private Role role;

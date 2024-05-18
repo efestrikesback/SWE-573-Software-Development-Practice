@@ -1,21 +1,31 @@
 package com.devcom.community;
 
 
+import com.devcom.config.JwtService;
+import com.devcom.post.*;
 import com.devcom.user.CommunityRole;
 import com.devcom.user.User;
+import com.devcom.user.UserRepository;
 import lombok.RequiredArgsConstructor;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
 public class CommunityService {
     private final CommunityRepository communityRepository;
     private final MembershipRepository membershipRepository;
-
+    private final TemplateRepository templateRepository;
+    private final TemplateFieldRepository templateFieldRepository;
+    private final PostRepository postRepository;
+    private final PostDataRepository postDataRepository;
+    public Logger logger = LoggerFactory.getLogger(JwtService.class);
     public Community getCommunity(Long id){
         return communityRepository.findById(id).orElseThrow();
     }
@@ -35,17 +45,6 @@ public class CommunityService {
         membershipRepository.save(new Membership(membershipCode,communityRole,owner,createdCommunity));
         return createdCommunity;
     }
-
-//    @Transactional
-//    public Membership joinCommunity(Long id){
-//        User joiner = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-//
-//        String communityRole= CommunityRole.MEMBER.toString();
-//        Community community = communityRepository.findById(id).orElseThrow();
-//        MembershipCode membershipCode = new MembershipCode(joiner.getId(), community.getCommunityId());
-//        return membershipRepository.save(new Membership(membershipCode,communityRole,joiner,community));
-//    }
-
 
     @Transactional
     public Membership joinCommunity(Long id) {
@@ -78,6 +77,47 @@ public class CommunityService {
         User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         MembershipCode membershipCode = new MembershipCode(user.getId(), communityId);
         return membershipRepository.existsById(membershipCode);
+    }
+
+    @Transactional(readOnly = true)
+    public List<String> getCommunityMembers(Long communityId) {
+        List<Membership> memberships = membershipRepository.findByCommunity_CommunityId(communityId);
+        List<String> memberUsernames = memberships.stream()
+                .map(membership -> membership.getUser().getUsername())
+                .collect(Collectors.toList());
+
+        // Log the usernames to the console
+        logger.info("Community member usernames for community ID {}: {}", communityId, memberUsernames);
+
+        return memberUsernames;
+    }
+
+
+    @Transactional
+    public Post createPost(Long communityId, CreatePostRequest request) {
+        Community community = communityRepository.findById(communityId)
+                .orElseThrow(() -> new RuntimeException("Community not found"));
+        Template template = templateRepository.findById(request.getTemplateId())
+                .orElseThrow(() -> new RuntimeException("Template not found"));
+
+        Post post = new Post();
+        post.setCommunity(community);
+        post.setTemplate(template);
+        post.setUser(request.getUser());
+        post.setTitle(request.getTitle());
+        Post savedPost = postRepository.save(post);
+
+        for (PostDataRequest postDataRequest : request.getData()) {
+            TemplateField field = templateFieldRepository.findById(postDataRequest.getFieldId())
+                    .orElseThrow(() -> new RuntimeException("Field not found"));
+            PostData postData = new PostData();
+            postData.setPost(savedPost);
+            postData.setTemplateField(field);
+            postData.setValue(postDataRequest.getValue());
+            postDataRepository.save(postData);
+        }
+
+        return savedPost;
     }
 
 }
