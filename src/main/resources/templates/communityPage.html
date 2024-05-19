@@ -8,6 +8,17 @@
     #navbar { background: #333; color: white; padding: 10px; }
     #navbar a { color: white; padding: 10px; text-decoration: none; }
     #navbar a:hover { background: #555; }
+    .hidden { display: none; }
+    .card {
+      background: #f9f9f9;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+      padding: 20px;
+      margin: 20px 0;
+    }
+    .card h2 {
+      margin-top: 0;
+    }
   </style>
   <script th:inline="javascript">
     function loadCommunityDetails() {
@@ -48,6 +59,7 @@
 
         checkMembershipStatus(communityId);
         loadCommunityMembers(communityId);  // Load members separately
+        checkIfOwner(communityId);  // Check if the user is the owner
       })
       .catch(error => {
         console.error('Error:', error);
@@ -114,6 +126,122 @@
       });
     }
 
+    function checkIfOwner(communityId) {
+      const token = localStorage.getItem('access_token');
+
+      fetch(`/api/v1/community/${communityId}/isOwner`, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`
+        }
+      })
+      .then(response => response.json())
+      .then(isOwner => {
+        const createTemplateButton = document.getElementById('createTemplateButton');
+        const createTemplateForm = document.getElementById('createTemplateForm');
+        const addFieldForm = document.getElementById('addFieldForm');
+        const leaveButton = document.getElementById('leaveButton');
+
+        if (isOwner) {
+          createTemplateButton.classList.remove('hidden');
+          createTemplateForm.classList.remove('hidden');
+          addFieldForm.classList.remove('hidden');
+          leaveButton.disabled = true;
+          leaveButton.textContent = 'Owners cannot leave their own community';
+        }
+      })
+      .catch(error => {
+        console.error('Error:', error);
+      });
+    }
+
+<!--    function loadTemplates(communityId) {-->
+<!--      const token = localStorage.getItem('access_token');-->
+
+<!--      fetch(`/api/v1/community/${communityId}/templates`, {-->
+<!--        method: 'GET',-->
+<!--        headers: {-->
+<!--          'Content-Type': 'application/json',-->
+<!--          'Authorization': `Bearer ${token}`-->
+<!--        }-->
+<!--      })-->
+<!--      .then(response => response.json())-->
+<!--      .then(templates => {-->
+<!--        const templateSelect = document.getElementById('templateSelect');-->
+<!--        templateSelect.innerHTML = '<option value="">Select Template</option>';-->
+<!--        templates.forEach(template => {-->
+<!--          const option = document.createElement('option');-->
+<!--          option.value = template.id;-->
+<!--          option.textContent = template.name;-->
+<!--          templateSelect.appendChild(option);-->
+<!--        });-->
+<!--      })-->
+<!--      .catch(error => {-->
+<!--        console.error('Error:', error);-->
+<!--      });-->
+<!--    }-->
+    function loadTemplates() {
+
+      const communityId = new URLSearchParams(window.location.search).get('communityId');
+
+      const token = localStorage.getItem('access_token');
+
+
+
+      fetch(`/api/v1/community/${communityId}/templates`, {
+
+        method: 'GET',
+
+        headers: {
+
+          'Content-Type': 'application/json',
+
+          'Authorization': `Bearer ${token}`
+
+        }
+
+      })
+
+      .then(response => {
+
+        if (!response.ok) throw new Error('Failed to load templates');
+
+        return response.json();
+
+      })
+
+      .then(templates => {
+
+        const templateSelect = document.getElementById('templateSelect');
+
+        templateSelect.innerHTML = '';
+
+        templates.forEach(template => {
+
+          const option = document.createElement('option');
+
+          option.value = template.id;
+
+          option.textContent = template.name;
+
+          templateSelect.appendChild(option);
+
+        });
+
+        loadTemplateFields();
+
+      })
+
+      .catch(error => {
+
+        console.error('Error:', error);
+
+        alert('Error loading templates: ' + error.message);
+
+      });
+
+    }
     function joinCommunity() {
       const urlParams = new URLSearchParams(window.location.search);
       const communityId = urlParams.get('communityId');
@@ -165,6 +293,65 @@
       });
     }
 
+    function createTemplate() {
+      const urlParams = new URLSearchParams(window.location.search);
+      const communityId = urlParams.get('communityId');
+      const token = localStorage.getItem('access_token');
+      const name = document.getElementById('templateName').value;
+      const description = document.getElementById('templateDescription').value;
+
+      fetch(`/api/v1/community/${communityId}/createTemplate`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`
+        },
+        body: JSON.stringify({ name, description })
+      })
+      .then(response => {
+        if (!response.ok) throw new Error('Failed to create template');
+        return response.json();
+      })
+      .then(template => {
+        alert('Template created successfully');
+        document.getElementById('templateId').value = template.id;
+        loadTemplates(communityId); // Reload templates
+      })
+      .catch(error => {
+        console.error('Error:', error);
+        alert('Error creating template: ' + error.message);
+      });
+    }
+
+    function addFieldToTemplate() {
+      const urlParams = new URLSearchParams(window.location.search);
+      const communityId = urlParams.get('communityId');
+      const templateId = document.getElementById('templateId').value;
+      const token = localStorage.getItem('access_token');
+      const fieldName = document.getElementById('fieldName').value;
+      const fieldType = document.getElementById('fieldType').value;
+
+      fetch(`/api/v1/templates/addField/${templateId}`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`
+        },
+        body: JSON.stringify({ fieldName, fieldType })
+      })
+      .then(response => {
+        if (!response.ok) throw new Error('Failed to add field');
+        return response.json();
+      })
+      .then(data => {
+        alert('Field added successfully');
+      })
+      .catch(error => {
+        console.error('Error:', error);
+        alert('Error adding field: ' + error.message);
+      });
+    }
+
     document.addEventListener('DOMContentLoaded', loadCommunityDetails);
   </script>
 </head>
@@ -192,6 +379,31 @@
 <button id="joinButton" onclick="joinCommunity()">Join Community</button>
 <button id="leaveButton" onclick="leaveCommunity()" style="display: none;">Leave Community</button>
 
+<button id="createTemplateButton" class="hidden" onclick="document.getElementById('templateCard').classList.toggle('hidden')">Create Template</button>
+
+<!-- Card for creating template and adding fields -->
+<div id="templateCard" class="card hidden">
+  <h2>Create Template</h2>
+  <div id="createTemplateForm">
+    <input type="text" id="templateName" placeholder="Template Name">
+    <input type="text" id="templateDescription" placeholder="Template Description">
+    <button onclick="createTemplate()">Create Template</button>
+  </div>
+  <h2>Add Field to Template</h2>
+  <div id="addFieldForm">
+    <select id="templateSelect">
+      <!-- Options will be populated dynamically -->
+    </select>
+    <input type="text" id="fieldName" placeholder="Field Name">
+    <select id="fieldType">
+      <option value="text">Text</option>
+      <option value="image">Image</option>
+      <!-- Add more types as needed -->
+    </select>
+    <button onclick="addFieldToTemplate()">Add Field</button>
+  </div>
+</div>
+
 <button onclick="window.location.href='/createPost?communityId=' + new URLSearchParams(window.location.search).get('communityId')">Create a Post</button>
 
 <script>
@@ -202,4 +414,6 @@
 </script>
 </body>
 </html>
+
+
 

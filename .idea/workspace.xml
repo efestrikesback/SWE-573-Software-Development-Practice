@@ -6,17 +6,13 @@
   <component name="ChangeListManager">
     <list default="true" id="706bbec5-3237-4afd-b20f-e8c8f4ece169" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/devcom/community/Community.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/devcom/community/Community.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/devcom/community/CommunityController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/devcom/community/CommunityController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/devcom/community/CommunityService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/devcom/community/CommunityService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/devcom/community/MembershipRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/devcom/community/MembershipRepository.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/devcom/config/SecurityConfiguration.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/devcom/config/SecurityConfiguration.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/devcom/post/CreatePostRequest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/devcom/post/CreatePostRequest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/devcom/post/Post.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/devcom/post/Post.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/devcom/post/Template.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/devcom/post/Template.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/devcom/user/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/devcom/user/User.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/devcom/post/TemplateController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/devcom/post/TemplateController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/devcom/post/TemplateRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/devcom/post/TemplateRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/devcom/post/TemplateService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/devcom/post/TemplateService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/templates/communityPage.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/communityPage.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/mainPage.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/mainPage.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -62,7 +58,7 @@
     "DefaultHtmlFileTemplate": "HTML File",
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
-    "last_opened_file_path": "C:/Users/Efe Göçmen/Desktop/SWE-573-Software-Development-Practice",
+    "last_opened_file_path": "C:/Users/Efe Göçmen/Desktop/cankut",
     "project.structure.last.edited": "Project",
     "project.structure.proportion": "0.15",
     "project.structure.side.proportion": "0.0",
@@ -146,49 +142,13 @@
           <line>44</line>
           <option name="timeStamp" value="5" />
         </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/com/devcom/post/TemplateService.java</url>
-          <line>29</line>
-          <option name="timeStamp" value="11" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/com/devcom/community/CommunityController.java</url>
-          <line>62</line>
-          <option name="timeStamp" value="14" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-method">
-          <url>file://$PROJECT_DIR$/src/main/java/com/devcom/post/TemplateService.java</url>
-          <line>18</line>
-          <properties class="com.devcom.post.TemplateService" method="createTemplate">
-            <option name="WATCH_EXIT" value="false" />
-          </properties>
-          <option name="timeStamp" value="6" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-method">
-          <url>file://$PROJECT_DIR$/src/main/java/com/devcom/post/TemplateController.java</url>
-          <line>13</line>
-          <properties class="com.devcom.post.TemplateController" method="createTemplate">
-            <option name="EMULATED" value="true" />
-            <option name="WATCH_EXIT" value="false" />
-          </properties>
-          <option name="timeStamp" value="7" />
-        </line-breakpoint>
         <line-breakpoint enabled="true" type="java-method">
           <url>file://$PROJECT_DIR$/src/main/java/com/devcom/community/CommunityService.java</url>
-          <line>77</line>
-          <properties class="com.devcom.community.CommunityService" method="getCommunityMembers">
+          <line>79</line>
+          <properties class="com.devcom.community.CommunityService">
             <option name="WATCH_EXIT" value="false" />
           </properties>
           <option name="timeStamp" value="12" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-method">
-          <url>file://$PROJECT_DIR$/src/main/java/com/devcom/community/CommunityController.java</url>
-          <line>60</line>
-          <properties class="com.devcom.community.CommunityController" method="getCommunityMembers">
-            <option name="EMULATED" value="true" />
-            <option name="WATCH_EXIT" value="false" />
-          </properties>
-          <option name="timeStamp" value="15" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

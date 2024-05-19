@@ -6,31 +6,34 @@ import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 @RequiredArgsConstructor
 public class TemplateService {
 
     private final TemplateRepository templateRepository;
     private final TemplateFieldRepository templateFieldRepository;
+    private final CommunityRepository communityRepository;
 
-    private final CommunityRepository  communityRepository;
-
-    //TODo ADD IF EXISTS
-    public Template createTemplate(Template template) {
-        Community community = communityRepository.findById(template.getCommunity().getCommunityId())
+    @Transactional
+    public Template createTemplate(Long communityId, Template template) {
+        Community community = communityRepository.findById(communityId)
                 .orElseThrow(() -> new RuntimeException("Community not found"));
-        Template createdTemplate = new Template();
-        createdTemplate.setName(template.getName());
-        createdTemplate.setDescription(template.getDescription());
-        createdTemplate.setCommunity(community);  // Setting community
-        return templateRepository.save(createdTemplate);
+        template.setCommunity(community);
+        return templateRepository.save(template);
     }
-
 
     @Transactional
     public TemplateField addFieldToTemplate(Long templateId, TemplateField field) {
-        Template template = templateRepository.findById(templateId).orElseThrow(() -> new IllegalArgumentException("Template not found"));
+        Template template = templateRepository.findById(templateId)
+                .orElseThrow(() -> new RuntimeException("Template not found"));
         field.setTemplate(template);
         return templateFieldRepository.save(field);
     }
+    public List<Template> getTemplates(Long communityId) {
+        return templateRepository.findByCommunityCommunityId(communityId);
+    }
+
+
 }

@@ -1,7 +1,6 @@
 package com.devcom.community;
 
-import com.devcom.post.CreatePostRequest;
-import com.devcom.post.Post;
+import com.devcom.post.*;
 import com.devcom.user.User;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -17,6 +16,7 @@ import java.util.stream.Collectors;
 public class CommunityController {
 
     private final CommunityService communityService;
+    private final TemplateService templateService;
 
     @PostMapping("/create")
     public ResponseEntity<Community> createCommunity(@RequestBody Community community) {
@@ -64,9 +64,29 @@ public class CommunityController {
         return ResponseEntity.ok(members);
     }
 
+    @GetMapping("/{id}/isOwner")
+    public ResponseEntity<Boolean> isOwner(@PathVariable Long id) {
+        return ResponseEntity.ok(communityService.isOwner(id));
+    }
+
+    @PostMapping("/{id}/createTemplate")
+    public ResponseEntity<Template> createTemplate(@PathVariable Long id, @RequestBody Template template) {
+        return ResponseEntity.ok(communityService.createTemplate(id, template));
+    }
+
+    @PostMapping("/{communityId}/template/{templateId}/addField")
+    public ResponseEntity<TemplateField> addFieldToTemplate(@PathVariable Long communityId, @PathVariable Long templateId, @RequestBody TemplateField field) {
+        return ResponseEntity.ok(communityService.addFieldToTemplate(communityId, templateId, field));
+    }
+
     @PostMapping("/{id}/createPost")
     public ResponseEntity<Post> createPost(@PathVariable Long id, @RequestBody CreatePostRequest request) {
         return ResponseEntity.ok(communityService.createPost(id, request));
+    }
+
+    @GetMapping("/{communityId}/templates")
+    public ResponseEntity<List<Template>> getTemplates(@PathVariable Long communityId) {
+        return ResponseEntity.ok(templateService.getTemplates(communityId));
     }
 
 

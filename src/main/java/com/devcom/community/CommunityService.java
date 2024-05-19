@@ -26,7 +26,8 @@ public class CommunityService {
     private final PostRepository postRepository;
     private final PostDataRepository postDataRepository;
     public Logger logger = LoggerFactory.getLogger(JwtService.class);
-    public Community getCommunity(Long id){
+
+    public Community getCommunity(Long id) {
         return communityRepository.findById(id).orElseThrow();
     }
 
@@ -35,14 +36,14 @@ public class CommunityService {
     }
 
     @Transactional
-    public Community createCommunity(Community community){
-        User owner= (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+    public Community createCommunity(Community community) {
+        User owner = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 
         community.setOwner(owner);
-        String communityRole= CommunityRole.CREATOR.toString();
-        Community createdCommunity=communityRepository.save(community);
-        MembershipCode membershipCode= new MembershipCode(owner.getId(), createdCommunity.getCommunityId());
-        membershipRepository.save(new Membership(membershipCode,communityRole,owner,createdCommunity));
+        String communityRole = CommunityRole.CREATOR.toString();
+        Community createdCommunity = communityRepository.save(community);
+        MembershipCode membershipCode = new MembershipCode(owner.getId(), createdCommunity.getCommunityId());
+        membershipRepository.save(new Membership(membershipCode, communityRole, owner, createdCommunity));
         return createdCommunity;
     }
 
@@ -73,10 +74,18 @@ public class CommunityService {
         Membership membership = membershipRepository.findById(membershipCode).orElseThrow();
         membershipRepository.delete(membership);
     }
+
     public boolean isMember(Long communityId) {
         User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         MembershipCode membershipCode = new MembershipCode(user.getId(), communityId);
         return membershipRepository.existsById(membershipCode);
+    }
+
+    public boolean isOwner(Long communityId) {
+        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        Community community = communityRepository.findById(communityId)
+                .orElseThrow(() -> new RuntimeException("Community not found"));
+        return community.getOwner().getId().equals(user.getId());
     }
 
     @Transactional(readOnly = true)
@@ -92,6 +101,22 @@ public class CommunityService {
         return memberUsernames;
     }
 
+
+    @Transactional
+    public Template createTemplate(Long communityId, Template template) {
+        Community community = communityRepository.findById(communityId)
+                .orElseThrow(() -> new RuntimeException("Community not found"));
+        template.setCommunity(community);
+        return templateRepository.save(template);
+    }
+
+    @Transactional
+    public TemplateField addFieldToTemplate(Long communityId, Long templateId, TemplateField field) {
+        Template template = templateRepository.findById(templateId)
+                .orElseThrow(() -> new RuntimeException("Template not found"));
+        field.setTemplate(template);
+        return templateFieldRepository.save(field);
+    }
 
     @Transactional
     public Post createPost(Long communityId, CreatePostRequest request) {
@@ -118,6 +143,10 @@ public class CommunityService {
         }
 
         return savedPost;
+    }
+
+    public List<Template> getTemplates(Long communityId) {
+        return templateRepository.findByCommunityCommunityId(communityId);
     }
 
 }
