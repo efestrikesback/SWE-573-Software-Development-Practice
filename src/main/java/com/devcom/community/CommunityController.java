@@ -91,9 +91,15 @@ public class CommunityController {
     }
 
     @GetMapping("/{communityId}/posts")
-    public List<PostDTO> getPostsByCommunityId(@PathVariable Long communityId) {
-        return postService.getPostsByCommunityId(communityId);
+    public List<PostDTO> getAllPostsByCommunityId(@PathVariable Long communityId) {
+        return communityService.getAllPostsByCommunityId(communityId);
     }
+
+    @GetMapping("/posts/{postId}/values")
+    public List<String> getPostDataValueByPostId(@PathVariable Long postId) {
+        return communityService.getPostDataValueByPostId(postId);
+    }
+
 
 
 }

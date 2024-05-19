@@ -59,7 +59,10 @@ public class SecurityConfiguration {
             "/api/v1/community/*/createTemplate",
             "/api/v1/templates/*/addField",
             "/api/v1/community/*/createPost",
-            "/api/v1/community/*/isOwner"
+            "/api/v1/community/*/isOwner",
+            "/{id}/posts",
+            "/*/posts",
+            "/api/v1/community/*/posts"
 
     };
     private final JwtAuthenticationFilter jwtAuthFilter;

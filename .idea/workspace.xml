@@ -6,13 +6,16 @@
   <component name="ChangeListManager">
     <list default="true" id="706bbec5-3237-4afd-b20f-e8c8f4ece169" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/devcom/community/Community.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/devcom/community/Community.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/devcom/community/CommunityController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/devcom/community/CommunityController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/devcom/community/CommunityService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/devcom/community/CommunityService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/devcom/config/SecurityConfiguration.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/devcom/config/SecurityConfiguration.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/devcom/post/Post.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/devcom/post/Post.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/devcom/post/PostController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/devcom/post/PostController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/devcom/post/PostDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/devcom/post/PostDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/devcom/post/PostData.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/devcom/post/PostData.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/devcom/post/PostDataRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/devcom/post/PostDataRepository.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/devcom/post/PostRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/devcom/post/PostRepository.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/devcom/post/PostService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/devcom/post/PostService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/communityPage.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/communityPage.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -143,17 +146,14 @@
           <option name="timeStamp" value="5" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/com/devcom/community/CommunityService.java</url>
-          <line>106</line>
-          <option name="timeStamp" value="13" />
+          <url>file://$PROJECT_DIR$/src/main/java/com/devcom/post/PostService.java</url>
+          <line>26</line>
+          <option name="timeStamp" value="18" />
         </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-method">
-          <url>file://$PROJECT_DIR$/src/main/java/com/devcom/community/CommunityService.java</url>
-          <line>81</line>
-          <properties class="com.devcom.community.CommunityService">
-            <option name="WATCH_EXIT" value="false" />
-          </properties>
-          <option name="timeStamp" value="12" />
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/com/devcom/post/PostService.java</url>
+          <line>20</line>
+          <option name="timeStamp" value="19" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-method">
           <url>file://$PROJECT_DIR$/src/main/java/com/devcom/community/CommunityController.java</url>

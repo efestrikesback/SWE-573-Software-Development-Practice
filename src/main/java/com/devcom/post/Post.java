@@ -42,7 +42,7 @@ public class Post {
     @JsonIgnoreProperties({"email","firstname","lastname","password"})
     private User user;
 
-    @OneToMany(mappedBy = "post", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "post", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JsonIgnoreProperties("post")
     private Set<PostData> postData;
 }

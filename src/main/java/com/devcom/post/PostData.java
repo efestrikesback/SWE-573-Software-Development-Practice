@@ -1,6 +1,7 @@
 package com.devcom.post;
 
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -20,9 +21,9 @@ public class PostData {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "post_id", nullable = false)
-    @JsonIgnoreProperties("postData")
+    @JsonBackReference("post-postdata")
     private Post post;
 
     @ManyToOne

@@ -5,7 +5,6 @@ import com.devcom.config.JwtService;
 import com.devcom.post.*;
 import com.devcom.user.CommunityRole;
 import com.devcom.user.User;
-import com.devcom.user.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -13,6 +12,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -102,66 +102,22 @@ public class CommunityService {
 
         return memberUsernames;
     }
-//    @Transactional
-//    public PostDTO createPost(Long communityId, CreatePostRequest request) {
-//        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-//        Community community = communityRepository.findById(communityId)
-//                .orElseThrow(() -> new RuntimeException("Community not found"));
-//        Template template = templateRepository.findById(request.getTemplateId())
-//                .orElseThrow(() -> new RuntimeException("Template not found"));
-//
-//        Post post = new Post();
-//        post.setCommunity(community);
-//        post.setTemplate(template);
-//        post.setUser(user);
-//        post.setTitle(request.getTitle());
-//
-//        Set<PostData> postDataList = new HashSet<>();
-//
-//        for (PostDataRequest postDataRequest : request.getData()) {
-//            TemplateField field = templateFieldRepository.findById(postDataRequest.getFieldId())
-//                    .orElseThrow(() -> new RuntimeException("Field not found"));
-//            PostData postData = new PostData();
-//            postData.setPost(post);
-//            postData.setTemplateField(field);
-//            postData.setValue(postDataRequest.getValue());
-//            postDataList.add(postData);
-//        }
-//
-//        post.setPostData(postDataList);
-//        Post savedPost = postRepository.save(post);
-//
-//        for (PostData postData : postDataList) {
-//            postDataRepository.save(postData);
-//        }
-//
-//        return mapToDTO(savedPost);
-//    }
-
     @Transactional
     public PostDTO createPost(Long communityId, CreatePostRequest request) {
-        // Get the currently authenticated user
         User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-
-        // Find the community by ID, throw exception if not found
         Community community = communityRepository.findById(communityId)
                 .orElseThrow(() -> new RuntimeException("Community not found"));
-
-        // Find the template by ID, throw exception if not found
         Template template = templateRepository.findById(request.getTemplateId())
                 .orElseThrow(() -> new RuntimeException("Template not found"));
 
-        // Create a new PostDTO and set its fields
         PostDTO postDTO = new PostDTO();
         postDTO.setTitle(request.getTitle());
         postDTO.setCommunityId(community.getCommunityId());
         postDTO.setTemplateId(template.getId());
         postDTO.setUserId(user.getId());
 
-        // Prepare the set of PostDataDTO objects
         Set<PostDataDTO> postDataDTOs = new HashSet<>();
 
-        // Loop through each PostDataRequest and create PostDataDTO objects
         for (PostDataRequest postDataRequest : request.getData()) {
             TemplateField field = templateFieldRepository.findById(postDataRequest.getFieldId())
                     .orElseThrow(() -> new RuntimeException("Field not found"));
@@ -171,20 +127,17 @@ public class CommunityService {
             postDataDTOs.add(postDataDTO);
         }
 
-        // Set the PostDataDTO objects to the PostDTO
         postDTO.setPostData(postDataDTOs);
 
-        // Save the post using the repository
         Post post = new Post();
         post.setTitle(postDTO.getTitle());
         post.setCommunity(community);
         post.setTemplate(template);
         post.setUser(user);
-        post.setPostData(new HashSet<>()); // Initialize an empty set to avoid null pointer
+        post.setPostData(new HashSet<>());
 
         Post savedPost = postRepository.save(post);
 
-        // Save each PostDataDTO using the repository
         for (PostDataDTO postDataDTO : postDataDTOs) {
             PostData postData = new PostData();
             postData.setPost(savedPost);
@@ -204,8 +157,6 @@ public class CommunityService {
         return postDTO;
     }
 
-
-
     @Transactional
     public Template createTemplate(Long communityId, Template template) {
         Community community = communityRepository.findById(communityId)
@@ -222,10 +173,32 @@ public class CommunityService {
         return templateFieldRepository.save(field);
     }
 
-
-
     public List<Template> getTemplates(Long communityId) {
         return templateRepository.findByCommunityCommunityId(communityId);
     }
+
+    @Transactional(readOnly = true)
+    public List<String> getPostDataValueByPostId(Long postId) {
+        return postDataRepository.findValuesByPostId(postId);
+    }
+
+    @Transactional(readOnly = true)
+    public List<PostDTO> getAllPostsByCommunityId(Long communityId) {
+        List<Post> posts = postRepository.findByCommunityCommunityId(communityId);
+        List<PostDTO> postDTOs = new ArrayList<>();
+
+        for (Post post : posts) {
+            List<String> values = getPostDataValueByPostId(post.getId());
+            PostDTO postDTO = new PostDTO();
+            postDTO.setId(post.getId());
+            postDTO.setTitle(post.getTitle());
+            postDTO.setUserId(post.getUser().getId());
+            postDTO.setPostDataValues(values);
+            postDTOs.add(postDTO);
+        }
+
+        return postDTOs;
+    }
+
 
 }
