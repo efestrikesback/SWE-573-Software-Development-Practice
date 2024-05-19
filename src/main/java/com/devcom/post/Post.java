@@ -11,6 +11,8 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.Set;
+
 @Data
 @Builder
 @NoArgsConstructor
@@ -39,4 +41,8 @@ public class Post {
     @JoinColumn(name = "user_id", nullable = false)
     @JsonIgnoreProperties({"email","firstname","lastname","password"})
     private User user;
+
+    @OneToMany(mappedBy = "post", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JsonIgnoreProperties("post")
+    private Set<PostData> postData;
 }

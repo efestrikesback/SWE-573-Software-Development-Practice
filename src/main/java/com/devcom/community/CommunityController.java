@@ -80,7 +80,7 @@ public class CommunityController {
     }
 
     @PostMapping("/{id}/createPost")
-    public ResponseEntity<Post> createPost(@PathVariable Long id, @RequestBody CreatePostRequest request) {
+    public ResponseEntity<PostDTO> createPost(@PathVariable Long id, @RequestBody CreatePostRequest request) {
         return ResponseEntity.ok(communityService.createPost(id, request));
     }
 
