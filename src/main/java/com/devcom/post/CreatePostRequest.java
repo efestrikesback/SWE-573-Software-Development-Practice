@@ -9,6 +9,5 @@ import java.util.List;
 public class CreatePostRequest {
     private Long templateId;
     private String title;
-    private User user;
     private List<PostDataRequest> data;
 }

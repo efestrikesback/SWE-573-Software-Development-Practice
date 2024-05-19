@@ -120,6 +120,7 @@ public class CommunityService {
 
     @Transactional
     public Post createPost(Long communityId, CreatePostRequest request) {
+        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         Community community = communityRepository.findById(communityId)
                 .orElseThrow(() -> new RuntimeException("Community not found"));
         Template template = templateRepository.findById(request.getTemplateId())
@@ -128,7 +129,7 @@ public class CommunityService {
         Post post = new Post();
         post.setCommunity(community);
         post.setTemplate(template);
-        post.setUser(request.getUser());
+        post.setUser(user);
         post.setTitle(request.getTitle());
         Post savedPost = postRepository.save(post);
 
