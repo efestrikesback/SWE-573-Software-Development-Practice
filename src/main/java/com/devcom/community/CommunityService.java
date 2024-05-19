@@ -13,9 +13,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 import java.util.stream.Collectors;
 
 @Service
@@ -120,34 +118,6 @@ public class CommunityService {
         return templateFieldRepository.save(field);
     }
 
-//    @Transactional
-//    public Post createPost(Long communityId, CreatePostRequest request) {
-//        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-//        Community community = communityRepository.findById(communityId)
-//                .orElseThrow(() -> new RuntimeException("Community not found"));
-//        Template template = templateRepository.findById(request.getTemplateId())
-//                .orElseThrow(() -> new RuntimeException("Template not found"));
-//
-//        Post post = new Post();
-//        post.setCommunity(community);
-//        post.setTemplate(template);
-//        post.setUser(user);
-//        post.setTitle(request.getTitle());
-//        Post savedPost = postRepository.save(post);
-//
-//        for (PostDataRequest postDataRequest : request.getData()) {
-//            TemplateField field = templateFieldRepository.findById(postDataRequest.getFieldId())
-//                    .orElseThrow(() -> new RuntimeException("Field not found"));
-//            PostData postData = new PostData();
-//            postData.setPost(savedPost);
-//            postData.setTemplateField(field);
-//            postData.setValue(postDataRequest.getValue());
-//            postDataRepository.save(postData);
-//        }
-//
-//        return savedPost;
-//    }
-
     @Transactional
     public Post createPost(Long communityId, CreatePostRequest request) {
         User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
@@ -161,23 +131,15 @@ public class CommunityService {
         post.setTemplate(template);
         post.setUser(user);
         post.setTitle(request.getTitle());
-
-        Set<PostData> postDataList = new HashSet<>();
+        Post savedPost = postRepository.save(post);
 
         for (PostDataRequest postDataRequest : request.getData()) {
             TemplateField field = templateFieldRepository.findById(postDataRequest.getFieldId())
                     .orElseThrow(() -> new RuntimeException("Field not found"));
             PostData postData = new PostData();
-            postData.setPost(post);
+            postData.setPost(savedPost);
             postData.setTemplateField(field);
             postData.setValue(postDataRequest.getValue());
-            postDataList.add(postData);
-        }
-
-        post.setPostData(postDataList);
-        Post savedPost = postRepository.save(post);
-
-        for (PostData postData : postDataList) {
             postDataRepository.save(postData);
         }
 
