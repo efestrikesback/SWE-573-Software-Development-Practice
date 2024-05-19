@@ -13,4 +13,5 @@ public class PostDTO {
     private Long userId;
     private Set<PostDataDTO> postData;
     private List<String> postDataValues;
+    private String username;
 }

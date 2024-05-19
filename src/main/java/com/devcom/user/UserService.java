@@ -6,6 +6,9 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.security.Principal;
+import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -31,5 +34,9 @@ public class UserService {
 
         // save the new password
         repository.save(user);
+    }
+    public Map<Long, String> getUsernamesByIds(List<Long> userIds) {
+        return repository.findAllById(userIds).stream()
+                .collect(Collectors.toMap(User::getId, User::getUsername));
     }
 }

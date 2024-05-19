@@ -2,12 +2,14 @@ package com.devcom.community;
 
 import com.devcom.post.*;
 import com.devcom.user.User;
+import com.devcom.user.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 @RestController
@@ -17,7 +19,7 @@ public class CommunityController {
 
     private final CommunityService communityService;
     private final TemplateService templateService;
-    private final PostService postService;
+    private final UserService userService;
 
     @PostMapping("/create")
     public ResponseEntity<Community> createCommunity(@RequestBody Community community) {
@@ -90,14 +92,36 @@ public class CommunityController {
         return ResponseEntity.ok(templateService.getTemplates(communityId));
     }
 
-    @GetMapping("/{communityId}/posts")
-    public List<PostDTO> getAllPostsByCommunityId(@PathVariable Long communityId) {
-        return communityService.getAllPostsByCommunityId(communityId);
-    }
+//    @GetMapping("/{communityId}/posts")
+//    public List<PostDTO> getAllPostsByCommunityId(@PathVariable Long communityId) {
+//        return communityService.getAllPostsByCommunityId(communityId);
+//    }
 
     @GetMapping("/posts/{postId}/values")
     public List<String> getPostDataValueByPostId(@PathVariable Long postId) {
         return communityService.getPostDataValueByPostId(postId);
+    }
+
+
+    @GetMapping("/{communityId}/posts")
+    public List<PostDTO> getAllPostsByCommunityId(@PathVariable Long communityId) {
+        List<PostDTO> posts = communityService.getAllPostsByCommunityId(communityId);
+
+        // Get unique user IDs from the posts
+        List<Long> userIds = posts.stream()
+                .map(PostDTO::getUserId)
+                .distinct()
+                .collect(Collectors.toList());
+
+        // Fetch usernames for these user IDs
+        Map<Long, String> usernames = userService.getUsernamesByIds(userIds);
+
+        // Set usernames in the posts
+        for (PostDTO post : posts) {
+            post.setUsername(usernames.get(post.getUserId()));
+        }
+
+        return posts;
     }
 
 
