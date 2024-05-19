@@ -139,14 +139,12 @@
       .then(response => response.json())
       .then(isOwner => {
         const createTemplateButton = document.getElementById('createTemplateButton');
-        const createTemplateForm = document.getElementById('createTemplateForm');
-        const addFieldForm = document.getElementById('addFieldForm');
+        const templateCard = document.getElementById('templateCard');
         const leaveButton = document.getElementById('leaveButton');
 
         if (isOwner) {
           createTemplateButton.classList.remove('hidden');
-          createTemplateForm.classList.remove('hidden');
-          addFieldForm.classList.remove('hidden');
+          templateCard.classList.remove('hidden');
           leaveButton.disabled = true;
           leaveButton.textContent = 'Owners cannot leave their own community';
         }
@@ -156,92 +154,32 @@
       });
     }
 
-<!--    function loadTemplates(communityId) {-->
-<!--      const token = localStorage.getItem('access_token');-->
-
-<!--      fetch(`/api/v1/community/${communityId}/templates`, {-->
-<!--        method: 'GET',-->
-<!--        headers: {-->
-<!--          'Content-Type': 'application/json',-->
-<!--          'Authorization': `Bearer ${token}`-->
-<!--        }-->
-<!--      })-->
-<!--      .then(response => response.json())-->
-<!--      .then(templates => {-->
-<!--        const templateSelect = document.getElementById('templateSelect');-->
-<!--        templateSelect.innerHTML = '<option value="">Select Template</option>';-->
-<!--        templates.forEach(template => {-->
-<!--          const option = document.createElement('option');-->
-<!--          option.value = template.id;-->
-<!--          option.textContent = template.name;-->
-<!--          templateSelect.appendChild(option);-->
-<!--        });-->
-<!--      })-->
-<!--      .catch(error => {-->
-<!--        console.error('Error:', error);-->
-<!--      });-->
-<!--    }-->
-    function loadTemplates() {
-
-      const communityId = new URLSearchParams(window.location.search).get('communityId');
-
+    function loadTemplates(communityId) {
       const token = localStorage.getItem('access_token');
 
-
-
       fetch(`/api/v1/community/${communityId}/templates`, {
-
         method: 'GET',
-
         headers: {
-
           'Content-Type': 'application/json',
-
           'Authorization': `Bearer ${token}`
-
         }
-
       })
-
-      .then(response => {
-
-        if (!response.ok) throw new Error('Failed to load templates');
-
-        return response.json();
-
-      })
-
+      .then(response => response.json())
       .then(templates => {
-
         const templateSelect = document.getElementById('templateSelect');
-
-        templateSelect.innerHTML = '';
-
+        templateSelect.innerHTML = '<option value="">Select Template</option>';
         templates.forEach(template => {
-
           const option = document.createElement('option');
-
           option.value = template.id;
-
           option.textContent = template.name;
-
           templateSelect.appendChild(option);
-
         });
-
-        loadTemplateFields();
-
       })
-
       .catch(error => {
-
         console.error('Error:', error);
-
-        alert('Error loading templates: ' + error.message);
-
       });
-
     }
+
     function joinCommunity() {
       const urlParams = new URLSearchParams(window.location.search);
       const communityId = urlParams.get('communityId');
@@ -324,9 +262,7 @@
     }
 
     function addFieldToTemplate() {
-      const urlParams = new URLSearchParams(window.location.search);
-      const communityId = urlParams.get('communityId');
-      const templateId = document.getElementById('templateId').value;
+      const templateId = document.getElementById('templateSelect').value;
       const token = localStorage.getItem('access_token');
       const fieldName = document.getElementById('fieldName').value;
       const fieldType = document.getElementById('fieldType').value;
@@ -352,7 +288,11 @@
       });
     }
 
-    document.addEventListener('DOMContentLoaded', loadCommunityDetails);
+    document.addEventListener('DOMContentLoaded', function() {
+      const communityId = new URLSearchParams(window.location.search).get('communityId');
+      loadCommunityDetails();
+      loadTemplates(communityId); // Load templates when the page loads
+    });
   </script>
 </head>
 <body>
@@ -392,6 +332,7 @@
   <h2>Add Field to Template</h2>
   <div id="addFieldForm">
     <select id="templateSelect">
+      <option value="">Select Template</option>
       <!-- Options will be populated dynamically -->
     </select>
     <input type="text" id="fieldName" placeholder="Field Name">
@@ -414,6 +355,3 @@
 </script>
 </body>
 </html>
-
-
-
