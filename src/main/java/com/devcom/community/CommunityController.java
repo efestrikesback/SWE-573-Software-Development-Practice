@@ -17,6 +17,7 @@ public class CommunityController {
 
     private final CommunityService communityService;
     private final TemplateService templateService;
+    private final PostService postService;
 
     @PostMapping("/create")
     public ResponseEntity<Community> createCommunity(@RequestBody Community community) {
@@ -87,6 +88,11 @@ public class CommunityController {
     @GetMapping("/{communityId}/templates")
     public ResponseEntity<List<Template>> getTemplates(@PathVariable Long communityId) {
         return ResponseEntity.ok(templateService.getTemplates(communityId));
+    }
+
+    @GetMapping("/{communityId}/posts")
+    public List<PostDTO> getPostsByCommunityId(@PathVariable Long communityId) {
+        return postService.getPostsByCommunityId(communityId);
     }
 
 

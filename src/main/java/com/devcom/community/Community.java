@@ -46,12 +46,12 @@ public class Community {
     @ToString.Exclude
     private Set<Membership> memberships;
 
-    @OneToMany(mappedBy = "community",fetch = FetchType.EAGER)
-    @Cascade(org.hibernate.annotations.CascadeType.REMOVE)
-    @JsonManagedReference("community-posts")
-    @EqualsAndHashCode.Exclude
-    @ToString.Exclude
-    @JsonIgnoreProperties({"community"})
-    private Set<Post> posts;
+//    @OneToMany(mappedBy = "community",fetch = FetchType.EAGER)
+//    @Cascade(org.hibernate.annotations.CascadeType.REMOVE)
+//    @JsonManagedReference("community-posts")
+//    @EqualsAndHashCode.Exclude
+//    @ToString.Exclude
+//    @JsonIgnoreProperties({"community"})
+//    private Set<Post> posts;
 
 }

@@ -30,7 +30,7 @@ public class Post {
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "community_id",nullable = false)
-    @JsonBackReference("community-posts")
+//    @JsonBackReference("community-posts")
     private Community community;
 
     @ManyToOne(fetch = FetchType.EAGER)

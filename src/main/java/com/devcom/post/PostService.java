@@ -7,61 +7,42 @@ import org.slf4j.LoggerFactory;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
+
 
 @Service
 @RequiredArgsConstructor
 public class PostService {
 
     private final PostRepository postRepository;
-    private final PostDataRepository postDataRepository;
-    private final TemplateRepository templateRepository;
-
-    //TODO
-
-//    @Transactional
-//    public Post createPost(CreatePostRequest request) {
-//
-//        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-//        Template template = templateRepository.findById(request.getTemplateId())
-//                .orElseThrow(() -> new IllegalArgumentException("Template not found"));
-//
-//        Post post = Post.builder()
-//                .title(request.getTitle())
-//                .community(template.getCommunity())
-//                .template(template)
-//                .user(user)
-//                .build();
-//        Post savedPost = postRepository.save(post);
-//
-//        request.getData().forEach(data -> {
-//
-//            TemplateField field = template.getFields().stream()
-//                    .filter(f -> f.getId().equals(data.getFieldId()))
-//                    .findFirst()
-//                    .orElseThrow(() -> new IllegalArgumentException("Field not found in template: " + data.getFieldId()));
-//            PostData postData = PostData.builder()
-//                    .post(savedPost)
-//                    .templateField(field)
-//                    .value(data.getValue())
-//                    .build();
-//            postDataRepository.save(postData);
-//        });
-//        return post;
-//    }
-
-    @Transactional
-    public Post createPost(CreatePostRequest request) {
-
-        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        Template template = templateRepository.findById(request.getTemplateId())
-                .orElseThrow(() -> new IllegalArgumentException("Template not found"));
-
-        Post post = Post.builder()
-                .title(request.getTitle())
-                .community(template.getCommunity())
-                .template(template)
-                .user(user)
-                .build();
-        return postRepository.save(post);
+    public List<PostDTO> getPostsByCommunityId(Long communityId) {
+        List<Post> posts = postRepository.findByCommunityCommunityId(communityId);
+        return posts.stream().map(this::mapToDTO).collect(Collectors.toList());
     }
+
+    private PostDTO mapToDTO(Post post) {
+        PostDTO postDTO = new PostDTO();
+        postDTO.setId(post.getId());
+        postDTO.setTitle(post.getTitle());
+        postDTO.setCommunityId(post.getCommunity().getCommunityId());
+        postDTO.setTemplateId(post.getTemplate().getId());
+        postDTO.setUserId(post.getUser().getId());
+
+        Set<PostDataDTO> postDataDTOs = post.getPostData().stream().map(postData -> {
+            PostDataDTO postDataDTO = new PostDataDTO();
+            postDataDTO.setId(postData.getId());
+            postDataDTO.setPostId(postData.getPost().getId());
+            postDataDTO.setFieldId(postData.getTemplateField().getId());
+            postDataDTO.setValue(postData.getValue());
+            return postDataDTO;
+        }).collect(Collectors.toSet());
+
+        postDTO.setPostData(postDataDTOs);
+
+        return postDTO;
+    }
+
+
 }
