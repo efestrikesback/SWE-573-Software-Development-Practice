@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
@@ -252,7 +253,6 @@
       })
       .then(template => {
         alert('Template created successfully');
-        document.getElementById('templateId').value = template.id;
         loadTemplates(communityId); // Reload templates
       })
       .catch(error => {
@@ -262,12 +262,14 @@
     }
 
     function addFieldToTemplate() {
+      const urlParams = new URLSearchParams(window.location.search);
+      const communityId = urlParams.get('communityId');
       const templateId = document.getElementById('templateSelect').value;
       const token = localStorage.getItem('access_token');
       const fieldName = document.getElementById('fieldName').value;
       const fieldType = document.getElementById('fieldType').value;
 
-      fetch(`/api/v1/templates/addField/${templateId}`, {
+      fetch(`/api/v1/community/${communityId}/template/${templateId}/addField`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -355,3 +357,5 @@
 </script>
 </body>
 </html>
+
+

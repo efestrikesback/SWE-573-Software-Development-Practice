@@ -57,7 +57,7 @@ public class SecurityConfiguration {
             "/createPost",
             "/api/v1/templates/**",
             "/api/v1/community/*/createTemplate",
-            "/api/v1/community/*/template/*/addField",
+            "/api/v1/templates/*/addField",
             "/api/v1/community/*/createPost",
             "/api/v1/community/*/isOwner"
 
