@@ -52,7 +52,6 @@
         if (data.posts) {
           data.posts.forEach(post => {
             const li = document.createElement('li');
-
             li.innerHTML = `<strong>${post.title}</strong><br>${post.fields.map(field => `${field.templateField.fieldName}: ${field.value}`).join('<br>')}`;
             postsList.appendChild(li);
           });
@@ -264,7 +263,6 @@
       })
       .then(template => {
         alert('Template created successfully');
-<!--           AAA     document.getElementById('templateId').value = template.id;-->
         loadTemplates(communityId); // Reload templates
       })
       .catch(error => {
@@ -308,17 +306,18 @@
       const token = localStorage.getItem('access_token');
       const title = document.getElementById('postTitle').value;
       const templateId = document.getElementById('createPostTemplateSelect').value;
-      const fields = Array.from(document.querySelectorAll('#createPostForm .field')).map(field => ({
-        fieldName: field.querySelector('.field-name').textContent,
-        fieldValue: field.querySelector('.field-value').value
+      const fields = Array.from(document.querySelectorAll('#templateFields .field')).map(field => ({
+        fieldId: field.dataset.fieldId,
+        value: field.querySelector('.field-value').value
       }));
+
       fetch(`/api/v1/community/${communityId}/createPost`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
           'Authorization': `Bearer ${token}`
         },
-        body: JSON.stringify({ title, templateId, fields })
+        body: JSON.stringify({ title, templateId, data: fields })
       })
       .then(response => {
         if (!response.ok) throw new Error('Failed to create post');
@@ -333,6 +332,39 @@
         alert('Error creating post: ' + error.message);
       });
     }
+
+    function loadTemplateFields() {
+        const templateId = document.getElementById('createPostTemplateSelect').value;
+        const token = localStorage.getItem('access_token');
+
+        fetch(`/api/v1/templates/${templateId}/fields`, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`
+            }
+        })
+        .then(response => response.json())
+        .then(fields => {
+            const templateFields = document.getElementById('templateFields');
+            templateFields.innerHTML = '';
+            fields.forEach(field => {
+              const div = document.createElement('div');
+              div.className = 'field';
+              div.dataset.fieldId = field.id;
+              div.innerHTML = `
+                <label class="field-name">${field.fieldName}</label>
+                <input type="text" class="field-value" placeholder="${field.fieldType}">
+              `;
+              templateFields.appendChild(div);
+            });
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            alert('Error loading template fields: ' + error.message);
+        });
+    }
+
     document.addEventListener('DOMContentLoaded', function() {
       const communityId = new URLSearchParams(window.location.search).get('communityId');
       loadCommunityDetails();
@@ -406,9 +438,7 @@
       <!-- Template fields will be populated dynamically -->
     </div>
     <button onclick="createPost()">Complete Post</button>
-
   </div>
-
 </div>
 
 <script>
@@ -416,35 +446,6 @@
       localStorage.removeItem('access_token'); // Clear the stored token
       window.location.href = '/'; // Redirect to login page
     }
-    function loadTemplateFields() {
-      const templateId = document.getElementById('createPostTemplateSelect').value;
-      const token = localStorage.getItem('access_token');
-
-      fetch(`/api/v1/templates/${templateId}/fields`, {
-        method: 'GET',
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${token}`
-        }
-      })
-      .then(response => response.json())
-      .then(fields => {
-        const templateFields = document.getElementById('templateFields');
-        templateFields.innerHTML = '';
-        fields.forEach(field => {
-          const div = document.createElement('div');
-          div.className = 'field';
-          div.innerHTML = `
-            <label class="field-name">${field.fieldName}</label>
-            <input type="text" class="field-value" placeholder="${field.fieldType}">
-          `;
-          templateFields.appendChild(div);
-        });
-      })
-      .catch(error => {
-        console.error('Error:', error);
-        alert('Error loading template fields: ' + error.message);
-      });
 </script>
 </body>
 </html>

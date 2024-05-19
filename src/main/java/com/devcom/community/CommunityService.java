@@ -102,63 +102,108 @@ public class CommunityService {
 
         return memberUsernames;
     }
+//    @Transactional
+//    public PostDTO createPost(Long communityId, CreatePostRequest request) {
+//        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+//        Community community = communityRepository.findById(communityId)
+//                .orElseThrow(() -> new RuntimeException("Community not found"));
+//        Template template = templateRepository.findById(request.getTemplateId())
+//                .orElseThrow(() -> new RuntimeException("Template not found"));
+//
+//        Post post = new Post();
+//        post.setCommunity(community);
+//        post.setTemplate(template);
+//        post.setUser(user);
+//        post.setTitle(request.getTitle());
+//
+//        Set<PostData> postDataList = new HashSet<>();
+//
+//        for (PostDataRequest postDataRequest : request.getData()) {
+//            TemplateField field = templateFieldRepository.findById(postDataRequest.getFieldId())
+//                    .orElseThrow(() -> new RuntimeException("Field not found"));
+//            PostData postData = new PostData();
+//            postData.setPost(post);
+//            postData.setTemplateField(field);
+//            postData.setValue(postDataRequest.getValue());
+//            postDataList.add(postData);
+//        }
+//
+//        post.setPostData(postDataList);
+//        Post savedPost = postRepository.save(post);
+//
+//        for (PostData postData : postDataList) {
+//            postDataRepository.save(postData);
+//        }
+//
+//        return mapToDTO(savedPost);
+//    }
+
     @Transactional
     public PostDTO createPost(Long communityId, CreatePostRequest request) {
+        // Get the currently authenticated user
         User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+
+        // Find the community by ID, throw exception if not found
         Community community = communityRepository.findById(communityId)
                 .orElseThrow(() -> new RuntimeException("Community not found"));
+
+        // Find the template by ID, throw exception if not found
         Template template = templateRepository.findById(request.getTemplateId())
                 .orElseThrow(() -> new RuntimeException("Template not found"));
 
-        Post post = new Post();
-        post.setCommunity(community);
-        post.setTemplate(template);
-        post.setUser(user);
-        post.setTitle(request.getTitle());
+        // Create a new PostDTO and set its fields
+        PostDTO postDTO = new PostDTO();
+        postDTO.setTitle(request.getTitle());
+        postDTO.setCommunityId(community.getCommunityId());
+        postDTO.setTemplateId(template.getId());
+        postDTO.setUserId(user.getId());
 
-        Set<PostData> postDataList = new HashSet<>();
+        // Prepare the set of PostDataDTO objects
+        Set<PostDataDTO> postDataDTOs = new HashSet<>();
 
+        // Loop through each PostDataRequest and create PostDataDTO objects
         for (PostDataRequest postDataRequest : request.getData()) {
             TemplateField field = templateFieldRepository.findById(postDataRequest.getFieldId())
                     .orElseThrow(() -> new RuntimeException("Field not found"));
-            PostData postData = new PostData();
-            postData.setPost(post);
-            postData.setTemplateField(field);
-            postData.setValue(postDataRequest.getValue());
-            postDataList.add(postData);
-        }
-
-        post.setPostData(postDataList);
-        Post savedPost = postRepository.save(post);
-
-        for (PostData postData : postDataList) {
-            postDataRepository.save(postData);
-        }
-
-        return mapToDTO(savedPost);
-    }
-
-    private PostDTO mapToDTO(Post post) {
-        PostDTO postDTO = new PostDTO();
-        postDTO.setId(post.getId());
-        postDTO.setTitle(post.getTitle());
-        postDTO.setCommunityId(post.getCommunity().getCommunityId());
-        postDTO.setTemplateId(post.getTemplate().getId());
-        postDTO.setUserId(post.getUser().getId());
-
-        Set<PostDataDTO> postDataDTOs = new HashSet<>();
-        for (PostData postData : post.getPostData()) {
             PostDataDTO postDataDTO = new PostDataDTO();
-            postDataDTO.setId(postData.getId());
-            postDataDTO.setPostId(postData.getPost().getId());
-            postDataDTO.setFieldId(postData.getTemplateField().getId());
-            postDataDTO.setValue(postData.getValue());
+            postDataDTO.setFieldId(field.getId());
+            postDataDTO.setValue(postDataRequest.getValue());
             postDataDTOs.add(postDataDTO);
         }
+
+        // Set the PostDataDTO objects to the PostDTO
         postDTO.setPostData(postDataDTOs);
+
+        // Save the post using the repository
+        Post post = new Post();
+        post.setTitle(postDTO.getTitle());
+        post.setCommunity(community);
+        post.setTemplate(template);
+        post.setUser(user);
+        post.setPostData(new HashSet<>()); // Initialize an empty set to avoid null pointer
+
+        Post savedPost = postRepository.save(post);
+
+        // Save each PostDataDTO using the repository
+        for (PostDataDTO postDataDTO : postDataDTOs) {
+            PostData postData = new PostData();
+            postData.setPost(savedPost);
+            postData.setTemplateField(templateFieldRepository.findById(postDataDTO.getFieldId())
+                    .orElseThrow(() -> new RuntimeException("Field not found")));
+            postData.setValue(postDataDTO.getValue());
+            PostData savedPostData = postDataRepository.save(postData);
+
+            // Set the ID of the saved PostData to the corresponding PostDataDTO
+            postDataDTO.setId(savedPostData.getId());
+            postDataDTO.setPostId(savedPost.getId());
+        }
+
+        // Set the ID of the saved Post to the PostDTO
+        postDTO.setId(savedPost.getId());
 
         return postDTO;
     }
+
 
 
     @Transactional

@@ -36,4 +36,9 @@ public class TemplateService {
     }
 
 
+    public List<TemplateField> getFields(Long templateId) {
+        return templateFieldRepository.findByTemplateId(templateId);
+    }
+
+
 }
