@@ -6,11 +6,6 @@
   <component name="ChangeListManager">
     <list default="true" id="706bbec5-3237-4afd-b20f-e8c8f4ece169" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/devcom/community/CommunityController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/devcom/community/CommunityController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/devcom/post/PostDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/devcom/post/PostDTO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/devcom/user/UserRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/devcom/user/UserRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/devcom/user/UserService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/devcom/user/UserService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/communityPage.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/communityPage.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
